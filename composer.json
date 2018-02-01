@@ -15,6 +15,11 @@
             "name":  "Michael Squires",
             "email": "sqmk@php.net",
             "role":  "lead"
+        },
+        {
+            "name":  "Neoteknic",
+            "email": "neoteknic@gmail.com",
+            "role":  "lead"
         }
     ],
     "require": {
