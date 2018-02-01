@@ -7,3 +7,4 @@ if (is_file(__DIR__ . '/../vendor/autoload.php')) {
 
 $hueHost = getenv('HUE_HOST');
 $hueUsername = getenv('HUE_USERNAME');
+
