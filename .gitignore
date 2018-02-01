@@ -6,3 +6,4 @@ composer.lock
 
 .settings/org.eclipse.wst.common.project.facet.core.xml
 .project
+/examples/config.php
