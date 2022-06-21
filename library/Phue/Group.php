@@ -208,7 +208,7 @@ class Group implements LightInterface
      */
     public function getBrightness()
     {
-        return $this->attributes->action->bri??null;
+        return $this->attributes->action->bri ?? null;
     }
 
     /**
@@ -234,11 +234,11 @@ class Group implements LightInterface
     /**
      * Get hue
      *
-     * @return int Hue value
+     * @return int|null Hue value
      */
     public function getHue()
     {
-        return $this->attributes->action->hue;
+        return $this->attributes->action->hue ?? null;
     }
 
     /**
@@ -266,11 +266,11 @@ class Group implements LightInterface
     /**
      * Get saturation
      *
-     * @return int Saturation value
+     * @return int|null Saturation value
      */
     public function getSaturation()
     {
-        return $this->attributes->action->sat;
+        return $this->attributes->action->sat ?? null;
     }
 
     /**
@@ -348,9 +348,7 @@ class Group implements LightInterface
     {
         $xy  = $this->getXY();
         $bri = $this->getBrightness();
-        $rgb = ColorConversion::convertXYToRGB($xy['x'], $xy['y'], $bri);
-
-        return $rgb;
+	    return ColorConversion::convertXYToRGB($xy['x'], $xy['y'], $bri);
     }
 
 	/**
@@ -392,11 +390,11 @@ class Group implements LightInterface
     /**
      * Get Color temperature
      *
-     * @return int Color temperature value
+     * @return int|null Color temperature value
      */
     public function getColorTemp()
     {
-        return $this->attributes->action->ct;
+        return $this->attributes->action->ct??null;
     }
 
     /**
@@ -423,11 +421,11 @@ class Group implements LightInterface
     /**
      * Get effect mode
      *
-     * @return string effect mode
+     * @return string|null effect mode
      */
     public function getEffect()
     {
-        return $this->attributes->action->effect;
+        return $this->attributes->action->effect??null;
     }
 
     /**
@@ -452,11 +450,11 @@ class Group implements LightInterface
     /**
      * Get color mode of group
      *
-     * @return string Color mode
+     * @return string|int Color mode
      */
     public function getColorMode()
     {
-        return $this->attributes->action->colormode;
+        return $this->attributes->action->colormode ?? null;
     }
 
     /**
