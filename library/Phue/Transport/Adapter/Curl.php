@@ -59,11 +59,11 @@ class Curl implements AdapterInterface
         curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($this->curl, CURLOPT_HEADER, false);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-        
-        if (strlen($body)) {
+
+        if (!is_null($body) && strlen($body)) {
             curl_setopt($this->curl, CURLOPT_POSTFIELDS, $body);
         }
-        
+
         return curl_exec($this->curl);
     }
 

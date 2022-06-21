@@ -58,6 +58,7 @@ class Client {
     public function __construct(string $host, ?string $username = NULL) {
         $this->setHost($host);
         $this->setUsername($username);
+        $this->setTransport(new Http($this));
     }
 
     /**
