@@ -8,6 +8,8 @@
  */
 namespace Phue;
 
+use Phue\Command\DeleteScene;
+
 /**
  * Scene object
  */
@@ -92,6 +94,14 @@ class Scene
     public function isActive()
     {
         return null;
+    }
+
+    /**
+     * Delete scene
+     */
+    public function delete()
+    {
+        $this->client->sendCommand((new DeleteScene($this)));
     }
 
     /**
