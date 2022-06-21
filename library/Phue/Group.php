@@ -204,11 +204,11 @@ class Group implements LightInterface
     /**
      * Get brightness
      *
-     * @return int Brightness level
+     * @return int|null Brightness level
      */
     public function getBrightness()
     {
-        return $this->attributes->action->bri;
+        return $this->attributes->action->bri??null;
     }
 
     /**
