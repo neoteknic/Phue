@@ -192,10 +192,6 @@ class Client {
      * @return TransportInterface Transport
      */
     public function getTransport() : TransportInterface {
-        // Set transport if haven't
-        if ($this->transport === NULL) {
-            $this->setTransport(new Http($this));
-        }
         return $this->transport;
     }
 
