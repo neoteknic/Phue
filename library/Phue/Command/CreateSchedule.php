@@ -24,7 +24,7 @@ class CreateSchedule implements CommandInterface
      *
      * @var array
      */
-    protected $attributes = array();
+    protected $attributes = [];
 
     /**
      * Command
@@ -98,7 +98,7 @@ class CreateSchedule implements CommandInterface
     /**
      * Set time
      *
-     * @param string $time
+     * @param string|TimePatternInterface $time
      *            Time
      *
      * @return self This object
@@ -132,7 +132,6 @@ class CreateSchedule implements CommandInterface
     /**
      * Set status
      *
-     * @return string $status Status
      *
      * @return self This object
      */

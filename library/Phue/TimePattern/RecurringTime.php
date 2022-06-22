@@ -84,8 +84,6 @@ class RecurringTime extends AbstractTimePattern
      */
     public function __toString()
     {
-        $time = "W{$this->daysOfWeek}/T{$this->timeOfDay}";
-        
-        return $time;
+	    return "W{$this->daysOfWeek}/T{$this->timeOfDay}";
     }
 }

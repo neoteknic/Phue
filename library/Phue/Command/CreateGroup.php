@@ -22,14 +22,14 @@ class CreateGroup implements CommandInterface
      *
      * @var string
      */
-    protected $name;
+    protected string $name='';
 
     /**
      * Lights
      *
      * @var array List of light Ids
      */
-    protected $lights = [];
+    protected array $lights = [];
 
     /**
      * Constructs a command
@@ -39,7 +39,7 @@ class CreateGroup implements CommandInterface
      * @param array $lights
      *            List of light Ids or Light objects
      */
-    public function __construct($name, array $lights = [])
+    public function __construct(string $name, array $lights = [])
     {
         $this->name($name);
         $this->lights($lights);

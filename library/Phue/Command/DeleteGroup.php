@@ -20,9 +20,9 @@ class DeleteGroup implements CommandInterface
     /**
      * Group Id
      *
-     * @var string
+     * @var int
      */
-    protected $groupId;
+    protected int $groupId;
 
     /**
      * Constructs a command
@@ -30,9 +30,9 @@ class DeleteGroup implements CommandInterface
      * @param mixed $group
      *            Group Id or Group object
      */
-    public function __construct($group)
+    public function __construct(int $group)
     {
-        $this->groupId = (string) $group;
+        $this->groupId =  $group;
     }
 
     /**

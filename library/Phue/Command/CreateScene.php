@@ -22,14 +22,14 @@ class CreateScene implements CommandInterface
      *
      * @var string
      */
-    protected $name;
+    protected string $name;
 
     /**
      * Lights
      *
      * @var array List of light Ids
      */
-    protected $lights = array();
+    protected array $lights = [];
 
     /**
      * Transition time
@@ -48,7 +48,7 @@ class CreateScene implements CommandInterface
      * @param array $lights
      *            List of light Ids or Light objects
      */
-    public function __construct($id, $name, array $lights = array())
+    public function __construct($id, $name, array $lights = [])
     {
         $this->id($id);
         $this->name($name);
@@ -63,9 +63,9 @@ class CreateScene implements CommandInterface
      *
      * @return self This object
      */
-    public function id($id)
+    public function id(string $id)
     {
-        $this->id = (string) $id;
+        $this->id = $id;
         
         return $this;
     }
@@ -78,9 +78,9 @@ class CreateScene implements CommandInterface
      *
      * @return self This object
      */
-    public function name($name)
+    public function name(string $name)
     {
-        $this->name = (string) $name;
+        $this->name = $name;
         
         return $this;
     }
@@ -93,9 +93,9 @@ class CreateScene implements CommandInterface
      *
      * @return self This object
      */
-    public function lights(array $lights = array())
+    public function lights(array $lights = [])
     {
-        $this->lights = array();
+        $this->lights = [];
         // Iterate through each light and append id to scene list
         foreach ($lights as $light) {
             $this->lights[] = (string) $light;
@@ -112,10 +112,10 @@ class CreateScene implements CommandInterface
      *
      * @return self This object
      */
-    public function transitionTime($seconds)
+    public function transitionTime(float|int $seconds)
     {
         // Don't continue if seconds is not valid
-        if ((double) $seconds < 0) {
+        if ($seconds < 0) {
             throw new \InvalidArgumentException('Time must be at least 0');
         }
         
@@ -133,7 +133,7 @@ class CreateScene implements CommandInterface
      *
      * @return string Scene Id
      */
-    public function send(Client $client)
+    public function send(Client $client):string
     {
         $body = (object) array(
             'name' => $this->name,

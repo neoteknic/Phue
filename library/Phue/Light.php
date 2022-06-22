@@ -23,21 +23,21 @@ class Light implements LightInterface {
      *
      * @var int
      */
-    protected $id;
+    protected int $id;
 
     /**
      * Light attributes
      *
      * @var \stdClass
      */
-    protected $attributes;
+    protected \stdClass $attributes;
 
     /**
      * Phue client
      *
      * @var Client
      */
-    protected $client;
+    protected Client $client;
 
 	protected $transition;
 
@@ -51,8 +51,8 @@ class Light implements LightInterface {
      * @param Client    $client
      *            Phue client
      */
-    public function __construct($id, \stdClass $attributes, Client $client) {
-        $this->id = (int) $id;
+    public function __construct(int $id, \stdClass $attributes, Client $client) {
+        $this->id = $id;
         $this->attributes = $attributes;
         $this->client = $client;
 	    $this->transition=null;
@@ -63,7 +63,7 @@ class Light implements LightInterface {
      *
      * @return int Light id
      */
-    public function getId() {
+    public function getId():int {
         return $this->id;
     }
 
@@ -83,7 +83,7 @@ class Light implements LightInterface {
      *
      * @return self This object
      */
-    public function setName($name) {
+    public function setName($name):self {
         $this->client->sendCommand(new Command\SetLightName($this, (string) $name));
 
         $this->attributes->name = (string) $name;
@@ -96,7 +96,7 @@ class Light implements LightInterface {
      *
      * @return string Type
      */
-    public function getType() {
+    public function getType():string {
         return $this->attributes->type;
     }
 
@@ -105,7 +105,7 @@ class Light implements LightInterface {
      *
      * @return string Model Id
      */
-    public function getModelId() {
+    public function getModelId():string {
         return $this->attributes->modelid;
     }
 
@@ -354,9 +354,7 @@ class Light implements LightInterface {
     public function getRGB() {
         $xy = $this->getXY();
         $bri = $this->getBrightness();
-        $rgb = ColorConversion::convertXYToRGB($xy['x'], $xy['y'], $bri);
-
-        return $rgb;
+	    return ColorConversion::convertXYToRGB($xy['x'], $xy['y'], $bri);
     }
 
     /**

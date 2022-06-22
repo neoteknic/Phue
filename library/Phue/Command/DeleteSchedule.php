@@ -22,7 +22,7 @@ class DeleteSchedule implements CommandInterface
      *
      * @var string
      */
-    protected $scheduleId;
+    protected string $scheduleId;
 
     /**
      * Constructs a command
@@ -30,9 +30,9 @@ class DeleteSchedule implements CommandInterface
      * @param mixed $schedule
      *            Schedule Id or Schedule object
      */
-    public function __construct($schedule)
+    public function __construct(string $schedule)
     {
-        $this->scheduleId = (string) $schedule;
+        $this->scheduleId = $schedule;
     }
 
     /**

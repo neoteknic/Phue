@@ -27,7 +27,7 @@ class CreateUser implements CommandInterface
      *
      * @var string
      */
-    protected $deviceType;
+    protected string $deviceType;
 
     /**
      * Instantiates a create user command
@@ -35,7 +35,7 @@ class CreateUser implements CommandInterface
      * @param string $deviceType
      *            Device type
      */
-    public function __construct($deviceType = self::DEFAULT_DEVICE_TYPE)
+    public function __construct(string $deviceType = self::DEFAULT_DEVICE_TYPE)
     {
         $this->setDeviceType($deviceType);
     }
@@ -50,7 +50,7 @@ class CreateUser implements CommandInterface
      *
      * @return self This object
      */
-    public function setDeviceType($deviceType)
+    public function setDeviceType(string $deviceType)
     {
         if (strlen($deviceType) > 40) {
             throw new \InvalidArgumentException(

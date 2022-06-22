@@ -23,14 +23,14 @@ class SetLightName implements CommandInterface
      *
      * @var string
      */
-    protected $lightId;
+    protected string $lightId;
 
     /**
      * New name
      *
      * @var string
      */
-    protected $name;
+    protected string $name;
 
     /**
      * Constructs a command
@@ -40,7 +40,7 @@ class SetLightName implements CommandInterface
      * @param string $name
      *            Name of light
      */
-    public function __construct($light, $name)
+    public function __construct(string|Light $light, string $name)
     {
         $this->lightId = (string) $light;
         $this->name = (string) $name;

@@ -25,7 +25,7 @@ class GetBridge implements CommandInterface
      *
      * @return Bridge Bridge object
      */
-    public function send(Client $client)
+    public function send(Client $client): Bridge
     {
         // Get response
         $response = $client->getTransport()->sendRequest(

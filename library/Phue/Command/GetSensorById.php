@@ -20,9 +20,9 @@ class GetSensorById implements CommandInterface
     /**
      * Sensor Id
      *
-     * @var string
+     * @var int
      */
-    protected $sensorId;
+    protected int $sensorId;
 
     /**
      * Constructs a command
@@ -30,9 +30,9 @@ class GetSensorById implements CommandInterface
      * @param int $sensorId
      *            Sensor Id
      */
-    public function __construct($sensorId)
+    public function __construct(int $sensorId)
     {
-        $this->sensorId = (int) $sensorId;
+        $this->sensorId = $sensorId;
     }
 
     /**

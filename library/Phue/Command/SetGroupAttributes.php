@@ -22,7 +22,7 @@ class SetGroupAttributes implements CommandInterface
      *
      * @var string
      */
-    protected $groupId;
+    protected string $groupId;
 
     /**
      * Group attributes
@@ -67,7 +67,7 @@ class SetGroupAttributes implements CommandInterface
      */
     public function lights(array $lights)
     {
-        $lightList = array();
+        $lightList = [];
         
         foreach ($lights as $light) {
             $lightList[] = (string) $light;

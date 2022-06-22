@@ -32,7 +32,7 @@ class GetLights implements CommandInterface
             "/api/{$client->getUsername()}/lights"
         );
         
-        $lights = array();
+        $lights = [];
         
         foreach ($response as $lightId => $attributes) {
             $lights[$lightId] = new Light($lightId, $attributes, $client);

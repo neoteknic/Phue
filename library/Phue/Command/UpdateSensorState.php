@@ -29,7 +29,7 @@ class UpdateSensorState extends CreateSensor
      *
      * @var array
      */
-    protected $state = array();
+    protected $state = [];
 
     /**
      * Constructs a command

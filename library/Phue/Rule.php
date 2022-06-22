@@ -141,7 +141,7 @@ class Rule
      */
     public function getConditions()
     {
-        $conditions = array();
+        $conditions = [];
         
         foreach ($this->attributes->conditions as $condition) {
             $conditions[] = new Condition($condition);
@@ -157,7 +157,7 @@ class Rule
      */
     public function getActions()
     {
-        $actions = array();
+        $actions = [];
         
         foreach ($this->attributes->actions as $action) {
             $actions[] = $action;

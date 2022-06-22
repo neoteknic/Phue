@@ -21,21 +21,21 @@ class Scene
      *
      * @var int
      */
-    protected $id;
+    protected int $id;
 
     /**
      * Scene attributes
      *
      * @var \stdClass
      */
-    protected $attributes;
+    protected \stdClass $attributes;
 
     /**
      * Phue client
      *
      * @var Client
      */
-    protected $client;
+    protected Client $client;
 
     /**
      * Construct a Phue Scene object
@@ -59,7 +59,7 @@ class Scene
      *
      * @return int Scene id
      */
-    public function getId()
+    public function getId():int
     {
         return $this->id;
     }
@@ -69,7 +69,7 @@ class Scene
      *
      * @return string Name of scene
      */
-    public function getName()
+    public function getName():string
     {
         return $this->attributes->name;
     }
@@ -79,22 +79,11 @@ class Scene
      *
      * @return array List of light ids
      */
-    public function getLightIds()
+    public function getLightIds():array
     {
         return $this->attributes->lights;
     }
 
-    /**
-     * Is active
-     *
-     * @deprecated
-     *
-     * @return null This is now deprecated
-     */
-    public function isActive()
-    {
-        return null;
-    }
 
     /**
      * Delete scene

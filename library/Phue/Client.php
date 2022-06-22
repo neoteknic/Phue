@@ -79,7 +79,7 @@ class Client {
      * @return self This object
      */
     public function setHost(string $host) : Client {
-        $this->host = (string) $host;
+        $this->host = $host;
         return $this;
     }
 

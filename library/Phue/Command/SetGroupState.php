@@ -22,7 +22,7 @@ class SetGroupState extends SetLightState {
      *
      * @var string
      */
-    protected $groupId;
+    protected string $groupId;
 
     /**
      * Constructs a command
@@ -30,9 +30,9 @@ class SetGroupState extends SetLightState {
      * @param mixed $group Group Id or Group object
      * @noinspection MagicMethodsValidityInspection
      */
-    public function __construct($group)
+    public function __construct(string $group)
     {
-        $this->groupId = (string) $group;
+        $this->groupId = $group;
     }
 
     /**
@@ -43,9 +43,9 @@ class SetGroupState extends SetLightState {
      *
      * @return self This object
      */
-    public function scene($scene)
+    public function scene(string $scene):self
     {
-        $this->params['scene'] = (string) $scene;
+        $this->params['scene'] = $scene;
         
         return $this;
     }
@@ -77,7 +77,7 @@ class SetGroupState extends SetLightState {
      *
      * @return array Key/value pairs of params
      */
-    public function getActionableParams(Client $client)
+    public function getActionableParams(Client $client):array
     {
         return array(
             'address' => "/groups/{$this->groupId}/action",

@@ -22,14 +22,14 @@ class UpdateSensor extends CreateSensor
      *
      * @var string
      */
-    protected $sensorId;
+    protected string $sensorId;
 
     /**
      * Sensor attributes
      *
      * @var array
      */
-    protected $attributes = array();
+    protected array $attributes = [];
 
     /**
      * Constructs a command

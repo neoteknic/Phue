@@ -47,7 +47,7 @@ echo "Scanning for lights. Turn at least one light off, then on...", "\n";
 // Found lights
 // TODO $lights = [];
  
-$lights = array();
+$lights = [];
 
 do {
    $response = $client->sendCommand(

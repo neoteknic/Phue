@@ -20,9 +20,9 @@ class GetGroupById implements CommandInterface
     /**
      * Group Id
      *
-     * @var string
+     * @var int
      */
-    protected $groupId;
+    protected int $groupId;
 
     /**
      * Constructs a command
@@ -30,9 +30,9 @@ class GetGroupById implements CommandInterface
      * @param int $groupId
      *            Group Id
      */
-    public function __construct($groupId)
+    public function __construct(int $groupId)
     {
-        $this->groupId = (int) $groupId;
+        $this->groupId = $groupId;
     }
 
     /**

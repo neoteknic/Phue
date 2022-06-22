@@ -22,7 +22,7 @@ class DeleteUser implements CommandInterface
      *
      * @var string
      */
-    protected $username;
+    protected string $username;
 
     /**
      * Constructs a command
@@ -30,9 +30,9 @@ class DeleteUser implements CommandInterface
      * @param mixed $username
      *            Username or User object
      */
-    public function __construct($username)
+    public function __construct(string $username)
     {
-        $this->username = (string) $username;
+        $this->username = $username;
     }
 
     /**

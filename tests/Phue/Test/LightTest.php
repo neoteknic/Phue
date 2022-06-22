@@ -390,7 +390,7 @@ class LightTest extends \PHPUnit_Framework_TestCase
         $property->setValue(
             $this->light,
             (object) array(
-                'state' => (object) array()
+                'state' => (object) []
             )
         );
 

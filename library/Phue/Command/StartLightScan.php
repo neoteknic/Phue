@@ -29,7 +29,7 @@ class StartLightScan implements CommandInterface
      * @param string[]|null $deviceIds
      *            Array of device ids
      */
-    public function __construct(array $deviceIds = null)
+    public function __construct(?array $deviceIds = null)
     {
         $this->deviceIds = $deviceIds;
     }

@@ -22,21 +22,21 @@ class CreateSensor implements CommandInterface
      *
      * @var array
      */
-    protected $attributes = array();
+    protected array $attributes = [];
 
     /**
      * Sensor state
      *
      * @var array
      */
-    protected $state = array();
+    protected array $state = [];
 
     /**
      * Config
      *
      * @var array
      */
-    protected $config = array();
+    protected array $config = [];
 
     /**
      * Constructs a command

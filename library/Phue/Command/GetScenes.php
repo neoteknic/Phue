@@ -32,7 +32,7 @@ class GetScenes implements CommandInterface
             "/api/{$client->getUsername()}/scenes"
         );
         
-        $scenes = array();
+        $scenes = [];
         
         foreach ($results as $sceneId => $attributes) {
             $scenes[$sceneId] = new Scene($sceneId, $attributes, $client);

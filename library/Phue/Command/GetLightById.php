@@ -30,9 +30,9 @@ class GetLightById implements CommandInterface
      * @param int $lightId
      *            Light Id
      */
-    public function __construct($lightId)
+    public function __construct(int $lightId)
     {
-        $this->lightId = (int) $lightId;
+        $this->lightId = $lightId;
     }
 
     /**

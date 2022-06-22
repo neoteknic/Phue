@@ -147,7 +147,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
      * @covers Phue\Transport\Http::sendRequest
      * @covers Phue\Transport\Http::getJsonResponse
      */
-    public function testSendRequestArray()
+    public function testSendRequest[]
     {
         // Mock response
         // $mockResponse = [

@@ -63,7 +63,7 @@ class GetNewLights implements CommandInterface
      *
      * @return array List of new lights
      */
-    public function getLights()
+    public function getLights():array
     {
         return $this->lights;
     }
@@ -73,7 +73,7 @@ class GetNewLights implements CommandInterface
      *
      * @return bool True if active, false if not
      */
-    public function isScanActive()
+    public function isScanActive():bool
     {
         return $this->lastScan === 'active';
     }

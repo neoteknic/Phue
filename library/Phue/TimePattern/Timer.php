@@ -26,7 +26,7 @@ class Timer extends AbstractTimePattern
      *
      * @var integer
      */
-    protected $repeat;
+    protected int $repeat=0;
 
     /**
      * Instantiate
@@ -47,9 +47,9 @@ class Timer extends AbstractTimePattern
      *
      * @return self This object
      */
-    public function repeat($count)
+    public function repeat(int $count)
     {
-        $this->repeat = (int) $count;
+        $this->repeat = $count;
         
         return $this;
     }

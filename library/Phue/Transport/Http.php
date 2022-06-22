@@ -186,7 +186,7 @@ class Http implements TransportInterface
      * @throws ConnectionException
      * @throws \Exception
      *
-     * @return string Request response
+     * @return \stdClass Request response
      */
     public function sendRequestBypassBodyValidation(
         $address,
@@ -227,13 +227,11 @@ class Http implements TransportInterface
         $contentType = $this->getAdapter()->getContentType();
         
         // Throw connection exception if status code isn't 200 or wrong content type
-        if ($status != 200 || explode(';', $contentType)[0] != 'application/json') {
+        if ($status != 200 || explode(';', $contentType)[0] !== 'application/json') {
             throw new ConnectionException('Connection failure');
         }
         
         // Parse json results
-        $jsonResults = json_decode($results);
-        
-        return $jsonResults;
+	    return json_decode($results);
     }
 }

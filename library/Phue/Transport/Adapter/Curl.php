@@ -17,7 +17,7 @@ class Curl implements AdapterInterface
     /**
      * cURL resource
      *
-     * @var resource
+     * @var \CurlHandle
      */
     protected $curl;
 

@@ -115,7 +115,7 @@ class SetLightState implements CommandInterface, ActionableInterface
      *
      * @var array
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
      * Get alert modes

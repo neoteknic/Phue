@@ -91,9 +91,9 @@ class Condition
      *
      * @return self This object
      */
-    public function setSensorId($sensorId)
+    public function setSensorId(string|Sensor $sensorId)
     {
-        $this->sensorId = (string) $sensorId;
+        $this->sensorId = (string)$sensorId;
         
         return $this;
     }
@@ -103,7 +103,7 @@ class Condition
      *
      * @return string Attribute
      */
-    public function getAttribute()
+    public function getAttribute():string
     {
         return $this->attribute;
     }
@@ -116,9 +116,9 @@ class Condition
      *
      * @return self This object
      */
-    public function setAttribute($attribute)
+    public function setAttribute(string $attribute)
     {
-        $this->attribute = (string) $attribute;
+        $this->attribute = $attribute;
         
         return $this;
     }
@@ -128,7 +128,7 @@ class Condition
      *
      * @return string Operator
      */
-    public function getOperator()
+    public function getOperator():string
     {
         return $this->operator;
     }
@@ -141,7 +141,7 @@ class Condition
      *
      * @return self This object
      */
-    public function setOperator($operator)
+    public function setOperator(string $operator)
     {
         $this->operator = (string) $operator;
         
@@ -153,7 +153,7 @@ class Condition
      *
      * @return string Value
      */
-    public function getValue()
+    public function getValue():string
     {
         return $this->value;
     }
@@ -166,9 +166,9 @@ class Condition
      *
      * @return self This object
      */
-    public function setValue($value)
+    public function setValue(string $value)
     {
-        $this->value = (string) $value;
+        $this->value = $value;
         
         return $this;
     }

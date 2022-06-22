@@ -10,6 +10,7 @@
 namespace Phue\Command;
 
 use Phue\Client;
+use Phue\Scene;
 use Phue\Transport\TransportInterface;
 
 /**
@@ -23,7 +24,7 @@ class DeleteScene implements CommandInterface
      *
      * @var string
      */
-    protected $sceneId;
+    protected string $sceneId;
 
     /**
      * Constructs a command
@@ -31,9 +32,9 @@ class DeleteScene implements CommandInterface
      * @param mixed $scene
      *            Scene Id or Scene object
      */
-    public function __construct($scene)
+    public function __construct(string|Scene $scene)
     {
-        $this->sceneId = (string) $scene;
+        $this->sceneId = $scene;
     }
 
     /**

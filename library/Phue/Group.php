@@ -128,7 +128,7 @@ class Group implements LightInterface
      */
     public function setLights(array $lights)
     {
-        $lightIds = array();
+        $lightIds = [];
 
         foreach ($lights as $light) {
             $lightIds[] = (string) $light;

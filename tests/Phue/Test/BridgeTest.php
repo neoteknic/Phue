@@ -81,11 +81,11 @@ class BridgeTest extends \PHPUnit_Framework_TestCase
             ),
             'swversion' => '12345',
             'apiversion' => '1.5.0',
-            'swupdate' => (object) array(),
+            'swupdate' => (object) [],
             'linkbutton' => true,
             'portalservices' => false,
             'portalconnection' => 'connected',
-            'portalstate' => (object) array()
+            'portalstate' => (object) []
         );
         
         // Create bridge object

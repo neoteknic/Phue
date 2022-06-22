@@ -22,7 +22,7 @@ class DeleteRule implements CommandInterface
      *
      * @var string
      */
-    protected $ruleId;
+    protected string $ruleId;
 
     /**
      * Constructs a command
@@ -30,9 +30,9 @@ class DeleteRule implements CommandInterface
      * @param mixed $rule
      *            Rule Id or Rule object
      */
-    public function __construct($rule)
+    public function __construct(int $rule)
     {
-        $this->ruleId = (string) $rule;
+        $this->ruleId = $rule;
     }
 
     /**

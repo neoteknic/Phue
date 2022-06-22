@@ -22,7 +22,7 @@ class UpdateSensorConfig extends CreateSensor
      *
      * @var string
      */
-    protected $sensorId;
+    protected string $sensorId;
 
     /**
      * Sensor config

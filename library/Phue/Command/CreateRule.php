@@ -23,21 +23,21 @@ class CreateRule implements CommandInterface
      *
      * @var string
      */
-    protected $name;
+    protected string $name;
 
     /**
      * Conditions
      *
      * @var array
      */
-    protected $conditions = array();
+    protected array $conditions = [];
 
     /**
      * Actions
      *
      * @var array
      */
-    protected $actions = array();
+    protected array $actions = [];
 
     /**
      * Constructs a command
@@ -45,7 +45,7 @@ class CreateRule implements CommandInterface
      * @param string $name
      *            Name
      */
-    public function __construct($name = '')
+    public function __construct(string $name = '')
     {
         $this->name($name);
     }
@@ -58,9 +58,9 @@ class CreateRule implements CommandInterface
      *
      * @return self This object
      */
-    public function name($name)
+    public function name(string $name)
     {
-        $this->name = (string) $name;
+        $this->name = $name;
         
         return $this;
     }

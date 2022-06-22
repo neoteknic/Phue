@@ -23,7 +23,7 @@ class SetScheduleAttributes extends CreateSchedule implements CommandInterface
      *
      * @var string
      */
-    protected $scheduleId;
+    protected string $scheduleId;
 
     /**
      * Constructs a command
@@ -31,9 +31,9 @@ class SetScheduleAttributes extends CreateSchedule implements CommandInterface
      * @param mixed $schedule
      *            Schedule Id or Schedule object
      */
-    public function __construct($schedule)
+    public function __construct(string $schedule)
     {
-        $this->scheduleId = (string) $schedule;
+        $this->scheduleId =  $schedule;
     }
 
     /**
@@ -48,10 +48,10 @@ class SetScheduleAttributes extends CreateSchedule implements CommandInterface
         if ($this->command) {
             $params = $this->command->getActionableParams($client);
             $params['address'] = "/api/{$client->getUsername()}" . $params['address'];
-            
+
             $this->attributes['command'] = $params;
         }
-        
+
         $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/schedules/{$this->scheduleId}",
             TransportInterface::METHOD_PUT,
