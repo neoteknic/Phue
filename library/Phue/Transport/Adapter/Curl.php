@@ -53,6 +53,9 @@ class Curl implements AdapterInterface
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
 
         if (!is_null($body) && strlen($body)) {
+
+            /* @see https://github.com/sqmk/Phue/pull/145 */
+            curl_setopt($this->curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Accept: application/json']);
             curl_setopt($this->curl, CURLOPT_POSTFIELDS, $body);
         }
 
