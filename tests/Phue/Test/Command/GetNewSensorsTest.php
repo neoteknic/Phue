@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetNewSensors;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetNewSensors
  */
-class GetNewSensorsTest extends \PHPUnit_Framework_TestCase
+class GetNewSensorsTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getNewSensors = new GetNewSensors();
         
@@ -85,10 +80,10 @@ class GetNewSensorsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->getNewSensors, $response);
         
         // Ensure array of sensors
-        $this->assertInternalType('array', $response->getSensors());
+        $this->assertIsArray($response->getSensors());
         
         // Ensure expected number of sensors
-        $this->assertEquals(2, count($response->getSensors()));
+        $this->assertCount(2, $response->getSensors());
         
         // Ensure lastscan is active
         $this->assertTrue($response->isScanActive());

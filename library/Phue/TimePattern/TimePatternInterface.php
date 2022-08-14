@@ -8,16 +8,7 @@
  */
 namespace Phue\TimePattern;
 
-/**
- * Time pattern interface
- */
 interface TimePatternInterface
 {
-
-    /**
-     * To string
-     *
-     * @return string Formatted date
-     */
-    public function __toString();
+    public function __toString(): string;
 }

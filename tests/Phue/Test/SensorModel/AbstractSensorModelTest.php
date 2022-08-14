@@ -8,18 +8,17 @@
  */
 namespace Phue\Test\SensorModel;
 
+use PHPUnit\Framework\TestCase;
 use Phue\SensorModel\AbstractSensorModel;
 
 /**
  * Tests for Phue\SensorModel\AbstractSensorModel
  */
-class AbstractSensorModelTest extends \PHPUnit_Framework_TestCase
+class AbstractSensorModelTest extends TestCase
 {
+    private $mockAbstractSensorModel;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockAbstractSensorModel = $this->getMockForAbstractClass(
@@ -33,8 +32,8 @@ class AbstractSensorModelTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetId()
     {
-        $this->assertEquals($this->mockAbstractSensorModel->getId(), 
-            AbstractSensorModel::MODEL_ID);
+        $this->assertEquals(AbstractSensorModel::MODEL_ID,
+            $this->mockAbstractSensorModel->getId());
     }
 
     /**
@@ -44,8 +43,8 @@ class AbstractSensorModelTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $this->assertEquals($this->mockAbstractSensorModel->getName(), 
-            AbstractSensorModel::MODEL_NAME);
+        $this->assertEquals(AbstractSensorModel::MODEL_NAME,
+            $this->mockAbstractSensorModel->getName());
     }
 
     /**
@@ -55,7 +54,7 @@ class AbstractSensorModelTest extends \PHPUnit_Framework_TestCase
      */
     public function testToString()
     {
-        $this->assertEquals((string) $this->mockAbstractSensorModel, 
-            AbstractSensorModel::MODEL_NAME);
+        $this->assertEquals(AbstractSensorModel::MODEL_NAME,
+            (string) $this->mockAbstractSensorModel);
     }
 }

@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetLights;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetLights
  */
-class GetLightsTest extends \PHPUnit_Framework_TestCase
+class GetLightsTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getLights = new GetLights();
         
@@ -68,7 +63,7 @@ class GetLightsTest extends \PHPUnit_Framework_TestCase
         $response = $this->getLights->send($this->mockClient);
         
         // Ensure we have an empty array
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEmpty($response);
     }
 
@@ -95,7 +90,7 @@ class GetLightsTest extends \PHPUnit_Framework_TestCase
         $response = $this->getLights->send($this->mockClient);
         
         // Ensure we have an array of Lights
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertContainsOnlyInstancesOf('\Phue\Light', $response);
     }
 }

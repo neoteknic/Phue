@@ -8,29 +8,25 @@
  */
 namespace Phue\Test;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Rule;
 
 /**
  * Tests for Phue\Rule
  */
-class RuleTest extends \PHPUnit_Framework_TestCase
+class RuleTest extends TestCase
 {
+    private $mockClient;
+    private object $attributes;
+    private Rule $rule;
 
     /**
-     * Set up
-     *
      * @covers \Phue\Rule::__construct
      */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Build stub attributes
         // $this->attributes = (object) [
@@ -61,34 +57,34 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         // ]
         // ]
         // ];
-        $this->attributes = (object) array(
+        $this->attributes = (object) [
             'name' => 'Wall Switch Rule',
             'lasttriggered' => '2013-10-17T01:23:20',
             'created' => '2013-10-10T21:11:45',
             'timestriggered' => 27,
             'owner' => '78H56B12BA',
             'status' => 'enabled',
-            'conditions' => array(
-                (object) array(
+            'conditions' => [
+                (object) [
                     'address' => '/sensors/2/state/buttonevent',
                     'operator' => 'eq',
                     'value' => '16'
-                ),
-                (object) array(
+                ],
+                (object) [
                     'address' => '/sensors/2/state/lastupdated',
                     'operator' => 'dx'
-                )
-            ),
-            'actions' => array(
-                (object) array(
+                ]
+            ],
+            'actions' => [
+                (object) [
                     'address' => '/groups/0/action',
                     'method' => 'PUT',
-                    'body' => array(
+                    'body' => [
                         'scene' => 'S3'
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
         
         // Create rule object
         $this->rule = new Rule(4, $this->attributes, $this->mockClient);
@@ -163,7 +159,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsEnabled()
     {
-        return $this->assertTrue($this->rule->isEnabled());
+        $this->assertTrue($this->rule->isEnabled());
     }
 
     /**
@@ -175,7 +171,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     {
         $conditions = $this->rule->getConditions();
         
-        $this->assertEquals(2, count($conditions));
+        $this->assertCount(2, $conditions);
         
         $this->assertContainsOnlyInstancesOf('\Phue\Condition', $conditions);
     }
@@ -189,7 +185,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     {
         $actions = $this->rule->getActions();
         
-        $this->assertEquals(1, count($actions));
+        $this->assertCount(1, $actions);
         
         $this->assertContainsOnlyInstancesOf('\stdClass', $actions);
     }

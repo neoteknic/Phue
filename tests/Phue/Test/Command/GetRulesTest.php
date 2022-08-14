@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetRules;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetRules
  */
-class GetRulesTest extends \PHPUnit_Framework_TestCase
+class GetRulesTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getRules = new GetRules();
         
@@ -68,7 +63,7 @@ class GetRulesTest extends \PHPUnit_Framework_TestCase
         $response = $this->getRules->send($this->mockClient);
         
         // Ensure we have an empty array
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEmpty($response);
     }
 
@@ -95,7 +90,7 @@ class GetRulesTest extends \PHPUnit_Framework_TestCase
         $response = $this->getRules->send($this->mockClient);
         
         // Ensure we have an array of Rules
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertContainsOnlyInstancesOf('\Phue\Rule', $response);
     }
 }

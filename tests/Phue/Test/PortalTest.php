@@ -8,29 +8,25 @@
  */
 namespace Phue\Test;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Portal;
 
 /**
  * Tests for Phue\Portal
  */
-class PortalTest extends \PHPUnit_Framework_TestCase
+class PortalTest extends TestCase
 {
+    private $mockClient;
+    private object $attributes;
+    private Portal $portal;
 
     /**
-     * Set up
-     *
      * @covers \Phue\Portal::__construct
      */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Build stub attributes
         // $this->attributes = (object) [

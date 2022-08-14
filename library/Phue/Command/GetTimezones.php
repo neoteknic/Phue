@@ -15,16 +15,12 @@ use Phue\Client;
  */
 class GetTimezones implements CommandInterface
 {
-
     /**
      * Send command
      *
-     * @param Client $client
-     *            Phue Client
-     *
      * @return array List of timezones
      */
-    public function send(Client $client)
+    public function send(Client $client): array
     {
         // Get response
         $response = $client->getTransport()->sendRequestBypassBodyValidation(

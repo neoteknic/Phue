@@ -11,12 +11,8 @@ namespace Phue\TimePattern;
 use DateTime;
 use DateTimeZone;
 
-/**
- * Recurring time
- */
 class RecurringTime extends AbstractTimePattern
 {
-
     /**
      * Days of the week.
      */
@@ -41,36 +37,13 @@ class RecurringTime extends AbstractTimePattern
 
     const WEEKEND = 3;
 
-    /**
-     * Days of week
-     *
-     * @var int
-     */
-    protected $daysOfWeek;
+    protected string $timeOfDay;
 
     /**
-     * Time of day
-     *
-     * @var string
+     * @param int $daysOfWeek Bitmask of days (MONDAY|WEDNESDAY|FRIDAY)
      */
-    protected $timeOfDay;
-
-    /**
-     * Instantiate
-     *
-     * @param int $daysOfWeek
-     *            Bitmask of days (MONDAY|WEDNESDAY|FRIDAY)
-     * @param int $hour
-     *            Hour.
-     * @param int $minute
-     *            Minute.
-     * @param int $second
-     *            Second.
-     */
-    public function __construct($daysOfWeek, $hour = 0, $minute = 0, $second = 0)
+    public function __construct(protected int $daysOfWeek, int $hour = 0, int $minute = 0, int $second = 0)
     {
-        $this->daysOfWeek = (int) $daysOfWeek;
-        
         $timeOfDay = new DateTime();
         $this->timeOfDay = $timeOfDay->setTime($hour, $minute, $second)
             ->setTimeZone(new DateTimeZone('UTC'))
@@ -82,10 +55,8 @@ class RecurringTime extends AbstractTimePattern
      *
      * @return string Formatted date
      */
-    public function __toString()
+    public function __toString(): string
     {
-        $time = "W{$this->daysOfWeek}/T{$this->timeOfDay}";
-        
-        return $time;
+        return "W{$this->daysOfWeek}/T{$this->timeOfDay}";
     }
 }

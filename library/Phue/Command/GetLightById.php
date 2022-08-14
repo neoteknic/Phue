@@ -16,34 +16,10 @@ use Phue\Light;
  */
 class GetLightById implements CommandInterface
 {
+    public function __construct(protected int $lightId)
+    {}
 
-    /**
-     * Light Id
-     *
-     * @var int
-     */
-    protected int $lightId;
-
-    /**
-     * Constructs a command
-     *
-     * @param int $lightId
-     *            Light Id
-     */
-    public function __construct($lightId)
-    {
-        $this->lightId = (int) $lightId;
-    }
-
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return Light Light object
-     */
-    public function send(Client $client)
+    public function send(Client $client): Light
     {
         // Get response
         $attributes = $client->getTransport()->sendRequest(

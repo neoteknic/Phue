@@ -8,118 +8,45 @@
  */
 namespace Phue;
 
+use Phue\SensorModel\AbstractSensorModel;
 use Phue\SensorModel\SensorModelFactory;
 
-/**
- * Sensor object
- */
 class Sensor
 {
+    public function __construct(protected int $id, protected \stdClass $attributes, protected Client $client)
+    {}
 
-    /**
-     * Id
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
-     * Sensor attributes
-     *
-     * @var \stdClass
-     */
-    protected $attributes;
-
-    /**
-     * Phue client
-     *
-     * @var Client
-     */
-    protected $client;
-
-    /**
-     * Construct a Phue Sensor object
-     *
-     * @param string $id
-     *            Id
-     * @param \stdClass $attributes
-     *            Sensor attributes
-     * @param Client $client
-     *            Phue client
-     */
-    public function __construct($id, \stdClass $attributes, Client $client)
-    {
-        $this->id = $id;
-        $this->attributes = $attributes;
-        $this->client = $client;
-    }
-
-    /**
-     * Get sensor Id
-     *
-     * @return int Sensor id
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Get assigned name of sensor
-     *
-     * @return string Name of sensor
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->attributes->name;
     }
 
-    /**
-     * Get type
-     *
-     * @return string Type of sensor
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->attributes->type;
     }
 
-    /**
-     * Get model id
-     *
-     * @return string Model id
-     */
-    public function getModelId()
+    public function getModelId(): string
     {
         return $this->attributes->modelid;
     }
 
-    /**
-     * Get model
-     *
-     * @return AbstractSensorModel Sensor model
-     */
-    public function getModel()
+    public function getModel(): AbstractSensorModel
     {
         return SensorModelFactory::build($this->getModelId());
     }
 
-    /**
-     * Get manufacturer name
-     *
-     * @return string Manufacturer name
-     */
-    public function getManufacturerName()
+    public function getManufacturerName(): string
     {
         return $this->attributes->manufacturername;
     }
 
-    /**
-     * Get software version
-     *
-     * @return string|null Software version
-     */
-    public function getSoftwareVersion()
+    public function getSoftwareVersion(): ?string
     {
         if (isset($this->attributes->swversion)) {
             return $this->attributes->swversion;
@@ -128,12 +55,7 @@ class Sensor
         return null;
     }
 
-    /**
-     * Get unique id
-     *
-     * @return string|null Unique id
-     */
-    public function getUniqueId()
+    public function getUniqueId(): ?string
     {
         if (isset($this->attributes->uniqueid)) {
             return $this->attributes->uniqueid;
@@ -142,29 +64,17 @@ class Sensor
         return null;
     }
 
-    /**
-     * Get state
-     *
-     * @return \stdClass State
-     */
-    public function getState()
+    public function getState(): \stdClass
     {
         return (object) $this->attributes->state;
     }
 
-    /**
-     * Get config
-     *
-     * @return \stdClass Config
-     */
-    public function getConfig()
+    public function getConfig(): \stdClass
     {
         return (object) $this->attributes->config;
     }
 
     /**
-     * __toString
-     *
      * @return string Sensor Id
      */
     public function __toString()

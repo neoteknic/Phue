@@ -15,12 +15,6 @@ use Phue\Client;
  */
 class GetNewLights implements CommandInterface
 {
-
-    /**
-     * Last scan
-     *
-     * @var string
-     */
     protected string $lastScan;
 
     /**
@@ -30,15 +24,7 @@ class GetNewLights implements CommandInterface
      */
     protected array $lights = [];
 
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return self This object
-     */
-    public function send(Client $client)
+    public function send(Client $client): static
     {
         // Get response
         $response = $client->getTransport()->sendRequest(
@@ -63,17 +49,12 @@ class GetNewLights implements CommandInterface
      *
      * @return array List of new lights
      */
-    public function getLights()
+    public function getLights(): array
     {
         return $this->lights;
     }
 
-    /**
-     * Is scan currently active
-     *
-     * @return bool True if active, false if not
-     */
-    public function isScanActive()
+    public function isScanActive(): bool
     {
         return $this->lastScan === 'active';
     }

@@ -15,14 +15,10 @@ use Phue\Client;
  */
 interface ActionableInterface
 {
-
     /**
      * Get actionable request params
      *
-     * @param Client $client
-     *            Phue client
-     *
-     * @return array Key/value array of request params
+     * @return array|\stdClass Key/value array of request params
      */
-    public function getActionableParams(Client $client);
+    public function getActionableParams(Client $client): array|\stdClass;
 }

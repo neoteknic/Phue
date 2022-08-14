@@ -6,10 +6,12 @@
  */
 require_once 'common.php';
 
+/** @noinspection PhpUndefinedVariableInspection */
 $client = new \Phue\Client($hueHost, $hueUsername);
 
 echo 'Listing schedules:', "\n";
 
+# TODO $schedule ?
 $cmd = $schedule->getCommand();
 foreach ($client->getSchedules() as $schedule) {
     echo "\t", "#{$schedule->getId()} - {$schedule->getName()}", "\n", "\t\t", "Time scheduled: {$schedule->getTime()}", "\n", 

@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\SetBridgeConfig;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\SetBridgeConfig
  */
-class SetBridgeConfigTest extends \PHPUnit_Framework_TestCase
+class SetBridgeConfigTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockClient = $this->createMock('\Phue\Client', 

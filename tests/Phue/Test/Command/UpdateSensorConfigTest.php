@@ -9,14 +9,13 @@
 namespace Phue\Test\Command;
 
 use Mockery;
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\UpdateSensorConfig;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\UpdateSensorConfig
  */
-class UpdateSensorConfigTest extends \PHPUnit_Framework_TestCase
+class UpdateSensorConfigTest extends TestCase
 {
 
     /**

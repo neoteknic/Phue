@@ -16,45 +16,30 @@ use Phue\Transport\TransportInterface;
  */
 class SetSceneLightState extends SetLightState
 {
+    protected int $sceneId;
 
-    /**
-     * Scene Id
-     *
-     * @var string
-     */
-    protected $sceneId;
-
-    /**
-     * Light Id.
-     *
-     * @var string
-     */
-    protected $lightId;
+    protected int $lightId;
 
     /**
      * Constructs a command
      *
-     * @param mixed $scene
-     *            Scene Id or Scene object
-     * @param mixed $light
-     *            Light Id or Light object
+     * @param mixed $scene Scene Id or Scene object
+     * @param mixed $light Light Id or Light object
      */
-    public function __construct($scene, $light)
+    public function __construct(mixed $scene, mixed $light)
     {
-        $this->sceneId = (string) $scene;
-        $this->lightId = (string) $light;
+        $this->sceneId = (int) (string) $scene;
+
+        parent::__construct($light);
     }
 
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
      */
     public function send(Client $client)
     {
         $client->getTransport()->sendRequest(
-            "/api/{$client->getUsername()}/scenes/{$this->sceneId}/lights/{$this->lightId}/state",
+            "/api/{$client->getUsername()}/scenes/".$this->sceneId."/lights/".$this->lightId."/state",
             TransportInterface::METHOD_PUT,
             (object) $this->params
         );

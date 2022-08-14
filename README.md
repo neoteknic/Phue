@@ -24,7 +24,7 @@ Interested in API docs? You can check out the [Philips API documentation](http:/
 
 ## Requirements
 
-* PHP 7.1+
+* PHP 8.0+
 * cURL extension (optional)
 
 For old php support please use the original package sqmk/Phue
@@ -512,7 +512,7 @@ Number of bridges found: 1
 
 The internal IP address(es) listed in the results is what you need for the Phue client.
 
-If the script provided doesn't find your bridge, or if you don't have internet connection on your network, I have created a wiki page that describes a few other convenient ways of finding it: [Finding Philips Hue bridge on network](/sqmk/Phue/wiki/Finding-Philips-Hue-bridge-on-network).
+If the script provided doesn't find your bridge, or if you don't have internet connection on your network, I have created a wiki page that describes a few other convenient ways of finding it: [Finding Philips Hue bridge on network](https://github.com/neoteknic/Phue/wiki/Finding-Philips-Hue-bridge-on-your-network).
 
 ### Authentication / Creating a User
 
@@ -576,3 +576,10 @@ Now that you have found and registered new lights with the bridge, you can now m
 ### More examples
 
 If you are interested in seeing examples for all sorts of commands, check out the ```examples``` directory.
+
+### Run tests PhpStan and PhpUnit
+
+```
+composer run-script phpstan
+composer run-script phpunit
+```

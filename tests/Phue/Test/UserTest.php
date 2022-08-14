@@ -8,27 +8,23 @@
  */
 namespace Phue\Test;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\User;
 
 /**
  * Tests for Phue\User
  */
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
+    private $mockClient;
+    private string $username;
+    private object $attributes;
+    private User $user;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Stub username
         $this->username = 'phpunittest';

@@ -8,21 +8,13 @@
  */
 namespace Phue\SensorModel;
 
-/**
- * Sensor model factory
- */
 class SensorModelFactory
 {
-
     /**
+     * TODO add phpstan types
      * Build a new sensor model from model id
-     *
-     * @param string $modelId
-     *            Model id
-     *
-     * @return AbstractSensorModel Sensor model
      */
-    public static function build($modelId)
+    public static function build(string $modelId): AbstractSensorModel
     {
         $classNamePrefix = __NAMESPACE__ . '\\';
         $classNameModel = ucfirst(strtolower($modelId)) . 'Model';

@@ -16,157 +16,77 @@ use Phue\Transport\TransportInterface;
  */
 class CreateSensor implements CommandInterface
 {
-
     /**
      * Sensor attributes
-     *
-     * @var array
      */
-    protected $attributes = array();
+    protected array $attributes = array();
 
     /**
      * Sensor state
-     *
-     * @var array
      */
-    protected $state = array();
+    protected array $state = array();
 
     /**
-     * Config
-     *
      * @var array
      */
-    protected $config = array();
+    protected array $config = array();
 
-    /**
-     * Constructs a command
-     *
-     * @param string $name
-     *            Name
-     */
-    public function __construct($name = null)
+
+    public function __construct(?string $name = null)
     {
         $this->name($name);
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *            Name
-     *
-     * @return self This object
-     */
-    public function name($name)
+    public function name(?string $name): static
     {
-        $this->attributes['name'] = (string) $name;
+        $this->attributes['name'] = $name;
         
         return $this;
     }
 
-    /**
-     * Set model Id
-     *
-     * @param string $modelId
-     *            Model Id
-     *
-     * @return self This object
-     */
-    public function modelId($modelId)
+    public function modelId(string $modelId): static
     {
-        $this->attributes['modelid'] = (string) $modelId;
+        $this->attributes['modelid'] = $modelId;
         
         return $this;
     }
 
-    /**
-     * Set software version
-     *
-     * @param string $softwareVersion
-     *            Software version
-     *
-     * @return self This object
-     */
-    public function softwareVersion($softwareVersion)
+    public function softwareVersion(string $softwareVersion): static
     {
-        $this->attributes['swversion'] = (string) $softwareVersion;
+        $this->attributes['swversion'] = $softwareVersion;
         
         return $this;
     }
 
-    /**
-     * Set type
-     *
-     * @param string $type
-     *            Type of sensor
-     *
-     * @return self This object
-     */
-    public function type($type)
+    public function type(string $type): static
     {
-        $this->attributes['type'] = (string) $type;
+        $this->attributes['type'] = $type;
         
         return $this;
     }
 
-    /**
-     * Set unique Id
-     *
-     * @param string $uniqueId
-     *            Unique Id
-     *
-     * @return self This object
-     */
-    public function uniqueId($uniqueId)
+    public function uniqueId(string $uniqueId): static
     {
-        $this->attributes['uniqueid'] = (string) $uniqueId;
+        $this->attributes['uniqueid'] = $uniqueId;
         
         return $this;
     }
 
-    /**
-     * Set manufacturer name
-     *
-     * @param string $manufacturerName
-     *            Manufacturer name
-     *
-     * @return self This object
-     */
-    public function manufacturerName($manufacturerName)
+    public function manufacturerName(string $manufacturerName): static
     {
-        $this->attributes['manufacturername'] = (string) $manufacturerName;
+        $this->attributes['manufacturername'] = $manufacturerName;
         
         return $this;
     }
 
-    /**
-     * State attribute
-     *
-     * @param string $key
-     *            Key
-     * @param mixed $value
-     *            Value
-     *
-     * @return self This object
-     */
-    public function stateAttribute($key, $value)
+    public function stateAttribute(string $key, mixed $value): static
     {
         $this->state[$key] = $value;
         
         return $this;
     }
 
-    /**
-     * Config attribute
-     *
-     * @param string $key
-     *            Key
-     * @param mixed $value
-     *            Value
-     *
-     * @return self This object
-     */
-    public function configAttribute($key, $value)
+    public function configAttribute(string $key, mixed $value): static
     {
         $this->config[$key] = $value;
         
@@ -176,12 +96,9 @@ class CreateSensor implements CommandInterface
     /**
      * Send command
      *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return int Sensor Id
+     * @return ?int Sensor Id
      */
-    public function send(Client $client)
+    public function send(Client $client): ?int
     {
         $response = $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/sensors",
@@ -195,6 +112,6 @@ class CreateSensor implements CommandInterface
             )
         );
         
-                return $response->id;
+        return $response->id;
     }
 }

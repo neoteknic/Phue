@@ -16,16 +16,7 @@ use Phue\Transport\Exception\UnauthorizedUserException;
  */
 class IsAuthorized implements CommandInterface
 {
-
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return bool True if authorized, false if not
-     */
-    public function send(Client $client)
+    public function send(Client $client): bool
     {
         // Get response
         try {

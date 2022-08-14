@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetScenes;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetScenes
  */
-class GetScenesTest extends \PHPUnit_Framework_TestCase
+class GetScenesTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getScenes = new GetScenes();
         
@@ -68,7 +63,7 @@ class GetScenesTest extends \PHPUnit_Framework_TestCase
         $response = $this->getScenes->send($this->mockClient);
         
         // Ensure we have an empty array
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEmpty($response);
     }
 
@@ -95,7 +90,7 @@ class GetScenesTest extends \PHPUnit_Framework_TestCase
         $response = $this->getScenes->send($this->mockClient);
         
         // Ensure we have an array of Scenes
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertContainsOnlyInstancesOf('\Phue\Scene', $response);
     }
 }

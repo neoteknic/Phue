@@ -13,14 +13,7 @@ namespace Phue\SensorModel;
  */
 class UnknownModel extends AbstractSensorModel
 {
-
-    /**
-     * Model id
-     */
     const MODEL_ID = '';
 
-    /**
-     * Model name
-     */
     const MODEL_NAME = 'Unknown';
 }

@@ -16,13 +16,7 @@ use Phue\Transport\TransportInterface;
  */
 class DeleteGroup implements CommandInterface
 {
-
-    /**
-     * Group Id
-     *
-     * @var string
-     */
-    protected $groupId;
+    protected string $groupId;
 
     /**
      * Constructs a command
@@ -30,16 +24,13 @@ class DeleteGroup implements CommandInterface
      * @param mixed $group
      *            Group Id or Group object
      */
-    public function __construct($group)
+    public function __construct(mixed $group)
     {
         $this->groupId = (string) $group;
     }
 
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
      */
     public function send(Client $client)
     {

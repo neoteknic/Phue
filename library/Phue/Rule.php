@@ -10,136 +10,54 @@ namespace Phue;
 
 use Phue\Command\DeleteRule;
 
-/**
- * Rule object
- */
 class Rule
 {
-
-    /**
-     * Status: Enabled
-     */
     const STATUS_ENABLED = 'enabled';
 
-    /**
-     * Status: Disabled
-     */
     const STATUS_DISABLED = 'disabled';
 
-    /**
-     * Id
-     *
-     * @var int
-     */
-    protected $id;
+    public function __construct(protected int $id, protected \stdClass $attributes, protected Client $client)
+    {}
 
-    /**
-     * Rule attributes
-     *
-     * @var \stdClass
-     */
-    protected $attributes;
-
-    /**
-     * Phue client
-     *
-     * @var Client
-     */
-    protected $client;
-
-    /**
-     * Construct a Phue Rule object
-     *
-     * @param string $id
-     *            Id
-     * @param \stdClass $attributes
-     *            Rule attributes
-     * @param Client $client
-     *            Phue client
-     */
-    public function __construct($id, \stdClass $attributes, Client $client)
-    {
-        $this->id = $id;
-        $this->attributes = $attributes;
-        $this->client = $client;
-    }
-
-    /**
-     * Get rule Id
-     *
-     * @return int Rule id
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Get assigned name of rule
-     *
-     * @return string Name of rule
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->attributes->name;
     }
 
-    /**
-     * Get last triggered time
-     *
-     * @return string Time
-     */
-    public function getLastTriggeredTime()
+    public function getLastTriggeredTime(): string
     {
         return $this->attributes->lasttriggered;
     }
 
-    /**
-     * Get create date
-     *
-     * @return string Time
-     */
-    public function getCreateDate()
+    public function getCreateDate(): string
     {
         return $this->attributes->created;
     }
 
-    /**
-     * Get triggered count
-     *
-     * @return int Triggered count
-     */
-    public function getTriggeredCount()
+    public function getTriggeredCount(): int
     {
         return $this->attributes->timestriggered;
     }
 
-    /**
-     * Get owner
-     *
-     * @return string Owner
-     */
-    public function getOwner()
+    public function getOwner(): string
     {
         return $this->attributes->owner;
     }
 
-    /**
-     * Is enabled?
-     *
-     * @return bool True of enabled, false if not
-     */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->attributes->status == self::STATUS_ENABLED;
     }
 
     /**
-     * Get conditions
-     *
-     * @return array List of conditions
+     * @return Condition[]
      */
-    public function getConditions()
+    public function getConditions(): array
     {
         $conditions = array();
         
@@ -151,11 +69,10 @@ class Rule
     }
 
     /**
-     * Get actions
-     *
+     * TODO type of return values?
      * @return array List of actions
      */
-    public function getActions()
+    public function getActions(): array
     {
         $actions = array();
         
@@ -166,20 +83,15 @@ class Rule
         return $actions;
     }
 
-    /**
-     * Delete rule
-     */
-    public function delete()
+    public function delete(): void
     {
         $this->client->sendCommand((new DeleteRule($this)));
     }
 
     /**
-     * __toString
-     *
      * @return string Rule Id
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getId();
     }

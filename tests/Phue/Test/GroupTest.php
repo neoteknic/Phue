@@ -8,28 +8,22 @@
  */
 namespace Phue\Test;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Helper\ColorConversion;
 use Phue\Group;
 
 /**
  * Tests for Phue\Group
  */
-class GroupTest extends \PHPUnit_Framework_TestCase
+class GroupTest extends TestCase
 {
+    private $mockClient;
+    private object $attributes;
+    private Group $group;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Build stub attributes
         $this->attributes = (object) array(

@@ -8,20 +8,16 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\DeleteSchedule;
 use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\DeleteSchedule
  */
-class DeleteScheduleTest extends \PHPUnit_Framework_TestCase
+class DeleteScheduleTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockClient = $this->createMock('\Phue\Client', 

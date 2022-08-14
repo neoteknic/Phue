@@ -16,59 +16,33 @@ use Phue\Transport\TransportInterface;
  */
 class CreateGroup implements CommandInterface
 {
+    protected string $name;
 
     /**
-     * Name
-     *
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * Lights
-     *
      * @var array List of light Ids
      */
-    protected $lights = [];
+    protected array $lights = [];
 
     /**
-     * Constructs a command
-     *
-     * @param string $name
-     *            Name
-     * @param array $lights
-     *            List of light Ids or Light objects
+     * @param array $lights List of light Ids or Light objects
      */
-    public function __construct($name, array $lights = [])
+    public function __construct(string $name, array $lights = [])
     {
         $this->name($name);
         $this->lights($lights);
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *            Name
-     *
-     * @return self This object
-     */
-    public function name($name)
+    public function name(string $name): static
     {
-        $this->name = (string) $name;
+        $this->name = $name;
         
         return $this;
     }
 
     /**
-     * Set lights
-     *
-     * @param array $lights
-     *            List of light Ids or Light objects
-     *
-     * @return self This object
+     * @param array $lights List of light Ids or Light objects
      */
-    public function lights(array $lights = [])
+    public function lights(array $lights = []): static
     {
         $this->lights = [];
         
@@ -82,25 +56,20 @@ class CreateGroup implements CommandInterface
 
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return int Group Id
      */
-    public function send(Client $client)
+    public function send(Client $client): string
     {
         $response = $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/groups",
             TransportInterface::METHOD_POST,
-            (object) array(
+            (object) [
                 'name' => $this->name,
                 'lights' => $this->lights
-            )
-        )
-            ;
+            ]
+        );
         
-            $r = explode('/', $response->id);
-            return $r[0];
+        $r = explode('/', $response->id);
+
+        return $r[0];
     }
 }

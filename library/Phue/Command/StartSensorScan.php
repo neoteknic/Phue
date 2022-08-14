@@ -16,23 +16,12 @@ use Phue\Transport\TransportInterface;
  */
 class StartSensorScan implements CommandInterface
 {
-
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return mixed
-     */
-    public function send(Client $client)
+    public function send(Client $client): mixed
     {
         // Get response
-        $response = $client->getTransport()->sendRequest(
+        return $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/sensors",
             TransportInterface::METHOD_POST
         );
-        
-        return $response;
     }
 }

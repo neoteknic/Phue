@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetSensors;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetSensors
  */
-class GetSensorsTest extends \PHPUnit_Framework_TestCase
+class GetSensorsTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getSensors = new GetSensors();
         
@@ -68,7 +63,7 @@ class GetSensorsTest extends \PHPUnit_Framework_TestCase
         $response = $this->getSensors->send($this->mockClient);
         
         // Ensure we have an empty array
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEmpty($response);
     }
 
@@ -95,7 +90,7 @@ class GetSensorsTest extends \PHPUnit_Framework_TestCase
         $response = $this->getSensors->send($this->mockClient);
         
         // Ensure we have an array of Sensors
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertContainsOnlyInstancesOf('\Phue\Sensor', $response);
     }
 }

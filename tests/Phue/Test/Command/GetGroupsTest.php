@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetGroups;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetGroups
  */
-class GetGroupsTest extends \PHPUnit_Framework_TestCase
+class GetGroupsTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getGroups = new GetGroups();
         
@@ -68,7 +63,7 @@ class GetGroupsTest extends \PHPUnit_Framework_TestCase
         $response = $this->getGroups->send($this->mockClient);
         
         // Ensure we have an empty array
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEmpty($response);
     }
 
@@ -95,7 +90,7 @@ class GetGroupsTest extends \PHPUnit_Framework_TestCase
         $response = $this->getGroups->send($this->mockClient);
         
         // Ensure we have an array of Groups
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertContainsOnlyInstancesOf('\Phue\Group', $response);
     }
 }

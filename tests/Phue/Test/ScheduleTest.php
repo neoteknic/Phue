@@ -8,30 +8,25 @@
  */
 namespace Phue\Test;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Schedule;
 
 /**
  * Tests for Phue\Schedule
  */
-class ScheduleTest extends \PHPUnit_Framework_TestCase
+class ScheduleTest extends TestCase
 {
+    private $mockClient;
+    private object $attributes;
+    private Schedule $schedule;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Force default timezone
         date_default_timezone_set('UTC');
         
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Build stub attributes
         $this->attributes = (object) array(

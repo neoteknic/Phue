@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\StartLightScan;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\StartLightScan
  */
-class StartLightScanTest extends \PHPUnit_Framework_TestCase
+class StartLightScanTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockClient = $this->createMock('\Phue\Client', 

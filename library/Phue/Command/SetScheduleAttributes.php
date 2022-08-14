@@ -17,32 +17,17 @@ use Phue\Transport\TransportInterface;
  */
 class SetScheduleAttributes extends CreateSchedule implements CommandInterface
 {
+    protected int $scheduleId;
 
     /**
-     * Schedule Id
-     *
-     * @var string
+     * @param mixed $schedule Schedule Id or Schedule object
      */
-    protected $scheduleId;
-
-    /**
-     * Constructs a command
-     *
-     * @param mixed $schedule
-     *            Schedule Id or Schedule object
-     */
-    public function __construct($schedule)
+    public function __construct(mixed $schedule)
     {
-        $this->scheduleId = (string) $schedule;
+        $this->scheduleId = (int) (string) $schedule;
     }
 
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     */
-    public function send(Client $client)
+    public function send(Client $client): ?int
     {
         // Set command attribute if passed
         if ($this->command) {
@@ -57,5 +42,7 @@ class SetScheduleAttributes extends CreateSchedule implements CommandInterface
             TransportInterface::METHOD_PUT,
             (object) $this->attributes
         );
+
+        return null;
     }
 }

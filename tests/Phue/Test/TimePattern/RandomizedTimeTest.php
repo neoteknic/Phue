@@ -8,14 +8,14 @@
  */
 namespace Phue\Test\TimePattern;
 
+use PHPUnit\Framework\TestCase;
 use Phue\TimePattern\RandomizedTime;
 
 /**
  * Tests for Phue\TimePattern\RandomizedTime
  */
-class RandomizedTimeTest extends \PHPUnit_Framework_TestCase
+class RandomizedTimeTest extends TestCase
 {
-
     /**
      * Test: Creating randomized time
      *
@@ -23,7 +23,7 @@ class RandomizedTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateTime()
     {
-        $this->assertRegExp('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}A01:01:20$/', 
+        $this->assertMatchesRegularExpression('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}A01:01:20$/',
             (string) new RandomizedTime('now', 3680));
     }
 }

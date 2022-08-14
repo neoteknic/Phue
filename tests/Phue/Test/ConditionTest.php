@@ -8,14 +8,15 @@
  */
 namespace Phue\Test;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Condition;
 
 /**
  * Tests for Phue\Condition
  */
-class ConditionTest extends \PHPUnit_Framework_TestCase
+class ConditionTest extends TestCase
 {
+    private Condition $condition;
 
     /**
      * Set up
@@ -23,7 +24,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Condition::__construct
      * @covers \Phue\Condition::import
      */
-    public function setUp()
+    public function setUp(): void
     {
         // $this->condition = new Condition((object) [
         // 'address' => '/sensors/2/state/buttonevent',

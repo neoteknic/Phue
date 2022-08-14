@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\CreateUser;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\CreateUser
  */
-class CreateUserTest extends \PHPUnit_Framework_TestCase
+class CreateUserTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockClient = $this->createMock('\Phue\Client', 
@@ -64,11 +59,10 @@ class CreateUserTest extends \PHPUnit_Framework_TestCase
      * Test: Setting invalid device type
      *
      * @covers \Phue\Command\CreateUser::setDeviceType
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function testExceptionOnInvalidDeviceType()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $command = new CreateUser();
         $command->setDeviceType(str_repeat('X', 41));
     }

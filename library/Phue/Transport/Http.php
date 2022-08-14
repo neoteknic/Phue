@@ -9,7 +9,6 @@
 namespace Phue\Transport;
 
 use Phue\Client;
-use Phue\Command\CommandInterface;
 use Phue\Transport\Exception\ConnectionException;
 use Phue\Transport\Adapter\AdapterInterface;
 use Phue\Transport\Adapter\Curl as DefaultAdapter;
@@ -19,27 +18,9 @@ use Phue\Transport\Adapter\Curl as DefaultAdapter;
  */
 class Http implements TransportInterface
 {
+    protected ?AdapterInterface $adapter;
 
-    /**
-     * Phue Client
-     *
-     * @var Client
-     */
-    protected $client;
-
-    /**
-     * Adapter
-     *
-     * @var AdapterInterface
-     */
-    protected $adapter;
-
-    /**
-     * Exception map
-     *
-     * @var array
-     */
-    public static $exceptionMap = array(
+    public static array $exceptionMap = [
         0 => 'Phue\Transport\Exception\BridgeException',
         1 => 'Phue\Transport\Exception\UnauthorizedUserException',
         2 => 'Phue\Transport\Exception\InvalidJsonBodyException',
@@ -73,25 +54,22 @@ class Http implements TransportInterface
         704 => 'Phue\Transport\Exception\InvalidScheduleTagException',
         705 => 'Phue\Transport\Exception\ScheduleTimeInPastException',
         901 => 'Phue\Transport\Exception\InternalErrorException'
-    );
+    ];
+
     /**
      * Construct Http transport
-     *
-     * @param Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(protected Client $client)
     {
-        $this->client = $client;
+        $this->adapter = null;
     }
 
     /**
      * Get adapter for transport
      *
      * Auto created adapter if one is not present
-     *
-     * @return AdapterInterface Adapter
      */
-    public function getAdapter()
+    public function getAdapter(): AdapterInterface
     {
         if (! $this->adapter) {
             $this->setAdapter(new DefaultAdapter());
@@ -100,15 +78,7 @@ class Http implements TransportInterface
         return $this->adapter;
     }
 
-    /**
-     * Set adapter
-     *
-     * @param AdapterInterface $adapter
-     *            Transport adapter
-     *
-     * @return self This object
-     */
-    public function setAdapter(AdapterInterface $adapter)
+    public function setAdapter(AdapterInterface $adapter): static
     {
         $this->adapter = $adapter;
         
@@ -118,37 +88,26 @@ class Http implements TransportInterface
     /**
      * Get exception by type
      *
-     * @param string $type
-     *            Error type
-     * @param string $description
-     *            Description of error
+     * @param string|null $type Error type
+     * @param string|null $description Description of error
      *
+     * TODO add phpstan annotations
      * @return \Exception Built exception
      */
-    public function getExceptionByType($type, $description)
+    public function getExceptionByType(?string $type, ?string $description): \Exception
     {
         // Determine exception
-        $exceptionClass = isset(static::$exceptionMap[$type]) ? static::$exceptionMap[$type] : static::$exceptionMap[0];
+        $exceptionClass = static::$exceptionMap[$type] ?? static::$exceptionMap[0];
         
         return new $exceptionClass($description, $type);
     }
 
     /**
-     * Send request
-     *
-     * @param string $address
-     *            API address
-     * @param string $method
-     *            Request method
-     * @param \stdClass $body
-     *            Post body
-     *
-     * @throws ConnectionException
+     * @inheritdoc
      * @throws \Exception
-     *
-     * @return string Request response
+     * @throws ConnectionException
      */
-    public function sendRequest($address, $method = self::METHOD_GET, \stdClass $body = null)
+    public function sendRequest(string $address, string $method = self::METHOD_GET, \stdClass $body = null): mixed
     {
         $jsonResults = $this->getJsonResponse($address, $method, $body);
         
@@ -174,25 +133,16 @@ class Http implements TransportInterface
     }
 
     /**
-     * Send request, bypass body validation
+     * @inheritdoc
      *
-     * @param string $address
-     *            API address
-     * @param string $method
-     *            Request method
-     * @param \stdClass $body
-     *            Post body
-     *
-     * @throws ConnectionException
      * @throws \Exception
-     *
-     * @return string Request response
+     * @throws ConnectionException
      */
     public function sendRequestBypassBodyValidation(
-        $address,
-        $method = self::METHOD_GET,
+        string    $address,
+        string    $method = self::METHOD_GET,
         \stdClass $body = null
-    ) {
+    ): \stdClass|array {
     
         return $this->getJsonResponse($address, $method, $body);
     }
@@ -200,16 +150,14 @@ class Http implements TransportInterface
     /**
      * Send request
      *
-     * @param string $address
-     *            API address
-     * @param string $method
-     *            Request method
-     * @param \stdClass $body
-     *            Post body
+     * @param string $address API address
+     * @param string $method Request method
+     * @param \stdClass|null $body Post body
      *
-     * @return \stdClass Json body
+     * @return \stdClass|array Json body
+     * @throws ConnectionException
      */
-    protected function getJsonResponse($address, $method = self::METHOD_GET, \stdClass $body = null)
+    protected function getJsonResponse(string $address, string $method = self::METHOD_GET, \stdClass $body = null): \stdClass|array
     {
         // Build request url
         $url = "http://{$this->client->getHost()}{$address}";
@@ -225,15 +173,13 @@ class Http implements TransportInterface
         );
         $status = $this->getAdapter()->getHttpStatusCode();
         $contentType = $this->getAdapter()->getContentType();
-        
+
         // Throw connection exception if status code isn't 200 or wrong content type
         if ($status != 200 || explode(';', $contentType)[0] != 'application/json') {
             throw new ConnectionException('Connection failure');
         }
         
         // Parse json results
-        $jsonResults = json_decode($results);
-        
-        return $jsonResults;
+        return json_decode($results);
     }
 }

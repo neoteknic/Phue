@@ -16,61 +16,36 @@ use Phue\Transport\TransportInterface;
  */
 class UpdateSensorConfig extends CreateSensor
 {
+    protected string $sensorId;
 
     /**
-     * Sensor Id
-     *
-     * @var string
-     */
-    protected $sensorId;
-
-    /**
-     * Sensor config
-     *
      * @var array
      */
     protected array $config = [];
 
     /**
-     * Constructs a command
-     *
-     * @param mixed $sensor
-     *            Sensor Id or Sensor object
+     * @param mixed $sensor Sensor Id or Sensor object
      */
-    public function __construct($sensor)
+    public function __construct(mixed $sensor)
     {
         $this->sensorId = (string) $sensor;
     }
 
-    /**
-     * Config attribute
-     *
-     * @param string $key
-     *            Key
-     * @param mixed $value
-     *            Value
-     *
-     * @return self This object
-     */
-    public function configAttribute($key, $value)
+    public function configAttribute(string $key, mixed $value): static
     {
         $this->config[$key] = $value;
         
         return $this;
     }
 
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     */
-    public function send(Client $client)
+    public function send(Client $client): ?int
     {
         $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/sensors/{$this->sensorId}/config",
             TransportInterface::METHOD_PUT,
             (object) $this->config
         );
+
+        return null;
     }
 }
