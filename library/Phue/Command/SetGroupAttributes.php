@@ -9,6 +9,7 @@
 namespace Phue\Command;
 
 use Phue\Client;
+use Phue\Light;
 use Phue\Transport\TransportInterface;
 
 /**
@@ -16,58 +17,34 @@ use Phue\Transport\TransportInterface;
  */
 class SetGroupAttributes implements CommandInterface
 {
-
-    /**
-     * Group Id
-     *
-     * @var string
-     */
-    protected $groupId;
+    protected int $groupId;
 
     /**
      * Group attributes
-     *
-     * @var array
      */
     protected array $attributes = [];
 
     /**
-     * Constructs a command
-     *
-     * @param mixed $group
-     *            Group Id or Group object
+     * @param mixed $group Group Id or Group object
      */
-    public function __construct($group)
+    public function __construct(mixed $group)
     {
-        $this->groupId = (string) $group;
+        $this->groupId = (int) (string) $group;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *            Name
-     *
-     * @return self This object
-     */
-    public function name($name)
+    public function name(string $name): static
     {
-        $this->attributes['name'] = (string) $name;
+        $this->attributes['name'] = $name;
         
         return $this;
     }
 
     /**
-     * Set lights
-     *
-     * @param array $lights
-     *            List of light Ids or Light objects
-     *
-     * @return self This object
+     * @param string[]|Light[] $lights List of light Ids or Light objects
      */
-    public function lights(array $lights)
+    public function lights(array $lights): static
     {
-        $lightList = array();
+        $lightList = [];
         
         foreach ($lights as $light) {
             $lightList[] = (string) $light;
@@ -78,16 +55,15 @@ class SetGroupAttributes implements CommandInterface
         return $this;
     }
 
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     */
-    public function send(Client $client)
+    public function getGroupId(): int
     {
-        $client->getTransport()->sendRequest(
-            "/api/{$client->getUsername()}/groups/{$this->groupId}",
+        return (int) $this->groupId;
+    }
+
+    public function send(Client $client): mixed
+    {
+        return $client->getTransport()->sendRequest(
+            "/api/{$client->getUsername()}/groups/".$this->getGroupId(),
             TransportInterface::METHOD_PUT,
             (object) $this->attributes
         );

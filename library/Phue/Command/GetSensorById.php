@@ -16,34 +16,10 @@ use Phue\Sensor;
  */
 class GetSensorById implements CommandInterface
 {
+    public function __construct(protected int $sensorId)
+    {}
 
-    /**
-     * Sensor Id
-     *
-     * @var string
-     */
-    protected $sensorId;
-
-    /**
-     * Constructs a command
-     *
-     * @param int $sensorId
-     *            Sensor Id
-     */
-    public function __construct($sensorId)
-    {
-        $this->sensorId = (int) $sensorId;
-    }
-
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return Sensor Sensor object
-     */
-    public function send(Client $client)
+    public function send(Client $client): Sensor
     {
         // Get response
         $attributes = $client->getTransport()->sendRequest(

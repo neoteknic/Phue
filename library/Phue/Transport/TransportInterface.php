@@ -13,25 +13,12 @@ namespace Phue\Transport;
  */
 interface TransportInterface
 {
-
-    /**
-     * Get method
-     */
     const METHOD_GET = 'GET';
 
-    /**
-     * Post method
-     */
     const METHOD_POST = 'POST';
 
-    /**
-     * Put method
-     */
     const METHOD_PUT = 'PUT';
 
-    /**
-     * Delete method
-     */
     const METHOD_DELETE = 'DELETE';
 
     /**
@@ -39,20 +26,20 @@ interface TransportInterface
      *
      * @param string $address API path
      * @param string $method Request method
-     * @param \stdClass $body Body data
+     * @param \stdClass|null $body Body data
      *
      * @return mixed Command result
      */
-    public function sendRequest($address, $method = self::METHOD_GET, \stdClass $body = null);
+    public function sendRequest(string $address, string $method = self::METHOD_GET, \stdClass $body = null): mixed;
 
     /**
      * Send request, bypass body validation
      *
      * @param string $address API path
      * @param string $method Request method
-     * @param \stdClass $body Body data
+     * @param \stdClass|null $body Body data
      *
      * @return mixed Command result
      */
-    public function sendRequestBypassBodyValidation($address, $method = self::METHOD_GET, \stdClass $body = null);
+    public function sendRequestBypassBodyValidation(string $address, string $method = self::METHOD_GET, \stdClass $body = null): mixed;
 }

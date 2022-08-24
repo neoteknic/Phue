@@ -13,16 +13,10 @@ namespace Phue\LightModel;
  */
 class LightModelFactory
 {
-
     /**
      * Build a new light model from model id
-     *
-     * @param string $modelId
-     *            Model id
-     *
-     * @return AbstractLightModel Light model
      */
-    public static function build($modelId)
+    public static function build(string $modelId): AbstractLightModel
     {
         $classNamePrefix = __NAMESPACE__ . '\\';
         $classNameModel = ucfirst(strtolower($modelId)) . 'Model';

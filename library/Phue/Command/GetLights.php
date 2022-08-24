@@ -16,16 +16,11 @@ use Phue\Light;
  */
 class GetLights implements CommandInterface
 {
-
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
      * @return Light[] List of Light objects
      */
-    public function send(Client $client)
+    public function send(Client $client): array
     {
         // Get response
         $response = $client->getTransport()->sendRequest(

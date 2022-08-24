@@ -17,93 +17,39 @@ use Phue\Transport\TransportInterface;
  */
 class CreateRule implements CommandInterface
 {
+    protected string $name;
 
-    /**
-     * Name
-     *
-     * @var string
-     */
-    protected $name;
+    protected array $conditions = [];
 
-    /**
-     * Conditions
-     *
-     * @var array
-     */
-    protected $conditions = array();
+    protected array $actions = [];
 
-    /**
-     * Actions
-     *
-     * @var array
-     */
-    protected $actions = array();
-
-    /**
-     * Constructs a command
-     *
-     * @param string $name
-     *            Name
-     */
-    public function __construct($name = '')
+    public function __construct(string $name = '')
     {
         $this->name($name);
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *            Name
-     *
-     * @return self This object
-     */
-    public function name($name)
+    public function name(string $name): static
     {
-        $this->name = (string) $name;
+        $this->name = $name;
         
         return $this;
     }
 
-    /**
-     * Add condition
-     *
-     * @param Condition $condition
-     *            Condition
-     *
-     * @return self This object
-     */
-    public function addCondition(Condition $condition)
+    public function addCondition(Condition $condition): static
     {
         $this->conditions[] = $condition;
         
         return $this;
     }
 
-    /**
-     * Add actionable command
-     *
-     * @param ActionableInterface $action
-     *            Actionable command
-     *
-     * @return self This object
-     */
-    public function addAction(ActionableInterface $command)
+    public function addAction(ActionableInterface $command): static
     {
         $this->actions[] = $command;
         
         return $this;
     }
 
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return int Rule Id
-     */
-    public function send(Client $client)
+    public function send(Client $client): ?int
     {
         $response = $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/rules",
@@ -125,6 +71,6 @@ class CreateRule implements CommandInterface
             )
         );
         
-            return $response->id;
+        return $response->id;
     }
 }

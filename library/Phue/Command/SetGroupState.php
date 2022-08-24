@@ -17,12 +17,7 @@ use Phue\Transport\TransportInterface;
  */
 class SetGroupState extends SetLightState {
 
-    /**
-     * Group Id
-     *
-     * @var string
-     */
-    protected $groupId;
+    protected int $groupId;
 
     /**
      * Constructs a command
@@ -30,32 +25,21 @@ class SetGroupState extends SetLightState {
      * @param mixed $group Group Id or Group object
      * @noinspection MagicMethodsValidityInspection
      */
-    public function __construct($group)
+    public function __construct(mixed $group)
     {
-        $this->groupId = (string) $group;
+        $this->groupId = (int) (string) $group;
     }
 
     /**
      * Set scene
-     *
-     * @param mixed $scene
-     *            Scene id or Scene object
-     *
-     * @return self This object
      */
-    public function scene($scene)
+    public function scene(mixed $scene): static
     {
         $this->params['scene'] = (string) $scene;
         
         return $this;
     }
 
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     */
     public function send(Client $client)
     {
         // Get params
@@ -70,19 +54,14 @@ class SetGroupState extends SetLightState {
     }
 
     /**
-     * Get actionable params
-     *
-     * @param Client $client
-     *            Phue Client
-     *
      * @return array Key/value pairs of params
      */
-    public function getActionableParams(Client $client)
+    public function getActionableParams(Client $client): array
     {
-        return array(
+        return [
             'address' => "/groups/{$this->groupId}/action",
             'method' => TransportInterface::METHOD_PUT,
             'body' => (object) $this->params
-        );
+        ];
     }
 }

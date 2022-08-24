@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
 /**
  * Example: List rules.
  *
@@ -11,7 +11,7 @@ $client = new \Phue\Client($hueHost, $hueUsername);
 echo 'Listing rules:', "\n";
 
 foreach ($client->getRules() as $rule) {
-    echo "\t", "#{$rule->getId()} - {$rule->getName()}", "\n", "\t\t", "Last Triggered Time: {$rule->getLastTriggeredTime()}", "\n", "\t\t", "Created date: {$rule->getCreatedDate()}", "\n", "\t\t", "Times triggered: {$rule->getTriggeredCount()}", "\n", "\t\t", "Owner: {$rule->getOwner()}", "\n", "\t\t", "Status: ", $rule->isEnabled() ? 'Yes' : 'No', "\n";
+    echo "\t", "#{$rule->getId()} - {$rule->getName()}", "\n", "\t\t", "Last Triggered Time: {$rule->getLastTriggeredTime()}", "\n", "\t\t", "Created date: {$rule->getCreateDate()}", "\n", "\t\t", "Times triggered: {$rule->getTriggeredCount()}", "\n", "\t\t", "Owner: {$rule->getOwner()}", "\n", "\t\t", "Status: ", $rule->isEnabled() ? 'Yes' : 'No', "\n";
     
     echo "\t\t", "Conditions: ", "\n";
     foreach ($rule->getConditions() as $condition) {

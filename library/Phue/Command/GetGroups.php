@@ -16,16 +16,12 @@ use Phue\Group;
  */
 class GetGroups implements CommandInterface
 {
-
     /**
      * Send command
      *
-     * @param Client $client
-     *            Phue Client
-     *
      * @return Group[] List of Group objects
      */
-    public function send(Client $client)
+    public function send(Client $client): array
     {
         // Get response
         $results = $client->getTransport()->sendRequest(

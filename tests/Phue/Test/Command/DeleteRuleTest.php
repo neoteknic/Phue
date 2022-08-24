@@ -8,20 +8,16 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\DeleteRule;
 use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\DeleteRule
  */
-class DeleteRuleTest extends \PHPUnit_Framework_TestCase
+class DeleteRuleTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockClient = $this->createMock('\Phue\Client', 

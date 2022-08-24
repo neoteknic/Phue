@@ -13,14 +13,7 @@ namespace Phue\SensorModel;
  */
 class Phdl00Model extends AbstractSensorModel
 {
-
-    /**
-     * Model id
-     */
     const MODEL_ID = 'PHDL00';
 
-    /**
-     * Model name
-     */
     const MODEL_NAME = 'Daylight Sensor';
 }

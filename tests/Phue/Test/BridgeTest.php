@@ -8,27 +8,22 @@
  */
 namespace Phue\Test;
 
+use PHPUnit\Framework\TestCase;
 use Phue\Bridge;
-use Phue\Client;
 
 /**
  * Tests for Phue\Bridge
  */
-class BridgeTest extends \PHPUnit_Framework_TestCase
+class BridgeTest extends TestCase
 {
+    private $mockClient;
+    private Bridge $bridge;
+    private object $attributes;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Build stub attributes
         // $this->attributes = (object) [
@@ -59,7 +54,7 @@ class BridgeTest extends \PHPUnit_Framework_TestCase
         // 'portalconnection' => 'connected',
         // 'portalstate' => (object) [],
         // ];
-        $this->attributes = (object) array(
+        $this->attributes = (object) [
             'name' => 'Hue Bridge',
             'zigbeechannel' => 15,
             'mac' => '00:11:22:33:44:55',
@@ -72,21 +67,21 @@ class BridgeTest extends \PHPUnit_Framework_TestCase
             'UTC' => 'somedate',
             'localtime' => 'someotherdate',
             'timezone' => 'UTC',
-            'whitelist' => array(
-                'abcdefabcdef01234567890123456789' => (object) array(
+            'whitelist' => [
+                'abcdefabcdef01234567890123456789' => (object) [
                     'name' => 'Client name',
                     'create date' => '12-30-2000',
                     'last use date' => '12-30-2001'
-                )
-            ),
+                ]
+            ],
             'swversion' => '12345',
             'apiversion' => '1.5.0',
-            'swupdate' => (object) array(),
+            'swupdate' => (object) [],
             'linkbutton' => true,
             'portalservices' => false,
             'portalconnection' => 'connected',
-            'portalstate' => (object) array()
-        );
+            'portalstate' => (object) []
+        ];
         
         // Create bridge object
         $this->bridge = new Bridge($this->attributes, $this->mockClient);

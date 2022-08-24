@@ -16,34 +16,10 @@ use Phue\Group;
  */
 class GetGroupById implements CommandInterface
 {
+    public function __construct(protected int $groupId)
+    {}
 
-    /**
-     * Group Id
-     *
-     * @var string
-     */
-    protected $groupId;
-
-    /**
-     * Constructs a command
-     *
-     * @param int $groupId
-     *            Group Id
-     */
-    public function __construct($groupId)
-    {
-        $this->groupId = (int) $groupId;
-    }
-
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return Group Group object
-     */
-    public function send(Client $client)
+    public function send(Client $client): Group
     {
         // Get response
         $attributes = $client->getTransport()->sendRequest(

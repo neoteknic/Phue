@@ -9,14 +9,13 @@
 namespace Phue\Test\Command;
 
 use Mockery;
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\UpdateRule;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\UpdateRule
  */
-class UpdateRuleTest extends \PHPUnit_Framework_TestCase
+class UpdateRuleTest extends TestCase
 {
 
     /**

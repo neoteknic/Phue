@@ -1,5 +1,4 @@
 {
-
     "name": "neoteknic/phue",
     "description": "Phue - Philips Hue PHP client - Fork by Neoteknic - extra features",
     "type": "library",
@@ -27,8 +26,10 @@
         "php": "^8.0"
     },
     "require-dev": {
-        "mockery/mockery": "1.*",
-        "phpunit/phpunit": "9.*"
+        "mockery/mockery": "^1.5",
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.8",
+        "friendsofphp/php-cs-fixer": "^3.9.5"
     },
     "suggest": {
         "ext-curl": "Allows usage of cURL transport adapter"
@@ -43,5 +44,9 @@
         "bin/phue-bridge-finder",
         "bin/phue-light-finder",
         "bin/phue-list-lights"
-    ]
+    ],
+    "scripts": {
+        "phpstan": "phpstan analyse library --no-progress --level=6",
+        "phpunit": "phpunit "
+    }
 }

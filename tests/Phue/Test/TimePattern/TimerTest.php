@@ -8,14 +8,14 @@
  */
 namespace Phue\Test\TimePattern;
 
+use PHPUnit\Framework\TestCase;
 use Phue\TimePattern\Timer;
 
 /**
  * Tests for Phue\TimePattern\Timer
  */
-class TimerTest extends \PHPUnit_Framework_TestCase
+class TimerTest extends TestCase
 {
-
     /**
      * Test: Creating recurring time
      *
@@ -24,6 +24,6 @@ class TimerTest extends \PHPUnit_Framework_TestCase
     public function testCreateTime()
     {
         $timer = new Timer(3925);
-        $this->assertRegExp('/^R12\/PT01:05:25$/', (string) $timer->repeat(12));
+        $this->assertMatchesRegularExpression('/^R12\/PT01:05:25$/', (string) $timer->repeat(12));
     }
 }

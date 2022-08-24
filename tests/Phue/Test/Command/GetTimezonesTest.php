@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetTimezones;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetTimezones
  */
-class GetTimezonesTest extends \PHPUnit_Framework_TestCase
+class GetTimezonesTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getTimezones = new GetTimezones();
         
@@ -75,6 +70,6 @@ class GetTimezonesTest extends \PHPUnit_Framework_TestCase
         $response = $this->getTimezones->send($this->mockClient);
         
         // Ensure we have a bridge object
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
     }
 }

@@ -8,47 +8,39 @@
  */
 namespace Phue\Transport\Adapter;
 
-/**
- * Adapter Interface
- */
 interface AdapterInterface
 {
-
     /**
      * Opens the connection
      */
-    public function open();
+    public function open(): void;
 
     /**
      * Sends request
      *
-     * @param string $address
-     *            Request path
-     * @param string $method
-     *            Request method
-     * @param string $body
-     *            Body data
+     * @param string $address Request path
+     * @param string $method  Request method
+     * @param string|null $body Body data
      *
-     * @return string Result
+     * @return string|bool Result
      */
-    public function send($address, $method, $body = null);
+    public function send(string $address, string $method, string $body = null): string|bool;
 
     /**
      * Get http status code from response
-     *
-     * @return string Status code
+     * @see https://www.php.net/manual/de/function.curl-getinfo.php#100556
      */
-    public function getHttpStatusCode();
+    public function getHttpStatusCode(): int;
 
     /**
      * Get content type from response
      *
      * @return string Content type
      */
-    public function getContentType();
+    public function getContentType(): string;
 
     /**
      * Closes the connection
      */
-    public function close();
+    public function close(): void;
 }

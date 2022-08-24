@@ -8,39 +8,35 @@
  */
 namespace Phue\Test;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Scene;
 
 /**
  * Tests for Phue\Scene
  */
-class SceneTest extends \PHPUnit_Framework_TestCase
+class SceneTest extends TestCase
 {
+    private $mockClient;
+    private Scene $scene;
+    private object $attributes;
 
     /**
-     * Set up
-     *
      * @covers \Phue\Scene::__construct
      */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Build stub attributes
-        $this->attributes = (object) array(
+        $this->attributes = (object) [
             'name' => 'Dummy scene',
-            'lights' => array(
+            'lights' => [
                 2,
                 3,
                 5
-            )
-        );
+            ]
+        ];
         
         // Create scene object
         $this->scene = new Scene('custom-id', $this->attributes, $this->mockClient);

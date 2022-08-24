@@ -8,9 +8,6 @@
  */
 namespace Phue\TimePattern;
 
-/**
- * Abstract time pattern
- */
 abstract class AbstractTimePattern implements TimePatternInterface
 {
 }

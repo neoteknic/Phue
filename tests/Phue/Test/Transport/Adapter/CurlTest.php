@@ -8,18 +8,18 @@
  */
 namespace Phue\Test\Transport\Adapter;
 
+use PHPUnit\Framework\TestCase;
 use Phue\Transport\Adapter\Curl as CurlAdapter;
+use CurlHandle;
 
 /**
  * Tests for Phue\Transport\Adapter\Curl
  */
-class CurlTest extends \PHPUnit_Framework_TestCase
+class CurlTest extends TestCase
 {
+    private CurlAdapter $curlAdapter;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         try {
             $this->curlAdapter = new CurlAdapter();
@@ -31,7 +31,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     /**
      * Test: Instantiation without exception
      *
-     * @covers Phue\Transport\Adapter\Curl::__construct
+     * @covers CurlAdapter::__construct
      */
     public function testInstantiation()
     {
@@ -41,32 +41,33 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     /**
      * Test: Open curl adapter
      *
-     * @covers Phue\Transport\Adapter\Curl::open
+     * @covers CurlAdapter::open
      */
     public function testOpen()
     {
         $this->curlAdapter->open();
         
-        $this->assertAttributeInternalType('resource', 'curl', $this->curlAdapter);
+        #$this->assertIsResource($this->curlAdapter->getCurl());
+        $this->assertInstanceOf(CurlHandle::class, $this->curlAdapter->getCurl());
     }
 
     /**
      * Test: Close curl adapter
      *
-     * @covers Phue\Transport\Adapter\Curl::close
+     * @covers CurlAdapter::close
      */
     public function testClose()
     {
         $this->curlAdapter->open();
         $this->curlAdapter->close();
         
-        $this->assertAttributeEmpty('curl', $this->curlAdapter);
+        $this->assertEmpty($this->curlAdapter->getCurl());
     }
 
     /**
      * Test: Send nowhere
      *
-     * @covers Phue\Transport\Adapter\Curl::send
+     * @covers CurlAdapter::send
      */
     public function testSend()
     {
@@ -80,7 +81,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     /**
      * Test: Get Http Status Code
      *
-     * @covers Phue\Transport\Adapter\Curl::getHttpStatusCode
+     * @covers CurlAdapter::getHttpStatusCode
      */
     public function testGetHttpStatusCode()
     {
@@ -94,7 +95,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     /**
      * Test: Get Content Type
      *
-     * @covers Phue\Transport\Adapter\Curl::getContentType
+     * @covers CurlAdapter::getContentType
      */
     public function testGetContentType()
     {

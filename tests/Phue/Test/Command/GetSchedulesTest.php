@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetSchedules;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetSchedules
  */
-class GetSchedulesTest extends \PHPUnit_Framework_TestCase
+class GetSchedulesTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getSchedules = new GetSchedules();
         
@@ -69,7 +64,7 @@ class GetSchedulesTest extends \PHPUnit_Framework_TestCase
         $response = $this->getSchedules->send($this->mockClient);
         
         // Ensure we have an empty array
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEmpty($response);
     }
 
@@ -97,7 +92,7 @@ class GetSchedulesTest extends \PHPUnit_Framework_TestCase
         $response = $this->getSchedules->send($this->mockClient);
         
         // Ensure we have an array of Schedules
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertContainsOnlyInstancesOf('\Phue\Schedule', $response);
     }
 }

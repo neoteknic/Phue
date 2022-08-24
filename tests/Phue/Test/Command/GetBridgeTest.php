@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetBridge;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetBridge
  */
-class GetBridgeTest extends \PHPUnit_Framework_TestCase
+class GetBridgeTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getBridge = new GetBridge();
         

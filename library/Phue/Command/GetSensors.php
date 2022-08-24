@@ -16,16 +16,11 @@ use Phue\Sensor;
  */
 class GetSensors implements CommandInterface
 {
-
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
      * @return Sensor[] List of Sensor objects
      */
-    public function send(Client $client)
+    public function send(Client $client): array
     {
         // Get response
         $results = $client->getTransport()->sendRequest(

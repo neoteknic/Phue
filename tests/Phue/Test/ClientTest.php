@@ -8,22 +8,20 @@
  */
 namespace Phue\Test;
 
+use PHPUnit\Framework\TestCase;
 use Phue\Client;
-use Phue\Command\CommandInterface;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Client
  */
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
+    private Client $client;
 
     /**
-     * Set up
-     *
      * @covers \Phue\Client::__construct
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = new Client('127.0.0.1');
     }
@@ -62,10 +60,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetBridge()
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
@@ -87,10 +82,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetUsers()
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequest
         $mockResults = (object) array(
@@ -113,7 +105,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $users = $this->client->getUsers();
         
         // Ensure at least three users
-        $this->assertEquals(3, count($users));
+        $this->assertCount(3, $users);
         
         // Ensure return type is an array of users
         $this->assertContainsOnlyInstancesOf('\Phue\User', $users);
@@ -127,10 +119,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetLights()
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequest
         // $mockResults = (object) [
@@ -154,7 +143,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $lights = $this->client->getLights();
         
         // Ensure two lights
-        $this->assertEquals(2, count($lights));
+        $this->assertCount(2, $lights);
         
         // Ensure return type is an array of lights
         $this->assertContainsOnlyInstancesOf('\Phue\Light', $lights);
@@ -168,10 +157,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetGroups()
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequest
         // $mockResults = (object) [
@@ -195,7 +181,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $groups = $this->client->getGroups();
         
         // Ensure two groups
-        $this->assertEquals(2, count($groups));
+        $this->assertCount(2, $groups);
         
         // Ensure return type is an array of groups
         $this->assertContainsOnlyInstancesOf('\Phue\Group', $groups);
@@ -209,10 +195,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetSchedules()
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequest
         $mockResults = (object) array(
@@ -233,7 +216,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $schedules = $this->client->getSchedules();
         
         // Ensure three schedules
-        $this->assertEquals(3, count($schedules));
+        $this->assertCount(3, $schedules);
         
         // Ensure return type is an array of schedules
         $this->assertContainsOnlyInstancesOf('\Phue\Schedule', $schedules);
@@ -247,10 +230,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetScenes()
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequest
         // $mockResults = (object) [
@@ -276,7 +256,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $scenes = $this->client->getScenes();
         
         // Ensure three scenes
-        $this->assertEquals(3, count($scenes));
+        $this->assertCount(3, $scenes);
         
         // Ensure return type is an array of scenes
         $this->assertContainsOnlyInstancesOf('\Phue\Scene', $scenes);
@@ -290,10 +270,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetSensors()
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequest
         $mockResults = (object) array(
@@ -313,7 +290,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $sensors = $this->client->getSensors();
         
         // Ensure two sensors
-        $this->assertEquals(2, count($sensors));
+        $this->assertCount(2, $sensors);
         
         // Ensure return type is an array of sensors
         $this->assertContainsOnlyInstancesOf('\Phue\Sensor', $sensors);
@@ -327,10 +304,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetRules()
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequest
         $mockResults = (object) array(
@@ -350,7 +324,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $rules = $this->client->getRules();
         
         // Ensure two rules
-        $this->assertEquals(2, count($rules));
+        $this->assertCount(2, $rules);
         
         // Ensure return type is an array of rules
         $this->assertContainsOnlyInstancesOf('\Phue\Rule', $rules);
@@ -364,11 +338,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetTimezones()
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest',
-                'sendRequestBypassBodyValidation'
-            ));
+        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequestBypassBodyValidation
         $mockResults = array();
@@ -424,10 +394,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testSendCommand()
     {
         // Mock command
-        $mockCommand = $this->createMock('Phue\Command\CommandInterface', 
-            array(
-                'send'
-            ));
+        $mockCommand = $this->createMock('Phue\Command\CommandInterface');
         
         // Stub command's send method
         $mockCommand->expects($this->once())

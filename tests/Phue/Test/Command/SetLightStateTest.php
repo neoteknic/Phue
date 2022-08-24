@@ -8,21 +8,16 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\SetLightState;
 use Phue\Helper\ColorConversion;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\SetLightState
  */
-class SetLightStateTest extends \PHPUnit_Framework_TestCase
+class SetLightStateTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockClient = $this->createMock('\Phue\Client', 
@@ -90,10 +85,11 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\SetLightState::brightness
      *
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function testInvalidBrightness($brightness)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
         $x->brightness($brightness);
     }
@@ -129,10 +125,11 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\SetLightState::hue
      *
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function testInvalidHueValue()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
         $x->hue(70000);
     }
@@ -168,10 +165,11 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\SetLightState::saturation
      *
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function testInvalidSaturationValue()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
         $x->saturation(300);
     }
@@ -209,10 +207,11 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\SetLightState::xy
      *
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function testInvalidXYValue($x, $y)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $_x = new SetLightState($this->mockLight);
         $_x->xy($x, $y);
     }
@@ -253,10 +252,11 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\SetLightState::rgb
      *
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function testInvalidRGBValue($red, $green, $blue)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $_x = new SetLightState($this->mockLight);
         $_x->rgb($red, $green, $blue);
     }
@@ -299,10 +299,11 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\SetLightState::colorTemp
      *
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function testInvalidColorTempValue($temp)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
         $x->colorTemp($temp);
     }
@@ -351,10 +352,11 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\SetLightState::alert
      *
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function testInvalidAlertMode()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
         $x->alert('invalidmode');
     }
@@ -403,10 +405,11 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\SetLightState::effect
      *
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function testInvalidEffectMode()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
         $x->effect('invalidmode');
     }
@@ -442,10 +445,11 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\SetLightState::transitionTime
      *
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function testInvalidTransitionTime()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
         $x->transitionTime(- 10);
     }
@@ -543,7 +547,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerOnState()
+    public function providerOnState(): array
     {
         return array(
             array(
@@ -560,7 +564,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerInvalidBrightness()
+    public function providerInvalidBrightness(): array
     {
         return array(
             array(
@@ -577,7 +581,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerBrightness()
+    public function providerBrightness(): array
     {
         return array(
             array(
@@ -597,7 +601,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerHue()
+    public function providerHue(): array
     {
         return array(
             array(
@@ -617,7 +621,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerSaturation()
+    public function providerSaturation(): array
     {
         return array(
             array(
@@ -637,7 +641,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerInvalidXY()
+    public function providerInvalidXY(): array
     {
         return array(
             array(
@@ -664,7 +668,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerXY()
+    public function providerXY(): array
     {
         return array(
             array(
@@ -687,7 +691,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerInvalidRGB()
+    public function providerInvalidRGB(): array
     {
         return array(
             array(
@@ -723,7 +727,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerRGB()
+    public function providerRGB(): array
     {
         return array(
             array(
@@ -749,7 +753,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerInvalidColorTemp()
+    public function providerInvalidColorTemp(): array
     {
         return array(
             array(
@@ -769,7 +773,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerColorTemp()
+    public function providerColorTemp(): array
     {
         return array(
             array(
@@ -789,7 +793,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerAlert()
+    public function providerAlert(): array
     {
         return array(
             array(
@@ -809,7 +813,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerEffect()
+    public function providerEffect(): array
     {
         return array(
             array(
@@ -826,7 +830,7 @@ class SetLightStateTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function providerTransitionTime()
+    public function providerTransitionTime(): array
     {
         return array(
             array(

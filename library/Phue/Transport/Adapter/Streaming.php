@@ -13,48 +13,34 @@ namespace Phue\Transport\Adapter;
  */
 class Streaming implements AdapterInterface
 {
-
     /**
-     * Stream context
-     *
-     * @var resource
+     * @var ?resource
      */
     protected $streamContext;
 
     /**
-     * File stream
-     *
-     * @var resource
+     * @var ?resource
      */
     protected $fileStream;
 
     /**
      * Opens the connection
      */
-    public function open()
+    public function open(): void
     {
         // Deliberately do nothing
     }
 
     /**
-     * Sends request
-     *
-     * @param string $address
-     *            Request path
-     * @param string $method
-     *            Request method
-     * @param string $body
-     *            Body data
-     *
-     * @return string Result
+     * @inheritdoc
      */
-    public function send($address, $method, $body = null)
+    public function send(string $address, string $method, string $body = null): string|bool
     {
         // Init stream options
-        $streamOptions = array(
+        $streamOptions = [
             'ignore_errors' => true,
             'method' => $method
-        );
+        ];
         
         // Set body if there is one
         if (strlen($body)) {
@@ -62,64 +48,61 @@ class Streaming implements AdapterInterface
         }
         
         $this->streamContext = stream_context_create(
-            array(
+            [
                 'http' => $streamOptions
-            )
+            ]
         );
-        
+
+        if(!$address)
+        {
+            return false;
+        }
+
         // Make request
-            $this->fileStream = @fopen($address, 'r', false, $this->streamContext);
-        
-            return $this->fileStream ? stream_get_contents($this->fileStream) : false;
+        $this->fileStream = @fopen($address, 'r', false, $this->streamContext);
+        return $this->fileStream ? stream_get_contents($this->fileStream) : false;
     }
 
     /**
      * Get response http status code
-     *
-     * @return string Response http code
      */
-    public function getHttpStatusCode()
+    public function getHttpStatusCode(): int
     {
         preg_match('#^HTTP/1\.1 (\d+)#mi', $this->getHeaders(), $matches);
         
-        return isset($matches[1]) ? $matches[1] : false;
+        return $matches[1] ?? false;
     }
 
     /**
-     * Get response content type
-     *
-     * @return string Response content type
+     * @inheritdoc
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         preg_match('#^Content-type: ([^;]+?)$#mi', $this->getHeaders(), $matches);
         
-        return isset($matches[1]) ? $matches[1] : false;
+        return $matches[1] ?? false;
     }
 
-    /**
-     * Get headers
-     *
-     * @return string Headers
-     */
-    public function getHeaders()
+    public function getHeaders(): string|null
     {
         // Don't continue if file stream isn't valid
-        if (! $this->fileStream) {
-            return;
+        if (!$this->fileStream) {
+            return null;
         }
-        
+
+        # https://www.php.net/manual/en/function.stream-get-meta-data.php
         $meta_data = stream_get_meta_data($this->fileStream);
+
         return implode(
-            $meta_data['wrapper_data'],
-            "\r\n"
+            "\r\n",
+            $meta_data['wrapper_data']
         );
     }
 
     /**
-     * Closes the streaming connection
+     * @inheritdoc
      */
-    public function close()
+    public function close(): void
     {
         if (is_resource($this->fileStream)) {
             fclose($this->fileStream);

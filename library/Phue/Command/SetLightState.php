@@ -17,155 +17,81 @@ use Phue\Transport\TransportInterface;
  */
 class SetLightState implements CommandInterface, ActionableInterface
 {
-
-    /**
-     * Brightness min
-     */
     const BRIGHTNESS_MIN = 0;
 
-    /**
-     * Brightness max
-     */
     const BRIGHTNESS_MAX = 255;
 
-    /**
-     * Hue min
-     */
     const HUE_MIN = 0;
 
-    /**
-     * Hue max
-     */
     const HUE_MAX = 65535;
 
-    /**
-     * Saturation min
-     */
     const SATURATION_MIN = 0;
 
-    /**
-     * Saturation max
-     */
     const SATURATION_MAX = 255;
 
-    /**
-     * XY Min
-     */
     const XY_MIN = 0.0;
 
-    /**
-     * XY Max
-     */
     const XY_MAX = 1.0;
 
-    /**
-     * RGB Min
-     */
     const RGB_MIN = 0;
 
-    /**
-     * RGB Max
-     */
     const RGB_MAX = 255;
 
-    /**
-     * Color temperature min
-     */
     const COLOR_TEMP_MIN = 153;
 
-    /**
-     * Color temperature max
-     */
     const COLOR_TEMP_MAX = 500;
 
-    /**
-     * Alert none mode
-     */
     const ALERT_NONE = 'none';
 
-    /**
-     * Alert select mode
-     */
     const ALERT_SELECT = 'select';
 
-    /**
-     * Alert long select mode
-     */
     const ALERT_LONG_SELECT = 'lselect';
 
-    /**
-     * Effect none
-     */
     const EFFECT_NONE = 'none';
 
-    /**
-     * Effect colorloop
-     */
     const EFFECT_COLORLOOP = 'colorloop';
 
-    /**
-     * Light Id
-     *
-     * @var string
-     */
-    protected $lightId;
+    protected int $lightId;
 
     /**
      * State parameters
-     *
-     * @var array
      */
-    protected $params = array();
+    protected array $params = [];
 
     /**
-     * Get alert modes
-     *
      * @return array List of alert modes
      */
-    public static function getAlertModes()
+    public static function getAlertModes(): array
     {
-        return array(
+        return [
             self::ALERT_NONE,
             self::ALERT_SELECT,
             self::ALERT_LONG_SELECT
-        );
+        ];
     }
 
-    /**
-     * Get effect modes
-     *
-     * @return array List of color modes
-     */
-    public static function getEffectModes()
+    public static function getEffectModes(): array
     {
-        return array(
+        return [
             self::EFFECT_NONE,
             self::EFFECT_COLORLOOP
-        );
+        ];
     }
 
     /**
-     * Constructs a command
-     *
-     * @param mixed $light
-     *            Light Id or Light object
+     * @param mixed $light Light Id or Light object
      */
-    public function __construct($light)
+    public function __construct(mixed $light)
     {
-        $this->lightId = (string) $light;
+        $this->lightId = (int) (string) $light;
     }
 
     /**
      * Set on parameter
-     *
-     * @param bool $flag
-     *            True if on, false if not
-     *
-     * @return self This object
      */
-    public function on($flag = true)
+    public function on(bool $flag = true): static
     {
-        $this->params['on'] = (bool) $flag;
+        $this->params['on'] = $flag;
         
         return $this;
     }
@@ -173,14 +99,10 @@ class SetLightState implements CommandInterface, ActionableInterface
     /**
      * Set brightness
      *
-     * @param int $level
-     *            Brightness level
+     *@throws \InvalidArgumentException
      *
-     * @throws \InvalidArgumentException
-     *
-     * @return self This object
      */
-    public function brightness($level = self::BRIGHTNESS_MAX)
+    public function brightness(int $level = self::BRIGHTNESS_MAX): static
     {
         // Don't continue if brightness level is invalid
         if (! (self::BRIGHTNESS_MIN <= $level && $level <= self::BRIGHTNESS_MAX)) {
@@ -190,7 +112,7 @@ class SetLightState implements CommandInterface, ActionableInterface
             );
         }
         
-        $this->params['bri'] = (int) $level;
+        $this->params['bri'] = $level;
         
         return $this;
     }
@@ -203,9 +125,8 @@ class SetLightState implements CommandInterface, ActionableInterface
      *
      * @throws \InvalidArgumentException
      *
-     * @return self This object
      */
-    public function hue($value)
+    public function hue(int $value): static
     {
         // Don't continue if hue value is invalid
         if (! (self::HUE_MIN <= $value && $value <= self::HUE_MAX)) {
@@ -214,22 +135,17 @@ class SetLightState implements CommandInterface, ActionableInterface
             );
         }
         
-        $this->params['hue'] = (int) $value;
+        $this->params['hue'] = $value;
         
         return $this;
     }
 
     /**
      * Set saturation
+     *@throws \InvalidArgumentException
      *
-     * @param int $value
-     *            Saturation value
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return self This object
      */
-    public function saturation($value)
+    public function saturation(int $value): static
     {
         // Don't continue if saturation value is invalid
         if (! (self::SATURATION_MIN <= $value && $value <= self::SATURATION_MAX)) {
@@ -239,7 +155,7 @@ class SetLightState implements CommandInterface, ActionableInterface
             );
         }
         
-        $this->params['sat'] = (int) $value;
+        $this->params['sat'] = $value;
         
         return $this;
     }
@@ -247,16 +163,9 @@ class SetLightState implements CommandInterface, ActionableInterface
     /**
      * Set xy
      *
-     * @param float $x
-     *            X value
-     * @param float $y
-     *            Y value
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return self This object
      */
-    public function xy($x, $y)
+    public function xy(float $x, float $y): static
     {
         // Don't continue if x or y values are invalid
         foreach (array(
@@ -272,8 +181,8 @@ class SetLightState implements CommandInterface, ActionableInterface
         }
         
         $this->params['xy'] = array(
-            (float) $x,
-            (float) $y
+            $x,
+            $y
         );
         
         return $this;
@@ -281,19 +190,9 @@ class SetLightState implements CommandInterface, ActionableInterface
 
     /**
      * Sets xy and brightness calculated from RGB
-     *
-     * @param int $red
-     *          Red value
-     * @param int $green
-     *          Green value
-     * @param int $blue
-     *          Blue value
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return self This object
      */
-    public function rgb($red, $green, $blue,$bri=null)
+    public function rgb(int $red, int $green, int $blue, ?int $bri=null): SetLightState
     {
         // Don't continue if rgb values are invalid
         foreach (array(
@@ -324,15 +223,9 @@ class SetLightState implements CommandInterface, ActionableInterface
 
     /**
      * Set color temperature
-     *
-     * @param int $value
-     *            Color temperature value
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return self This object
      */
-    public function colorTemp($value)
+    public function colorTemp(int $value): static
     {
         // Don't continue if color temperature is invalid
         if (! (self::COLOR_TEMP_MIN <= $value && $value <= self::COLOR_TEMP_MAX)) {
@@ -349,15 +242,10 @@ class SetLightState implements CommandInterface, ActionableInterface
 
     /**
      * Set alert parameter
-     *
-     * @param string $mode
-     *            Alert mode
-     *
      * @throws \InvalidArgumentException
      *
-     * @return self This object
      */
-    public function alert($mode = self::ALERT_LONG_SELECT)
+    public function alert(string $mode = self::ALERT_LONG_SELECT): static
     {
         // Don't continue if mode is not valid
         if (! in_array($mode, self::getAlertModes())) {
@@ -372,14 +260,9 @@ class SetLightState implements CommandInterface, ActionableInterface
     /**
      * Set effect mode
      *
-     * @param string $mode
-     *            Effect mode
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return self This object
      */
-    public function effect($mode = self::EFFECT_COLORLOOP)
+    public function effect(string $mode = self::EFFECT_COLORLOOP): static
     {
         // Don't continue if mode is not valid
         if (! in_array($mode, self::getEffectModes())) {
@@ -392,19 +275,12 @@ class SetLightState implements CommandInterface, ActionableInterface
     }
 
     /**
-     * Transition time
-     *
-     * @param double $seconds
-     *            Time in seconds
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return self This object
      */
-    public function transitionTime($seconds)
+    public function transitionTime(float $seconds): static
     {
         // Don't continue if seconds is not valid
-        if ((double) $seconds < 0) {
+        if ($seconds < 0) {
             throw new \InvalidArgumentException("Time must be at least 0");
         }
         
@@ -416,9 +292,6 @@ class SetLightState implements CommandInterface, ActionableInterface
 
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
      */
     public function send(Client $client)
     {
@@ -434,19 +307,14 @@ class SetLightState implements CommandInterface, ActionableInterface
     }
 
     /**
-     * Get actionable params
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return array Key/value pairs of params
+     * @return array <string, mixed>
      */
-    public function getActionableParams(Client $client)
+    public function getActionableParams(Client $client): array
     {
-        return array(
+        return [
             'address' => "/lights/{$this->lightId}/state",
             'method' => TransportInterface::METHOD_PUT,
             'body' => (object) $this->params
-        );
+        ];
     }
 }

@@ -8,20 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetUsers;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetUsers
  */
-class GetUsersTest extends \PHPUnit_Framework_TestCase
+class GetUsersTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getUsers = new GetUsers();
         
@@ -68,7 +63,7 @@ class GetUsersTest extends \PHPUnit_Framework_TestCase
         $response = $this->getUsers->send($this->mockClient);
         
         // Ensure we have an empty array
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEmpty($response);
     }
 
@@ -97,7 +92,7 @@ class GetUsersTest extends \PHPUnit_Framework_TestCase
         $response = $this->getUsers->send($this->mockClient);
         
         // Ensure we have an array of Users
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertContainsOnlyInstancesOf('\Phue\User', $response);
     }
 }

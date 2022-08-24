@@ -15,177 +15,50 @@ use Phue\Command\SetLightState;
  */
 interface LightInterface
 {
-    /**
-     * Get light or group Id
-     *
-     * @return int Light/Group id
-     */
-    public function getId();
+    public function getId(): int;
 
-    /**
-     * Get assigned name of light or group
-     *
-     * @return string Name of light/group
-     */
-    public function getName();
+    public function getName(): string;
 
-    /**
-     * Set name of light/group
-     *
-     * @param string $name
-     *
-     * @return \Phue\LightInterface
-     */
-    public function setName($name);
+    public function setName(string $name): LightInterface;
 
-    /**
-     * Get type
-     *
-     * @return string Type
-     */
-    public function getType();
+    public function getType(): string;
 
-    /**
-     * Is the light or group on?
-     *
-     * @return bool True if on, false if not
-     */
-    public function isOn();
+    public function isOn(): bool;
 
-    /**
-     * Set light or group on/off
-     *
-     * @param bool $flag
-     *            True for on, false for off
-     *
-     * @return \Phue\LightInterface
-     */
-    public function setOn($flag = true);
+    public function setOn(bool $flag = true): LightInterface;
 
-    /**
-     * Get alert
-     *
-     * @return string Alert mode
-     */
-    public function getAlert();
+    public function getAlert(): ?string;
 
-    /**
-     * Set light or group alert
-     *
-     * @param string $mode
-     *            Alert mode
-     *
-     * @return \Phue\LightInterface
-     */
-    public function setAlert($mode = SetLightState::ALERT_LONG_SELECT);
+    public function setAlert(string $mode = SetLightState::ALERT_LONG_SELECT): LightInterface;
 
-    /**
-     * Get effect mode
-     *
-     * @return string effect mode
-     */
-    public function getEffect();
+    public function getEffect(): ?string;
 
-    /**
-     * Set effect
-     *
-     * @param string $mode
-     *            Effect mode
-     *
-     * @return \Phue\LightInterface
-     */
-    public function setEffect($mode = SetLightState::EFFECT_NONE);
+    public function setEffect(string $mode = SetLightState::EFFECT_NONE): LightInterface;
 
-    /**
-     * Get brightness
-     *
-     * @return int Brightness level
-     */
-    public function getBrightness();
+    public function getBrightness(): ?int;
 
-    /**
-     * Set brightness
-     *
-     * @param int $level
-     *            Brightness level
-     *
-     * @return \Phue\LightInterface
-     */
-    public function setBrightness($level = SetLightState::BRIGHTNESS_MAX);
+    public function setBrightness(int $level = SetLightState::BRIGHTNESS_MAX): LightInterface;
 
-    /**
-     * Get hue
-     *
-     * @return int Hue value
-     */
-    public function getHue();
+    public function getHue(): ?int;
 
-    /**
-     * Set hue
-     *
-     * @param int $value
-     *            Hue value
-     *
-     * @return \Phue\LightInterface
-     */
-    public function setHue($value);
+    public function setHue(int $value): LightInterface;
 
-    /**
-     * Get saturation
-     *
-     * @return int Saturation value
-     */
-    public function getSaturation();
+    public function getSaturation(): ?int;
 
-    /**
-     * Set saturation
-     *
-     * @param int $value
-     *            Saturation value
-     *
-     * @return \Phue\LightInterface
-     */
-    public function setSaturation($value);
+    public function setSaturation(int $value): LightInterface;
 
     /**
      * Get XY
      *
      * @return array X, Y key/value
      */
-    public function getXY();
+    public function getXY(): array;
 
-    /**
-     * Set XY
-     *
-     * @param float $x
-     *            X value
-     * @param float $y
-     *            Y value
-     *
-     * @return \Phue\LightInterface
-     */
-    public function setXY($x, $y);
+    public function setXY(float $x, float $y): LightInterface;
 
-    /**
-     * Get Color temperature
-     *
-     * @return int Color temperature value
-     */
-    public function getColorTemp();
+    public function getColorTemp(): ?int;
 
-    /**
-     * Set Color temperature
-     *
-     * @param int $value Color temperature value
-     *
-     * @return \Phue\LightInterface
-     */
-    public function setColorTemp($value);
+    public function setColorTemp(int $value): LightInterface;
 
-    /**
-     * Get color mode of light
-     *
-     * @return string Color mode
-     */
-    public function getColorMode();
+    public function getColorMode(): ?string;
 }

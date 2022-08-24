@@ -23,7 +23,7 @@ class ColorConversion
      *
      * @return array x, y, bri key/value
      */
-    public static function convertRGBToXY(int $red, int $green, int $blue)
+    public static function convertRGBToXY(int $red, int $green, int $blue): array
     {
         // Normalize the values to 1
         $normalizedToOne['red'] = $red / 255;
@@ -63,13 +63,15 @@ class ColorConversion
     /**
      * Converts XY (and brightness) values to RGB
      *
+     * TODO tests send null for bri, adjust test. desired function?
+     *
      * @param float $x X value
      * @param float $y Y value
-     * @param int $bri Brightness value
+     * @param ?int $bri Brightness value
      *
      * @return array red, green, blue key/value
      */
-    public static function convertXYToRGB(float $x, float $y, int $bri = 255)
+    public static function convertXYToRGB(float $x, float $y, ?int $bri = 255): array
     {
         // Calculate XYZ
         $z = 1.0 - $x - $y;

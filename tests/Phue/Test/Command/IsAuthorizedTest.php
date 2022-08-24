@@ -8,21 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\IsAuthorized;
-use Phue\Transport\Exception\UnauthorizedUserException;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\IsAuthorized
  */
-class IsAuthorizedTest extends \PHPUnit_Framework_TestCase
+class IsAuthorizedTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockClient = $this->createMock('\Phue\Client', 

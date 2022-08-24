@@ -8,21 +8,15 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\SetLightName;
-use Phue\Light;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\SetLightName
  */
-class SetLightNameTest extends \PHPUnit_Framework_TestCase
+class SetLightNameTest extends TestCase
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockClient = $this->createMock('\Phue\Client', 

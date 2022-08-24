@@ -8,50 +8,46 @@
  */
 namespace Phue\Test;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Sensor;
 
 /**
  * Tests for Phue\Sensor
  */
-class SensorTest extends \PHPUnit_Framework_TestCase
+class SensorTest extends TestCase
 {
+    private $mockClient;
+    private object $attributes;
+    private Sensor $sensor;
 
     /**
-     * Set up
-     *
      * @covers \Phue\Sensor::__construct
      */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Build stub attributes
-        $this->attributes = (object) array(
-            'state' => array(
+        $this->attributes = (object) [
+            'state' => [
                 'daylight' => false,
                 'lastupdated' => '2014-06-27T07:38:51'
-            ),
-            'config' => array(
+            ],
+            'config' => [
                 'on' => true,
                 'long' => 'none',
                 'lat' => 'none',
                 'sunriseoffset' => 50,
                 'sunsetoffset' => 50
-            ),
+            ],
             'name' => 'Daylight',
             'type' => 'Daylight',
             'modelid' => 'PHDL00',
             'manufacturername' => 'Philips',
             'swversion' => '1.0',
             'uniqueid' => '00:00:00:00:00:40:03:50-f2'
-        );
+        ];
         
         // Create sensor object
         $this->sensor = new Sensor(7, $this->attributes, $this->mockClient);

@@ -8,18 +8,17 @@
  */
 namespace Phue\Test\LightModel;
 
+use PHPUnit\Framework\TestCase;
 use Phue\LightModel\AbstractLightModel;
 
 /**
  * Tests for Phue\LightModel\AbstractLightModel
  */
-class AbstractLightModelTest extends \PHPUnit_Framework_TestCase
+class AbstractLightModelTest extends TestCase
 {
+    private $mockAbstractLightModel;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockAbstractLightModel = $this->getMockForAbstractClass(
@@ -33,8 +32,8 @@ class AbstractLightModelTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetId()
     {
-        $this->assertEquals($this->mockAbstractLightModel->getId(), 
-            AbstractLightModel::MODEL_ID);
+        $this->assertEquals(AbstractLightModel::MODEL_ID,
+            $this->mockAbstractLightModel->getId());
     }
 
     /**
@@ -44,8 +43,8 @@ class AbstractLightModelTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $this->assertEquals($this->mockAbstractLightModel->getName(), 
-            AbstractLightModel::MODEL_NAME);
+        $this->assertEquals(AbstractLightModel::MODEL_NAME,
+            $this->mockAbstractLightModel->getName());
     }
 
     /**
@@ -55,8 +54,8 @@ class AbstractLightModelTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanRetainState()
     {
-        $this->assertEquals($this->mockAbstractLightModel->canRetainState(), 
-            AbstractLightModel::CAN_RETAIN_STATE);
+        $this->assertEquals(AbstractLightModel::CAN_RETAIN_STATE,
+            $this->mockAbstractLightModel->canRetainState());
     }
 
     /**
@@ -66,7 +65,7 @@ class AbstractLightModelTest extends \PHPUnit_Framework_TestCase
      */
     public function testToString()
     {
-        $this->assertEquals((string) $this->mockAbstractLightModel, 
-            AbstractLightModel::MODEL_NAME);
+        $this->assertEquals(AbstractLightModel::MODEL_NAME,
+            (string) $this->mockAbstractLightModel);
     }
 }

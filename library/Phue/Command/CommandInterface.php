@@ -15,14 +15,11 @@ use Phue\Client;
  */
 interface CommandInterface
 {
-
     /**
      * Send command
      *
-     * @param Client $client
-     *            Phue Client
-     *
      * @return mixed
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function send(Client $client);
 }

@@ -8,53 +8,46 @@
  */
 namespace Phue\Test;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Helper\ColorConversion;
 use Phue\Light;
 
 /**
  * Tests for Phue\Light
  */
-class LightTest extends \PHPUnit_Framework_TestCase
+class LightTest extends TestCase
 {
-    /**
-     * Set up
-     */
-    public function setUp()
+    private object $attributes;
+    private $mockClient;
+    private Light $light;
+
+    public function setUp(): void
     {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            // ['sendCommand'],
-            // ['127.0.0.1']
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Build stub attributes
-        $this->attributes = (object) array(
+        $this->attributes = (object) [
             'name' => 'Hue light',
             'type' => 'Dummy type',
             'modelid' => 'LCT001',
             'uniqueid' => '00:17:88:01:00:bd:d6:54-0d',
             'swversion' => '12345',
-            'state' => (object) array(
+            'state' => (object) [
                 'on' => false,
                 'bri' => '66',
                 'hue' => '60123',
                 'sat' => 213,
-                'xy' => array(
+                'xy' => [
                     .5,
                     .4
-                ),
+                ],
                 'ct' => 300,
                 'alert' => 'none',
                 'effect' => 'none',
                 'colormode' => 'hs',
                 'reachable' => true
-            )
-        );
+            ]
+        ];
         
         // Create light object
         $this->light = new Light(5, $this->attributes, $this->mockClient);
