@@ -8,15 +8,23 @@
  */
 namespace Phue\Test\Command;
 
+use PHPUnit\Framework\MockObject\MockObject;
+use Phue\Command\ActionableInterface;
 use Phue\Command\CreateSchedule;
 use Phue\Schedule;
 use Phue\Transport\TransportInterface;
+use ReflectionObject;
 
 /**
  * Tests for Phue\Command\CreateSchedule
  */
 class CreateScheduleTest extends AbstractCommandTest
 {
+    /**
+     * @var MockObject&ActionableInterface
+     */
+    private $mockCommand;
+
     public function setUp(): void
     {
         // Ensure proper timezone
@@ -50,8 +58,12 @@ class CreateScheduleTest extends AbstractCommandTest
         $command = $x->name('Dummy!');
         
         // Ensure property is set properly
-        #$this->assertAttributeContains('Dummy!', 'attributes', $command);
-        
+        $r = new ReflectionObject($command);
+        $p = $r->getProperty('attributes');
+        $p->setAccessible(true);
+
+        $this->assertSame('Dummy!', $p->getValue($command)["name"]);
+
         // Ensure self object is returned
         $this->assertEquals($command, $command->name('Dummy!'));
     }
@@ -67,7 +79,11 @@ class CreateScheduleTest extends AbstractCommandTest
         $command = $x->description('Description!');
         
         // Ensure property is set properly
-        #$this->assertAttributeContains('Description!', 'attributes', $command);
+        $r = new ReflectionObject($command);
+        $p = $r->getProperty('attributes');
+        $p->setAccessible(true);
+
+        $this->assertSame('Description!', $p->getValue($command)["description"]);
         
         // Ensure self object is returned
         $this->assertEquals($command, $command->name('Description!'));
@@ -101,7 +117,7 @@ class CreateScheduleTest extends AbstractCommandTest
         $command = $x->command($this->mockCommand);
         
         // Ensure properties are set properly
-        #$this->assertAttributeEquals($this->mockCommand, 'command', $command);
+        $this->assertAttributeEquals($this->mockCommand, 'command', $command);
         
         // Ensure self object is returned
         $this->assertEquals($command, $command->command($this->mockCommand));
@@ -118,8 +134,11 @@ class CreateScheduleTest extends AbstractCommandTest
         $command = $x->status(Schedule::STATUS_ENABLED);
         
         // Ensure property is set properly
-        /*$this->assertAttributeContains(Schedule::STATUS_ENABLED, 'attributes',
-            $command);*/
+        $r = new ReflectionObject($command);
+        $p = $r->getProperty('attributes');
+        $p->setAccessible(true);
+
+        $this->assertSame(Schedule::STATUS_ENABLED, $p->getValue($command)["status"]);
         
         // Ensure self object is returned
         $this->assertEquals($command, $command->status(Schedule::STATUS_ENABLED));
@@ -134,8 +153,13 @@ class CreateScheduleTest extends AbstractCommandTest
     {
         $x = new CreateSchedule();
         $command = $x->autodelete(true);
+
         // Ensure property is set properly
-        #$this->assertAttributeContains(true, 'attributes', $command);
+        $r = new ReflectionObject($command);
+        $p = $r->getProperty('attributes');
+        $p->setAccessible(true);
+
+        $this->assertTrue($p->getValue($command)["autodelete"]);
         
         // Ensure self object is returned
         $this->assertEquals($command, $command->autodelete(true));
@@ -146,6 +170,7 @@ class CreateScheduleTest extends AbstractCommandTest
      *
      * @covers \Phue\Command\CreateSchedule::__construct
      * @covers \Phue\Command\CreateSchedule::send
+     * @throws \Exception
      */
     public function testSend(): void
     {

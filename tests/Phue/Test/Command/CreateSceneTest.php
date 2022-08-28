@@ -28,7 +28,7 @@ class CreateSceneTest extends AbstractCommandTest
         $command = new CreateScene('phue-test', 'Scene test');
         
         // Ensure property is set properly
-        #$this->assertAttributeEquals('phue-test', 'id', $command);
+        $this->assertAttributeEquals('phue-test', 'id', $command);
         
         // Ensure self object is returned
         $this->assertEquals($command, $command->id('phue-test'));
@@ -65,17 +65,10 @@ class CreateSceneTest extends AbstractCommandTest
         ]);
         
         // Ensure property is set properly
-        /*$this->assertAttributeEquals(
-            [
-                1,
-                2
-            ], 'lights', $command);
-        */
+        $this->assertAttributeEquals([1, 2], 'lights', $command);
 
         // Ensure self object is returned
-        $this->assertEquals($command, $command->lights([
-            1
-        ]));
+        $this->assertEquals($command, $command->lights([1]));
     }
 
     /**
@@ -92,7 +85,7 @@ class CreateSceneTest extends AbstractCommandTest
         $command->transitionTime(2);
         
         // Ensure property is set properly
-        #$this->assertAttributeEquals(20, 'transitionTime', $command);
+        $this->assertAttributeEquals(20, 'transitionTime', $command);
         
         // Ensure self object is returned
         $this->assertEquals($command, $command->transitionTime(1));

@@ -10,6 +10,7 @@ namespace Phue\Test\Transport\Adapter;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Transport\Adapter\Streaming as StreamingAdapter;
+use ReflectionObject;
 
 /**
  * Tests for Phue\Transport\Adapter\Streaming
@@ -45,10 +46,17 @@ class StreamingTest extends TestCase
         # ValueError : Path cannot be empty
         $this->streamingAdapter->close();
 
-        # TODO
-        #$this->assertAttributeEmpty('streamContext', $this->streamingAdapter);
-        
-        #$this->assertAttributeEmpty('fileStream', $this->streamingAdapter);
+        $r = new ReflectionObject($this->streamingAdapter);
+        $p = $r->getProperty('streamContext');
+        $p->setAccessible(true);
+
+        $this->assertEmpty($p->getValue($this->streamingAdapter));
+
+
+        $p = $r->getProperty('fileStream');
+        $p->setAccessible(true);
+
+        $this->assertEmpty($p->getValue($this->streamingAdapter));
     }
 
     /**

@@ -27,11 +27,11 @@ class ConditionTest extends TestCase
     public function setUp(): void
     {
         $this->condition = new Condition(
-            (object) array(
+            (object) [
                 'address' => '/sensors/2/state/buttonevent',
                 'operator' => 'eq',
                 'value' => '16'
-            ));
+            ]);
     }
 
     /**

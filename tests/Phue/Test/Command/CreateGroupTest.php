@@ -27,7 +27,7 @@ class CreateGroupTest extends AbstractCommandTest
         $command = new CreateGroup('Dummy!');
         
         // Ensure property is set properly
-        #$this->assertAttributeEquals('Dummy!', 'name', $command);
+        $this->assertAttributeEquals('Dummy!', 'name', $command);
         
         // Ensure self object is returned
         $this->assertEquals($command, $command->name('Dummy!'));
@@ -47,17 +47,10 @@ class CreateGroupTest extends AbstractCommandTest
         ));
         
         // Ensure property is set properly
-        /*$this->assertAttributeEquals(
-            array(
-                1,
-                2
-            ), 'lights', $command);
-        */
+        $this->assertAttributeEquals([1, 2], 'lights', $command);
 
         // Ensure self object is returned
-        $this->assertEquals($command, $command->lights(array(
-            1
-        )));
+        $this->assertEquals($command, $command->lights([1]));
     }
 
     /**

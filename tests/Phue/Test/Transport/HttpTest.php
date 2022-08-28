@@ -8,7 +8,10 @@
  */
 namespace Phue\Test\Transport;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Phue\Client;
+use Phue\Test\AssertHelpersTrait;
 use Phue\Transport\Adapter\AdapterInterface;
 use Phue\Transport\Exception\ConnectionException;
 use Phue\Transport\Exception\UnauthorizedUserException;
@@ -19,14 +22,18 @@ use Phue\Transport\Http;
  */
 class HttpTest extends TestCase
 {
+    use AssertHelpersTrait;
+
+    /** @var MockObject&Client $mockClient */
     private $mockClient;
+    /** @var MockObject&AdapterInterface $mockAdapter */
     private $mockAdapter;
     private Http $transport;
 
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Mock transport adapter
         $this->mockAdapter = $this->createMock(AdapterInterface::class);
@@ -43,7 +50,7 @@ class HttpTest extends TestCase
     public function testClientProperty(): void
     {
         // Ensure property is set properly
-        #this->assertAttributeEquals($this->mockClient, 'client', $this->transport);
+        $this->assertAttributeEquals($this->mockClient, 'client', $this->transport);
     }
 
     /**

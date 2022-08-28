@@ -16,7 +16,7 @@ use Phue\Command\GetSchedules;
  */
 class GetSchedulesTest extends AbstractCommandTest
 {
-    private $getSchedules;
+    private GetSchedules $getSchedules;
 
     public function setUp(): void
     {

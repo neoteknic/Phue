@@ -9,6 +9,7 @@
 namespace Phue\Test;
 
 use Mockery\Mock;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Helper\ColorConversion;
@@ -20,7 +21,8 @@ use Phue\Light;
 class LightTest extends TestCase
 {
     private object $attributes;
-    private Client|Mock $mockClient;
+    /** @var MockObject&Client $mockClient */
+    private $mockClient;
     private Light $light;
 
     public function setUp(): void
@@ -197,7 +199,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::getHue
      * @covers \Phue\Light::setHue
      */
-    public function testGetSetHue()
+    public function testGetSetHue(): void
     {
         $this->stubMockClientSendSetLightStateCommand();
         
@@ -217,7 +219,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::getSaturation
      * @covers \Phue\Light::setSaturation
      */
-    public function testGetSetSaturation()
+    public function testGetSetSaturation(): void
     {
         $this->stubMockClientSendSetLightStateCommand();
         
@@ -238,7 +240,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::getXY
      * @covers \Phue\Light::setXY
      */
-    public function testGetSetXY()
+    public function testGetSetXY(): void
     {
         $this->stubMockClientSendSetLightStateCommand();
         
@@ -266,7 +268,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::getRGB
      * @covers \Phue\Light::setRGB
      */
-    public function testGetSetRGB()
+    public function testGetSetRGB(): void
     {
         $this->stubMockClientSendSetLightStateCommand();
 
@@ -301,7 +303,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::getColorTemp
      * @covers \Phue\Light::setColorTemp
      */
-    public function testGetSetColorTemp()
+    public function testGetSetColorTemp(): void
     {
         $this->stubMockClientSendSetLightStateCommand();
         
@@ -322,7 +324,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::getAlert
      * @covers \Phue\Light::setAlert
      */
-    public function testGetSetAlert()
+    public function testGetSetAlert(): void
     {
         $this->stubMockClientSendSetLightStateCommand();
         
@@ -343,7 +345,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::getEffect
      * @covers \Phue\Light::setEffect
      */
-    public function testGetSetEffect()
+    public function testGetSetEffect(): void
     {
         $this->stubMockClientSendSetLightStateCommand();
         
@@ -363,7 +365,7 @@ class LightTest extends TestCase
      *
      * @covers \Phue\Light::getColorMode
      */
-    public function testGetColormode()
+    public function testGetColormode(): void
     {
         $this->assertEquals(
             $this->attributes->state->colormode, 
@@ -376,7 +378,7 @@ class LightTest extends TestCase
      *
      * @covers \Phue\Light::getColorMode
      */
-    public function testGetColormodeMissing()
+    public function testGetColormodeMissing(): void
     {
         $reflection = new \ReflectionClass($this->light);
         $property = $reflection->getProperty('attributes');
@@ -397,7 +399,7 @@ class LightTest extends TestCase
      *
      * @covers \Phue\Light::isReachable
      */
-    public function testIsReachable()
+    public function testIsReachable(): void
     {
         $this->assertEquals($this->attributes->state->reachable, 
             $this->light->isReachable());
@@ -408,7 +410,7 @@ class LightTest extends TestCase
      *
      * @covers \Phue\Light::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals($this->light->getId(), (string) $this->light);
     }
@@ -416,7 +418,7 @@ class LightTest extends TestCase
     /**
      * Stub mock client's send command
      */
-    protected function stubMockClientSendSetLightStateCommand()
+    protected function stubMockClientSendSetLightStateCommand(): void
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')

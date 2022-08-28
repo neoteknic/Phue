@@ -11,13 +11,17 @@ namespace Phue\Test\Command;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
+use Phue\Test\AssertHelpersTrait;
 use Phue\Transport\TransportInterface;
+use ReflectionObject;
 
 /**
  *
  */
 class AbstractCommandTest extends TestCase
 {
+    use AssertHelpersTrait;
+
     /** @var Client&MockObject $mockClient */
     protected $mockClient;
 

@@ -38,12 +38,12 @@ class PortalTest extends TestCase
         // 'outgoing' => true,
         // 'communication' => 'disconnected'
         // ];
-        $this->attributes = (object) array(
+        $this->attributes = (object) [
             'signedon' => true,
             'incoming' => false,
             'outgoing' => true,
             'communication' => 'disconnected'
-        );
+        ];
         
         // Create portal object
         $this->portal = new Portal($this->attributes, $this->mockClient);
@@ -54,7 +54,7 @@ class PortalTest extends TestCase
      *
      * @covers \Phue\Portal::isSignedOn
      */
-    public function testIsSignedOn()
+    public function testIsSignedOn(): void
     {
         $this->assertEquals($this->attributes->signedon, $this->portal->isSignedOn());
     }
@@ -64,7 +64,7 @@ class PortalTest extends TestCase
      *
      * @covers \Phue\Portal::isIncoming
      */
-    public function testIsIncoming()
+    public function testIsIncoming(): void
     {
         $this->assertEquals($this->attributes->incoming, $this->portal->isIncoming());
     }
@@ -74,7 +74,7 @@ class PortalTest extends TestCase
      *
      * @covers \Phue\Portal::isOutgoing
      */
-    public function testIsOutgoing()
+    public function testIsOutgoing(): void
     {
         $this->assertEquals($this->attributes->outgoing, $this->portal->isOutgoing());
     }
@@ -84,7 +84,7 @@ class PortalTest extends TestCase
      *
      * @covers \Phue\Portal::getCommunication
      */
-    public function testGetCommunication()
+    public function testGetCommunication(): void
     {
         $this->assertEquals($this->attributes->communication, 
             $this->portal->getCommunication());

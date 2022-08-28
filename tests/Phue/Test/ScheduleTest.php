@@ -8,7 +8,9 @@
  */
 namespace Phue\Test;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Phue\Client;
 use Phue\Schedule;
 
 /**
@@ -16,6 +18,7 @@ use Phue\Schedule;
  */
 class ScheduleTest extends TestCase
 {
+    /** @var MockObject&Client $mockClient */
     private $mockClient;
     private object $attributes;
     private Schedule $schedule;
