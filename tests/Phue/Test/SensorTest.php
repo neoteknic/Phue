@@ -8,7 +8,9 @@
  */
 namespace Phue\Test;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Phue\Client;
 use Phue\Sensor;
 
 /**
@@ -16,6 +18,7 @@ use Phue\Sensor;
  */
 class SensorTest extends TestCase
 {
+    /** @var MockObject&Client $mockClient */
     private $mockClient;
     private object $attributes;
     private Sensor $sensor;

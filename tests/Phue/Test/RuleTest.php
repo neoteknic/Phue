@@ -9,6 +9,7 @@
 namespace Phue\Test;
 
 use Mockery\Mock;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Rule;
@@ -18,7 +19,8 @@ use Phue\Rule;
  */
 class RuleTest extends TestCase
 {
-    private Client|Mock $mockClient;
+    /** @var MockObject&Client $mockClient */
+    private $mockClient;
     private object $attributes;
     private Rule $rule;
 

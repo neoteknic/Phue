@@ -16,7 +16,7 @@ use Phue\Command\GetGroups;
  */
 class GetGroupsTest extends AbstractCommandTest
 {
-    private $getGroups;
+    private GetGroups $getGroups;
 
     public function setUp(): void
     {

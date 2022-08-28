@@ -9,6 +9,7 @@
 namespace Phue\Test;
 
 use Mockery\Mock;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Helper\ColorConversion;
@@ -19,7 +20,8 @@ use Phue\Group;
  */
 class GroupTest extends TestCase
 {
-    private Client|Mock $mockClient;
+    /** @var MockObject&Client $mockClient */
+    private $mockClient;
     private object $attributes;
     private Group $group;
 

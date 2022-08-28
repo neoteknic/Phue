@@ -9,6 +9,7 @@
 namespace Phue\Test;
 
 use Mockery\Mock;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Scene;
@@ -18,7 +19,8 @@ use Phue\Scene;
  */
 class SceneTest extends TestCase
 {
-    private Client|Mock $mockClient;
+    /** @var MockObject&Client $mockClient */
+    private $mockClient;
     private Scene $scene;
     private object $attributes;
 

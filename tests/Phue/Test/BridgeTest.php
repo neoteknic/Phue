@@ -8,7 +8,7 @@
  */
 namespace Phue\Test;
 
-use Mockery\Mock;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Bridge;
 use Phue\Client;
@@ -18,7 +18,8 @@ use Phue\Client;
  */
 class BridgeTest extends TestCase
 {
-    private Client|Mock $mockClient;
+    /** @var MockObject&Client $mockClient */
+    private $mockClient;
     private Bridge $bridge;
     private object $attributes;
 

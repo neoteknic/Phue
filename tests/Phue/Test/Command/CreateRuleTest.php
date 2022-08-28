@@ -9,6 +9,7 @@
 namespace Phue\Test\Command;
 
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
@@ -51,7 +52,7 @@ class CreateRuleTest extends TestCase
     public function testAddCondition(): void
     {
         /** @var Condition $condition */
-        $condition = Mockery::mock('\Phue\Condition')->makePartial();
+        $condition = Mockery::mock(Condition::class)->makePartial();
         
         $command = new CreateRule();
         
@@ -66,7 +67,7 @@ class CreateRuleTest extends TestCase
     public function testAddAction(): void
     {
         /** @var ActionableInterface $action */
-        $action = Mockery::mock('\Phue\Command\ActionableInterface')->makePartial();
+        $action = Mockery::mock(ActionableInterface::class)->makePartial();
         
         $command = new CreateRule();
         
@@ -80,11 +81,9 @@ class CreateRuleTest extends TestCase
      */
     public function testSend(): void
     {
-        /** @var Client|MockObject $mockClient */
-        $mockClient = Mockery::mock('\Phue\Client', 
-            [
-                'getUsername' => 'abcdefabcdef01234567890123456789'
-            ])->makePartial();
+        /** @var Client&MockInterface $mockClient */
+        $mockClient = Mockery::mock(Client::class, ['getUsername' => 'abcdefabcdef01234567890123456789'])
+            ->makePartial();
         
         // Mock client commands
         $mockClient->shouldReceive('getTransport->sendRequest')->
@@ -93,9 +92,15 @@ class CreateRuleTest extends TestCase
         ]);
         
         $x = new CreateRule('test');
-        $command = $x->addCondition(Mockery::mock('\Phue\Condition')->makePartial())
-            ->addAction(
-            Mockery::mock('\Phue\Command\ActionableInterface')->shouldIgnoreMissing());
+
+        /** @var Condition&MockInterface $condition */
+        $condition = Mockery::mock(Condition::class)->makePartial();
+
+        /** @var ActionableInterface&MockInterface $action */
+        $action = Mockery::mock(ActionableInterface::class)->shouldIgnoreMissing();
+
+        $command = $x->addCondition($condition)
+                     ->addAction($action);
         
         $this->assertEquals('5', $command->send($mockClient));
     }
