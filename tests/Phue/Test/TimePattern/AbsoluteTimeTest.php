@@ -21,7 +21,7 @@ class AbsoluteTimeTest extends TestCase
      *
      * @covers \Phue\TimePattern\AbsoluteTime
      */
-    public function testCreateTime()
+    public function testCreateTime(): void
     {
         $this->assertMatchesRegularExpression('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/',
             (string) new AbsoluteTime('now'));

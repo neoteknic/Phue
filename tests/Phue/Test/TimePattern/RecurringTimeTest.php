@@ -21,7 +21,7 @@ class RecurringTimeTest extends TestCase
      *
      * @covers \Phue\TimePattern\RecurringTime
      */
-    public function testCreateTime()
+    public function testCreateTime(): void
     {
         $this->assertMatchesRegularExpression('/^W34\/T14:02:05$/',
             (string) new RecurringTime(

@@ -8,7 +8,9 @@
  */
 namespace Phue\Test;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Phue\Client;
 use Phue\Portal;
 
 /**
@@ -16,6 +18,7 @@ use Phue\Portal;
  */
 class PortalTest extends TestCase
 {
+    /** @var Client&MockObject $mockClient */
     private $mockClient;
     private object $attributes;
     private Portal $portal;

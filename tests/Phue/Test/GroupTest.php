@@ -8,7 +8,9 @@
  */
 namespace Phue\Test;
 
+use Mockery\Mock;
 use PHPUnit\Framework\TestCase;
+use Phue\Client;
 use Phue\Helper\ColorConversion;
 use Phue\Group;
 
@@ -17,7 +19,7 @@ use Phue\Group;
  */
 class GroupTest extends TestCase
 {
-    private $mockClient;
+    private Client|Mock $mockClient;
     private object $attributes;
     private Group $group;
 
@@ -26,28 +28,28 @@ class GroupTest extends TestCase
         $this->mockClient = $this->createMock('\Phue\Client');
         
         // Build stub attributes
-        $this->attributes = (object) array(
+        $this->attributes = (object) [
             'name' => 'Dummy group',
-            'action' => (object) array(
+            'action' => (object) [
                 'on' => false,
                 'bri' => '66',
                 'hue' => '60123',
                 'sat' => 213,
-                'xy' => array(
+                'xy' => [
                     0.5,
                     0.4
-                ),
+                ],
                 'ct' => 300,
                 'colormode' => 'hs',
                 'effect' => 'none'
-            ),
-            'lights' => array(
+            ],
+            'lights' => [
                 2,
                 3,
                 5
-            ),
+            ],
             'type' => 'LightGroup'
-        );
+        ];
         
         // Create group object
         $this->group = new Group(6, $this->attributes, $this->mockClient);
@@ -59,7 +61,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::__construct
      * @covers \Phue\Group::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
         $this->assertEquals(6, $this->group->getId());
     }
@@ -70,7 +72,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::__construct
      * @covers \Phue\Group::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals($this->attributes->name, $this->group->getName());
     }
@@ -81,7 +83,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::setName
      * @covers \Phue\Group::getName
      */
-    public function testSetName()
+    public function testSetName(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
@@ -101,7 +103,7 @@ class GroupTest extends TestCase
      *
      * @covers \Phue\Group::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals($this->attributes->type, $this->group->getType());
     }
@@ -111,7 +113,7 @@ class GroupTest extends TestCase
      *
      * @covers \Phue\Group::getLightIds
      */
-    public function testGetLightIds()
+    public function testGetLightIds(): void
     {
         $this->assertEquals($this->attributes->lights, $this->group->getLightIds());
     }
@@ -122,7 +124,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::setLights
      * @covers \Phue\Group::getLightIds
      */
-    public function testSetLights()
+    public function testSetLights(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
@@ -155,7 +157,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::isOn
      * @covers \Phue\Group::setOn
      */
-    public function testIsSetOn()
+    public function testIsSetOn(): void
     {
         $this->stubMockClientSendSetGroupStateCommand();
         
@@ -175,7 +177,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::getBrightness
      * @covers \Phue\Group::setBrightness
      */
-    public function testGetSetBrightness()
+    public function testGetSetBrightness(): void
     {
         $this->stubMockClientSendSetGroupStateCommand();
         
@@ -196,7 +198,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::getHue
      * @covers \Phue\Group::setHue
      */
-    public function testGetSetHue()
+    public function testGetSetHue(): void
     {
         $this->stubMockClientSendSetGroupStateCommand();
         
@@ -216,7 +218,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::getSaturation
      * @covers \Phue\Group::setSaturation
      */
-    public function testGetSetSaturation()
+    public function testGetSetSaturation(): void
     {
         $this->stubMockClientSendSetGroupStateCommand();
         
@@ -237,7 +239,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::getXY
      * @covers \Phue\Group::setXY
      */
-    public function testGetSetXY()
+    public function testGetSetXY(): void
     {
         $this->stubMockClientSendSetGroupStateCommand();
         
@@ -304,7 +306,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::getColorTemp
      * @covers \Phue\Group::setColorTemp
      */
-    public function testGetSetColorTemp()
+    public function testGetSetColorTemp(): void
     {
         $this->stubMockClientSendSetGroupStateCommand();
         
@@ -325,7 +327,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::getEffect
      * @covers \Phue\Group::setEffect
      */
-    public function testGetSetEffect()
+    public function testGetSetEffect(): void
     {
         $this->stubMockClientSendSetGroupStateCommand();
         
@@ -345,7 +347,7 @@ class GroupTest extends TestCase
      *
      * @covers \Phue\Group::getColorMode
      */
-    public function testGetColormode()
+    public function testGetColormode(): void
     {
         $this->assertEquals($this->attributes->action->colormode, 
             $this->group->getColorMode());
@@ -356,7 +358,7 @@ class GroupTest extends TestCase
      *
      * @covers \Phue\Group::setScene
      */
-    public function testSetScene()
+    public function testSetScene(): void
     {
         $this->stubMockClientSendSetGroupStateCommand();
         
@@ -369,7 +371,7 @@ class GroupTest extends TestCase
      *
      * @covers \Phue\Group::delete
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
@@ -383,7 +385,7 @@ class GroupTest extends TestCase
      *
      * @covers \Phue\Group::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals($this->group->getId(), (string) $this->group);
     }
@@ -391,7 +393,7 @@ class GroupTest extends TestCase
     /**
      * Stub mock client's send command
      */
-    protected function stubMockClientSendSetGroupStateCommand()
+    protected function stubMockClientSendSetGroupStateCommand(): void
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')

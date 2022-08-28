@@ -17,13 +17,12 @@ use Phue\Command\UpdateSensorState;
  */
 class UpdateSensorStateTest extends TestCase
 {
-
     /**
      * Test: Instantiating UpdateSensorState command
      *
      * @covers \Phue\Command\UpdateSensorState::__construct
      */
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $command = new UpdateSensorState('4');
     }
@@ -33,7 +32,7 @@ class UpdateSensorStateTest extends TestCase
      *
      * @covers \Phue\Command\UpdateSensorState::stateAttribute
      */
-    public function testName()
+    public function testName(): void
     {
         $command = new UpdateSensorState('4');
         
@@ -45,13 +44,13 @@ class UpdateSensorStateTest extends TestCase
      *
      * @covers \Phue\Command\UpdateSensorState::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Mock client
         $mockClient = Mockery::mock('\Phue\Client', 
-            array(
+            [
                 'getUsername' => 'abcdefabcdef01234567890123456789'
-            ))->makePartial();
+            ])->makePartial();
         
         // Mock client commands
         $mockClient->shouldReceive('getTransport->sendRequest');

@@ -19,18 +19,10 @@ class SetGroupStateTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock group
         $this->mockGroup = $this->createMock('\Phue\Group', null, 
@@ -57,7 +49,7 @@ class SetGroupStateTest extends TestCase
      * @covers \Phue\Command\SetGroupState::scene
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testSceneSend()
+    public function testSceneSend(): void
     {
         $scene = 'phue-test';
         
@@ -83,16 +75,16 @@ class SetGroupStateTest extends TestCase
      * @covers \Phue\Command\SetGroupState::__construct
      * @covers \Phue\Command\SetGroupState::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Build command
         $setGroupStateCmd = new SetGroupState($this->mockGroup);
         
         // Set expected payload
         $this->stubTransportSendRequestWithPayload(
-            (object) array(
+            (object) [
                 'ct' => '300'
-            ));
+            ]);
         
         // Change color temp and set state
         $setGroupStateCmd->colorTemp(300)->send($this->mockClient);
@@ -103,7 +95,7 @@ class SetGroupStateTest extends TestCase
      *
      * @covers \Phue\Command\SetGroupState::getActionableParams
      */
-    public function testGetActionableParams()
+    public function testGetActionableParams(): void
     {
         // Build command
         $setGroupStateCmd = new SetGroupState($this->mockGroup);
@@ -113,13 +105,13 @@ class SetGroupStateTest extends TestCase
         
         // Ensure schedulable params are expected
         $this->assertEquals(
-            array(
+            [
                 'address' => "/groups/{$this->mockGroup->getId()}/action",
                 'method' => 'PUT',
-                'body' => (object) array(
+                'body' => (object) [
                     'alert' => 'select'
-                )
-            ), $setGroupStateCmd->getActionableParams($this->mockClient));
+                ]
+            ], $setGroupStateCmd->getActionableParams($this->mockClient));
     }
 
     /**
@@ -128,7 +120,7 @@ class SetGroupStateTest extends TestCase
      * @param \stdClass $payload
      *            Payload
      */
-    protected function stubTransportSendRequestWithPayload(\stdClass $payload)
+    protected function stubTransportSendRequestWithPayload(\stdClass $payload): void
     {
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())

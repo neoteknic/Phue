@@ -29,7 +29,8 @@
         "mockery/mockery": "^1.5",
         "phpunit/phpunit": "^9.5",
         "phpstan/phpstan": "^1.8",
-        "friendsofphp/php-cs-fixer": "^3.9.5"
+        "friendsofphp/php-cs-fixer": "^3.9.5",
+        "ext-curl": "*"
     },
     "suggest": {
         "ext-curl": "Allows usage of cURL transport adapter"

@@ -19,18 +19,10 @@ class SetLightNameTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock light
         $this->mockLight = $this->createMock('\Phue\Light', null, 
@@ -57,7 +49,7 @@ class SetLightNameTest extends TestCase
      * @covers \Phue\Command\SetLightName::__construct
      * @covers \Phue\Command\SetLightName::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())

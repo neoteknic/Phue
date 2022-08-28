@@ -15,36 +15,15 @@ use Phue\Transport\TransportInterface;
 /**
  * Tests for Phue\Command\CreateScene
  */
-class CreateSceneTest extends TestCase
+class CreateSceneTest extends AbstractCommandTest
 {
-    public function setUp(): void
-    {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
-        #$this->mockClient = $this->getMockBuilder('\Phue\Client')
-        #    ->setConstructorArgs(['127.0.0.1']);
-
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
-    }
-
     /**
      * Test: Set Id
      *
      * @covers \Phue\Command\CreateScene::__construct
      * @covers \Phue\Command\CreateScene::id
      */
-    public function testId()
+    public function testId(): void
     {
         $command = new CreateScene('phue-test', 'Scene test');
         
@@ -61,7 +40,7 @@ class CreateSceneTest extends TestCase
      * @covers \Phue\Command\CreateScene::__construct
      * @covers \Phue\Command\CreateScene::name
      */
-    public function testName()
+    public function testName(): void
     {
         $command = new CreateScene('phue-test', 'Scene test');
         
@@ -78,7 +57,7 @@ class CreateSceneTest extends TestCase
      * @covers \Phue\Command\CreateScene::__construct
      * @covers \Phue\Command\CreateScene::lights
      */
-    public function testLights()
+    public function testLights(): void
     {
         $command = new CreateScene('phue-test', 'Scene test', [
             1,
@@ -104,7 +83,7 @@ class CreateSceneTest extends TestCase
      *
      * @covers \Phue\Command\CreateScene::transitionTime
      */
-    public function testTransitionTime()
+    public function testTransitionTime(): void
     {
         $command = new CreateScene('phue-test', 'Scene test', array(
             1,
@@ -124,7 +103,7 @@ class CreateSceneTest extends TestCase
      *
      * @covers \Phue\Command\CreateScene::transitionTime
      */
-    public function testExceptionOnInvalidTransitionTime()
+    public function testExceptionOnInvalidTransitionTime(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $command = new CreateScene('phue-test', 'Scene test', array(
@@ -140,7 +119,7 @@ class CreateSceneTest extends TestCase
      * @covers \Phue\Command\CreateScene::__construct
      * @covers \Phue\Command\CreateScene::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         $command = new CreateScene('phue-test', 'Scene test', array(
             2,
@@ -156,14 +135,14 @@ class CreateSceneTest extends TestCase
                 "/api/{$this->mockClient->getUsername()}/scenes/phue-test"), 
             $this->equalTo(TransportInterface::METHOD_PUT), 
             $this->equalTo(
-                (object) array(
+                (object) [
                     'name' => 'Scene test',
-                    'lights' => array(
+                    'lights' => [
                         2,
                         3
-                    ),
+                    ],
                     'transitiontime' => 50
-                )));
+                ]));
         
         // Send command
         $command->send($this->mockClient);

@@ -30,7 +30,7 @@ class AbstractLightModelTest extends TestCase
      *
      * @covers \Phue\LightModel\AbstractLightModel::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
         $this->assertEquals(AbstractLightModel::MODEL_ID,
             $this->mockAbstractLightModel->getId());
@@ -41,7 +41,7 @@ class AbstractLightModelTest extends TestCase
      *
      * @covers \Phue\LightModel\AbstractLightModel::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals(AbstractLightModel::MODEL_NAME,
             $this->mockAbstractLightModel->getName());
@@ -52,7 +52,7 @@ class AbstractLightModelTest extends TestCase
      *
      * @covers \Phue\LightModel\AbstractLightModel::canRetainState
      */
-    public function testCanRetainState()
+    public function testCanRetainState(): void
     {
         $this->assertEquals(AbstractLightModel::CAN_RETAIN_STATE,
             $this->mockAbstractLightModel->canRetainState());
@@ -63,7 +63,7 @@ class AbstractLightModelTest extends TestCase
      *
      * @covers \Phue\LightModel\AbstractLightModel::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals(AbstractLightModel::MODEL_NAME,
             (string) $this->mockAbstractLightModel);

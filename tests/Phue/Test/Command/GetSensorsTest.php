@@ -14,36 +14,13 @@ use Phue\Command\GetSensors;
 /**
  * Tests for Phue\Command\GetSensors
  */
-class GetSensorsTest extends TestCase
+class GetSensorsTest extends AbstractCommandTest
 {
     public function setUp(): void
     {
         $this->getSensors = new GetSensors();
         
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+        parent::setUp();
     }
 
     /**

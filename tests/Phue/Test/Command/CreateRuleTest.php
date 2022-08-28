@@ -9,21 +9,24 @@
 namespace Phue\Test\Command;
 
 use Mockery;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Phue\Client;
+use Phue\Command\ActionableInterface;
 use Phue\Command\CreateRule;
+use Phue\Condition;
 
 /**
  * Tests for Phue\Command\CreateRule
  */
 class CreateRuleTest extends TestCase
 {
-
     /**
      * Test: Instantiating CreateRule command
      *
      * @covers \Phue\Command\CreateRule::__construct
      */
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $command = new CreateRule('dummy name');
     }
@@ -33,7 +36,7 @@ class CreateRuleTest extends TestCase
      *
      * @covers \Phue\Command\CreateRule::name
      */
-    public function testName()
+    public function testName(): void
     {
         $command = new CreateRule();
         
@@ -45,8 +48,9 @@ class CreateRuleTest extends TestCase
      *
      * @covers \Phue\Command\CreateRule::addCondition
      */
-    public function testAddCondition()
+    public function testAddCondition(): void
     {
+        /** @var Condition $condition */
         $condition = Mockery::mock('\Phue\Condition')->makePartial();
         
         $command = new CreateRule();
@@ -59,8 +63,9 @@ class CreateRuleTest extends TestCase
      *
      * @covers \Phue\Command\CreateRule::addAction
      */
-    public function testAddAction()
+    public function testAddAction(): void
     {
+        /** @var ActionableInterface $action */
         $action = Mockery::mock('\Phue\Command\ActionableInterface')->makePartial();
         
         $command = new CreateRule();
@@ -73,19 +78,19 @@ class CreateRuleTest extends TestCase
      *
      * @covers \Phue\Command\CreateRule::send
      */
-    public function testSend()
+    public function testSend(): void
     {
-        // Mock client
+        /** @var Client|MockObject $mockClient */
         $mockClient = Mockery::mock('\Phue\Client', 
-            array(
+            [
                 'getUsername' => 'abcdefabcdef01234567890123456789'
-            ))->makePartial();
+            ])->makePartial();
         
         // Mock client commands
         $mockClient->shouldReceive('getTransport->sendRequest')->
-        andReturn((object) array(
+        andReturn((object) [
             'id' => '5'
-        ));
+        ]);
         
         $x = new CreateRule('test');
         $command = $x->addCondition(Mockery::mock('\Phue\Condition')->makePartial())

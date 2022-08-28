@@ -17,13 +17,12 @@ use Phue\Command\UpdateRule;
  */
 class UpdateRuleTest extends TestCase
 {
-
     /**
      * Test: Instantiating UpdateRule command
      *
      * @covers \Phue\Command\UpdateRule::__construct
      */
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $command = new UpdateRule('4');
     }
@@ -33,7 +32,7 @@ class UpdateRuleTest extends TestCase
      *
      * @covers \Phue\Command\UpdateRule::name
      */
-    public function testName()
+    public function testName(): void
     {
         $command = new UpdateRule('4');
         
@@ -45,18 +44,17 @@ class UpdateRuleTest extends TestCase
      *
      * @covers \Phue\Command\UpdateRule::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Mock client
         $mockClient = Mockery::mock('\Phue\Client', 
-            array(
-                'getUsername' => 'abcdefabcdef01234567890123456789'
-            ))->makePartial();
+            ['getUsername' => 'abcdefabcdef01234567890123456789'])->makePartial();
         
         // Mock client commands
         $mockClient->shouldReceive('getTransport->sendRequest');
         
         $rule = new UpdateRule('5');
+
         $command = $rule->addCondition(
             Mockery::mock('\Phue\Condition')->makePartial())
             ->addAction(

@@ -26,11 +26,6 @@ class ConditionTest extends TestCase
      */
     public function setUp(): void
     {
-        // $this->condition = new Condition((object) [
-        // 'address' => '/sensors/2/state/buttonevent',
-        // 'operator' => 'eq',
-        // 'value' => '16'
-        // ]);
         $this->condition = new Condition(
             (object) array(
                 'address' => '/sensors/2/state/buttonevent',
@@ -45,7 +40,7 @@ class ConditionTest extends TestCase
      * @covers \Phue\Condition::getSensorId
      * @covers \Phue\Condition::setSensorId
      */
-    public function testGetSetSensorId()
+    public function testGetSetSensorId(): void
     {
         $this->assertEquals('2', $this->condition->getSensorId());
         
@@ -60,7 +55,7 @@ class ConditionTest extends TestCase
      * @covers \Phue\Condition::getAttribute
      * @covers \Phue\Condition::setAttribute
      */
-    public function testGetSetAttribute()
+    public function testGetSetAttribute(): void
     {
         $this->assertEquals('buttonevent', $this->condition->getAttribute());
         
@@ -75,7 +70,7 @@ class ConditionTest extends TestCase
      * @covers \Phue\Condition::getOperator
      * @covers \Phue\Condition::setOperator
      */
-    public function testGetSetOperator()
+    public function testGetSetOperator(): void
     {
         $this->assertEquals('eq', $this->condition->getOperator());
         
@@ -90,7 +85,7 @@ class ConditionTest extends TestCase
      * @covers \Phue\Condition::getValue
      * @covers \Phue\Condition::setValue
      */
-    public function testGetSetValue()
+    public function testGetSetValue(): void
     {
         $this->assertEquals('16', $this->condition->getValue());
         
@@ -104,7 +99,7 @@ class ConditionTest extends TestCase
      *
      * @covers \Phue\Condition::export
      */
-    public function testExport()
+    public function testExport(): void
     {
         $this->assertEquals(
             (object) array(
@@ -119,7 +114,7 @@ class ConditionTest extends TestCase
      *
      * @covers \Phue\Condition::equals
      */
-    public function testEquals()
+    public function testEquals(): void
     {
         $this->condition->equals();
         
@@ -132,7 +127,7 @@ class ConditionTest extends TestCase
      *
      * @covers \Phue\Condition::greaterThan
      */
-    public function testGreaterThan()
+    public function testGreaterThan(): void
     {
         $this->condition->greaterThan();
         
@@ -145,7 +140,7 @@ class ConditionTest extends TestCase
      *
      * @covers \Phue\Condition::lessThan
      */
-    public function testLessThan()
+    public function testLessThan(): void
     {
         $this->condition->lessThan();
         
@@ -158,7 +153,7 @@ class ConditionTest extends TestCase
      *
      * @covers \Phue\Condition::changed
      */
-    public function testChanged()
+    public function testChanged(): void
     {
         $this->condition->changed();
         

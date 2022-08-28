@@ -57,7 +57,7 @@ class SetSceneLightStateTest extends TestCase
      * @covers \Phue\Command\SetSceneLightState::__construct
      * @covers \Phue\Command\SetSceneLightState::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Build command
         $setSceneLightStateCmd = new SetSceneLightState($this->mockScene, $this->mockLight);
@@ -75,7 +75,7 @@ class SetSceneLightStateTest extends TestCase
     /**
      * Stub transport's sendRequest with an expected payload
      */
-    protected function stubTransportSendRequestWithPayload(\stdClass $payload)
+    protected function stubTransportSendRequestWithPayload(\stdClass $payload): void
     {
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())

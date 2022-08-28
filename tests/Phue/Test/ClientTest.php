@@ -32,7 +32,7 @@ class ClientTest extends TestCase
      * @covers \Phue\Client::getHost
      * @covers \Phue\Client::setHost
      */
-    public function testGetHost()
+    public function testGetHost(): void
     {
         $this->client->setHost('127.0.0.2');
         
@@ -45,7 +45,7 @@ class ClientTest extends TestCase
      * @covers \Phue\Client::getUsername
      * @covers \Phue\Client::setUsername
      */
-    public function testGetSetUsername()
+    public function testGetSetUsername(): void
     {
         $this->client->setUsername('dummy');
         
@@ -57,7 +57,7 @@ class ClientTest extends TestCase
      *
      * @covers \Phue\Client::getBridge
      */
-    public function testGetBridge()
+    public function testGetBridge(): void
     {
         // Mock transport
         $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
@@ -79,7 +79,7 @@ class ClientTest extends TestCase
      *
      * @covers \Phue\Client::getUsers
      */
-    public function testGetUsers()
+    public function testGetUsers(): void
     {
         // Mock transport
         $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
@@ -116,7 +116,7 @@ class ClientTest extends TestCase
      *
      * @covers \Phue\Client::getLights
      */
-    public function testGetLights()
+    public function testGetLights(): void
     {
         // Mock transport
         $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
@@ -126,10 +126,10 @@ class ClientTest extends TestCase
         // '1' => new \stdClass,
         // '2' => new \stdClass,
         // ];
-        $mockResults = (object) array(
+        $mockResults = (object) [
             '1' => new \stdClass(),
             '2' => new \stdClass()
-        );
+        ];
         
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
@@ -154,7 +154,7 @@ class ClientTest extends TestCase
      *
      * @covers \Phue\Client::getGroups
      */
-    public function testGetGroups()
+    public function testGetGroups(): void
     {
         // Mock transport
         $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
@@ -192,17 +192,17 @@ class ClientTest extends TestCase
      *
      * @covers \Phue\Client::getSchedules
      */
-    public function testGetSchedules()
+    public function testGetSchedules(): void
     {
         // Mock transport
         $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequest
-        $mockResults = (object) array(
+        $mockResults = (object) [
             '1' => new \stdClass(),
             '2' => new \stdClass(),
             '3' => new \stdClass()
-        );
+        ];
         
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
@@ -227,22 +227,17 @@ class ClientTest extends TestCase
      *
      * @covers \Phue\Client::getScenes
      */
-    public function testGetScenes()
+    public function testGetScenes(): void
     {
         // Mock transport
         $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequest
-        // $mockResults = (object) [
-        // '1' => new \stdClass,
-        // '2' => new \stdClass,
-        // '3' => new \stdClass,
-        // ];
-        $mockResults = (object) array(
+        $mockResults = (object) [
             '1' => new \stdClass(),
             '2' => new \stdClass(),
             '3' => new \stdClass()
-        );
+        ];
         
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
@@ -267,7 +262,7 @@ class ClientTest extends TestCase
      *
      * @covers \Phue\Client::getSensors
      */
-    public function testGetSensors()
+    public function testGetSensors(): void
     {
         // Mock transport
         $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
@@ -301,16 +296,16 @@ class ClientTest extends TestCase
      *
      * @covers \Phue\Client::getRules
      */
-    public function testGetRules()
+    public function testGetRules(): void
     {
         // Mock transport
         $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock results for sendRequest
-        $mockResults = (object) array(
+        $mockResults = (object) [
             '1' => new \stdClass(),
             '2' => new \stdClass()
-        );
+        ];
         
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
@@ -335,7 +330,7 @@ class ClientTest extends TestCase
      *
      * @covers \Phue\Client::getTimezones
      */
-    public function testGetTimezones()
+    public function testGetTimezones(): void
     {
         // Mock transport
         $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
@@ -364,7 +359,7 @@ class ClientTest extends TestCase
      * @covers \Phue\Client::getTransport
      * @covers \Phue\Client::setTransport
      */
-    public function testInstantiateDefaultTransport()
+    public function testInstantiateDefaultTransport(): void
     {
         $this->assertInstanceOf('\Phue\Transport\Http', 
             $this->client->getTransport());
@@ -376,7 +371,7 @@ class ClientTest extends TestCase
      * @covers \Phue\Client::getTransport
      * @covers \Phue\Client::setTransport
      */
-    public function testPassingTransportDependency()
+    public function testPassingTransportDependency(): void
     {
         // Mock transport
         $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
@@ -391,7 +386,7 @@ class ClientTest extends TestCase
      *
      * @covers \Phue\Client::sendCommand
      */
-    public function testSendCommand()
+    public function testSendCommand(): void
     {
         // Mock command
         $mockCommand = $this->createMock('Phue\Command\CommandInterface');

@@ -20,18 +20,10 @@ class SetLightStateTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock light
         $this->mockLight = $this->createMock('\Phue\Light', null, 
@@ -60,16 +52,16 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::on
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testOnSend($state)
+    public function testOnSend($state): void
     {
         // Build command
         $command = new SetLightState($this->mockLight);
         
         // Set expected payload
         $this->stubTransportSendRequestWithPayload(
-            (object) array(
+            (object) [
                 'on' => $state
-            ));
+            ]);
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->on($state));
@@ -87,7 +79,7 @@ class SetLightStateTest extends TestCase
      *
      *
      */
-    public function testInvalidBrightness($brightness)
+    public function testInvalidBrightness($brightness): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
@@ -102,7 +94,7 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::brightness
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testBrightnessSend($brightness)
+    public function testBrightnessSend($brightness): void
     {
         // Build command
         $command = new SetLightState($this->mockLight);
@@ -127,7 +119,7 @@ class SetLightStateTest extends TestCase
      *
      *
      */
-    public function testInvalidHueValue()
+    public function testInvalidHueValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
@@ -142,7 +134,7 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::hue
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testHueSend($value)
+    public function testHueSend($value): void
     {
         // Build command
         $command = new SetLightState($this->mockLight);
@@ -167,7 +159,7 @@ class SetLightStateTest extends TestCase
      *
      *
      */
-    public function testInvalidSaturationValue()
+    public function testInvalidSaturationValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
@@ -182,7 +174,7 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::saturation
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testSaturationSend($value)
+    public function testSaturationSend($value): void
     {
         // Build command
         $command = new SetLightState($this->mockLight);
@@ -224,7 +216,7 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::xy
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testXYSend($x, $y)
+    public function testXYSend($x, $y): void
     {
         // Build command
         $command = new SetLightState($this->mockLight);
@@ -254,7 +246,7 @@ class SetLightStateTest extends TestCase
      *
      *
      */
-    public function testInvalidRGBValue($red, $green, $blue)
+    public function testInvalidRGBValue($red, $green, $blue): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $_x = new SetLightState($this->mockLight);
@@ -269,7 +261,7 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::rgb
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testRGBSend($red, $green, $blue)
+    public function testRGBSend($red, $green, $blue): void
     {
         // Build command
         $command = new SetLightState($this->mockLight);
@@ -301,7 +293,7 @@ class SetLightStateTest extends TestCase
      *
      *
      */
-    public function testInvalidColorTempValue($temp)
+    public function testInvalidColorTempValue($temp): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
@@ -316,7 +308,7 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::colorTemp
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testColorTempSend($temp)
+    public function testColorTempSend($temp): void
     {
         // Build command
         $command = new SetLightState($this->mockLight);
@@ -339,7 +331,7 @@ class SetLightStateTest extends TestCase
      *
      * @covers \Phue\Command\SetLightState::getAlertModes
      */
-    public function testGetAlertModes()
+    public function testGetAlertModes(): void
     {
         $this->assertNotEmpty(SetLightState::getAlertModes());
         
@@ -354,7 +346,7 @@ class SetLightStateTest extends TestCase
      *
      *
      */
-    public function testInvalidAlertMode()
+    public function testInvalidAlertMode(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
@@ -369,7 +361,7 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::alert
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testAlertSend($mode)
+    public function testAlertSend($mode): void
     {
         // Build command
         $command = new SetLightState($this->mockLight);
@@ -392,7 +384,7 @@ class SetLightStateTest extends TestCase
      *
      * @covers \Phue\Command\SetLightState::getEffectModes
      */
-    public function testGetEffectModes()
+    public function testGetEffectModes(): void
     {
         $this->assertNotEmpty(SetLightState::getEffectModes());
         
@@ -407,7 +399,7 @@ class SetLightStateTest extends TestCase
      *
      *
      */
-    public function testInvalidEffectMode()
+    public function testInvalidEffectMode(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
@@ -422,7 +414,7 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::effect
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testEffectSend($mode)
+    public function testEffectSend($mode): void
     {
         // Build command
         $command = new SetLightState($this->mockLight);
@@ -447,7 +439,7 @@ class SetLightStateTest extends TestCase
      *
      *
      */
-    public function testInvalidTransitionTime()
+    public function testInvalidTransitionTime(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $x = new SetLightState($this->mockLight);
@@ -462,7 +454,7 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::transitionTime
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testTransitionTimeSend($time)
+    public function testTransitionTimeSend($time): void
     {
         // Build command
         $command = new SetLightState($this->mockLight);
@@ -486,16 +478,16 @@ class SetLightStateTest extends TestCase
      * @covers \Phue\Command\SetLightState::__construct
      * @covers \Phue\Command\SetLightState::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Build command
         $setLightStateCmd = new SetLightState($this->mockLight);
         
         // Set expected payload
         $this->stubTransportSendRequestWithPayload(
-            (object) array(
+            (object) [
                 'alert' => 'select'
-            ));
+            ]);
         
         // Change alert and set state
         $setLightStateCmd->alert('select')->send($this->mockClient);
@@ -506,7 +498,7 @@ class SetLightStateTest extends TestCase
      *
      * @covers \Phue\Command\SetLightState::getActionableParams
      */
-    public function testGetActionableParams()
+    public function testGetActionableParams(): void
     {
         // Build command
         $setLightStateCmd = new SetLightState($this->mockLight);
@@ -516,22 +508,19 @@ class SetLightStateTest extends TestCase
         
         // Ensure actionable params are expected
         $this->assertEquals(
-            array(
+            [
                 'address' => "/lights/{$this->mockLight->getId()}/state",
                 'method' => 'PUT',
-                'body' => (object) array(
+                'body' => (object) [
                     'alert' => 'select'
-                )
-            ), $setLightStateCmd->getActionableParams($this->mockClient));
+                ]
+            ], $setLightStateCmd->getActionableParams($this->mockClient));
     }
 
     /**
      * Stub transport's sendRequest with an expected payload
-     *
-     * @param \stdClass $payload
-     *            Payload
      */
-    protected function stubTransportSendRequestWithPayload(\stdClass $payload)
+    protected function stubTransportSendRequestWithPayload(\stdClass $payload): void
     {
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())
@@ -549,14 +538,14 @@ class SetLightStateTest extends TestCase
      */
     public function providerOnState(): array
     {
-        return array(
-            array(
+        return [
+            [
                 true
-            ),
-            array(
+            ],
+            [
                 false
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -566,14 +555,10 @@ class SetLightStateTest extends TestCase
      */
     public function providerInvalidBrightness(): array
     {
-        return array(
-            array(
-                - 1
-            ),
-            array(
-                256
-            )
-        );
+        return [
+            [- 1],
+            [256]
+        ];
     }
 
     /**
@@ -583,17 +568,11 @@ class SetLightStateTest extends TestCase
      */
     public function providerBrightness(): array
     {
-        return array(
-            array(
-                0
-            ),
-            array(
-                128
-            ),
-            array(
-                255
-            )
-        );
+        return [
+            [0],
+            [128],
+            [255]
+        ];
     }
 
     /**
@@ -603,17 +582,11 @@ class SetLightStateTest extends TestCase
      */
     public function providerHue(): array
     {
-        return array(
-            array(
-                10000
-            ),
-            array(
-                35000
-            ),
-            array(
-                42
-            )
-        );
+        return [
+            [10000],
+            [35000],
+            [42]
+        ];
     }
 
     /**
@@ -623,17 +596,11 @@ class SetLightStateTest extends TestCase
      */
     public function providerSaturation(): array
     {
-        return array(
-            array(
-                0
-            ),
-            array(
-                128
-            ),
-            array(
-                255
-            )
-        );
+        return [
+            [0],
+            [128],
+            [255]
+        ];
     }
 
     /**
@@ -643,24 +610,24 @@ class SetLightStateTest extends TestCase
      */
     public function providerInvalidXY(): array
     {
-        return array(
-            array(
+        return [
+            [
                 - 0.1,
                 - 0.1
-            ),
-            array(
+            ],
+            [
                 .5,
                 - .5
-            ),
-            array(
+            ],
+            [
                 1.1,
                 .5
-            ),
-            array(
+            ],
+            [
                 .5,
                 1.1
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -670,20 +637,20 @@ class SetLightStateTest extends TestCase
      */
     public function providerXY(): array
     {
-        return array(
-            array(
+        return [
+            [
                 0,
                 1
-            ),
-            array(
+            ],
+            [
                 .1,
                 .9
-            ),
-            array(
+            ],
+            [
                 .5,
                 .5
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -693,33 +660,33 @@ class SetLightStateTest extends TestCase
      */
     public function providerInvalidRGB(): array
     {
-        return array(
-            array(
+        return [
+            [
                 - 1,
                 - 1,
                 - 1
-            ),
-            array(
+            ],
+            [
                 50,
                 - 50,
                 50
-            ),
-            array(
+            ],
+            [
                 256,
                 50,
                 50
-            ),
-            array(
+            ],
+            [
                 50,
                 256,
                 50
-            ),
-            array(
+            ],
+            [
                 50,
                 50,
                 256
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -755,17 +722,17 @@ class SetLightStateTest extends TestCase
      */
     public function providerInvalidColorTemp(): array
     {
-        return array(
-            array(
+        return [
+            [
                 152
-            ),
-            array(
+            ],
+            [
                 550
-            ),
-            array(
+            ],
+            [
                 - 130
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -775,17 +742,17 @@ class SetLightStateTest extends TestCase
      */
     public function providerColorTemp(): array
     {
-        return array(
-            array(
+        return [
+            [
                 153
-            ),
-            array(
+            ],
+            [
                 200
-            ),
-            array(
+            ],
+            [
                 500
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -795,17 +762,17 @@ class SetLightStateTest extends TestCase
      */
     public function providerAlert(): array
     {
-        return array(
-            array(
+        return [
+            [
                 SetLightState::ALERT_NONE
-            ),
-            array(
+            ],
+            [
                 SetLightState::ALERT_SELECT
-            ),
-            array(
+            ],
+            [
                 SetLightState::ALERT_LONG_SELECT
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -815,14 +782,14 @@ class SetLightStateTest extends TestCase
      */
     public function providerEffect(): array
     {
-        return array(
-            array(
+        return [
+            [
                 SetLightState::EFFECT_NONE
-            ),
-            array(
+            ],
+            [
                 SetLightState::EFFECT_COLORLOOP
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -832,16 +799,16 @@ class SetLightStateTest extends TestCase
      */
     public function providerTransitionTime(): array
     {
-        return array(
-            array(
+        return [
+            [
                 1
-            ),
-            array(
+            ],
+            [
                 25
-            ),
-            array(
+            ],
+            [
                 .5
-            )
-        );
+            ]
+        ];
     }
 }

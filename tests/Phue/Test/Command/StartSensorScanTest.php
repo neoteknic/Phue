@@ -14,41 +14,14 @@ use Phue\Command\StartSensorScan;
 /**
  * Tests for Phue\Command\StartSensorScan
  */
-class StartSensorScanTest extends TestCase
+class StartSensorScanTest extends AbstractCommandTest
 {
-    public function setUp(): void
-    {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
-    }
-
     /**
      * Test: Send start sensor scan command
      *
      * @covers \Phue\Command\StartSensorScan::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())

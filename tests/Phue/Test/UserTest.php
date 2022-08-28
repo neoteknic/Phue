@@ -46,7 +46,7 @@ class UserTest extends TestCase
      * @covers \Phue\User::__construct
      * @covers \Phue\User::getUsername
      */
-    public function testGetUsername()
+    public function testGetUsername(): void
     {
         $this->assertEquals($this->username, $this->user->getUsername());
     }
@@ -56,7 +56,7 @@ class UserTest extends TestCase
      *
      * @covers \Phue\User::getDeviceType
      */
-    public function testGetDeviceType()
+    public function testGetDeviceType(): void
     {
         $this->assertEquals($this->attributes->name, $this->user->getDeviceType());
     }
@@ -66,7 +66,7 @@ class UserTest extends TestCase
      *
      * @covers \Phue\User::getCreateDate
      */
-    public function testGetCreateDate()
+    public function testGetCreateDate(): void
     {
         $this->assertEquals($this->attributes->{'create date'}, 
             $this->user->getCreateDate());
@@ -77,7 +77,7 @@ class UserTest extends TestCase
      *
      * @covers \Phue\User::getLastUseDate
      */
-    public function testGetLastUseDate()
+    public function testGetLastUseDate(): void
     {
         $this->assertEquals($this->attributes->{'last use date'}, 
             $this->user->getLastUseDate());
@@ -88,7 +88,7 @@ class UserTest extends TestCase
      *
      * @covers \Phue\User::delete
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
@@ -102,7 +102,7 @@ class UserTest extends TestCase
      *
      * @covers \Phue\User::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals($this->user->getUsername(), (string) $this->user);
     }

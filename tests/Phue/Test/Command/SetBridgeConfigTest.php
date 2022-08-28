@@ -14,42 +14,15 @@ use Phue\Command\SetBridgeConfig;
 /**
  * Tests for Phue\Command\SetBridgeConfig
  */
-class SetBridgeConfigTest extends TestCase
+class SetBridgeConfigTest extends AbstractCommandTest
 {
-    public function setUp(): void
-    {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
-    }
-
     /**
      * Test: Set bridge config
      *
      * @covers \Phue\Command\SetBridgeConfig::__construct
      * @covers \Phue\Command\SetBridgeConfig::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())

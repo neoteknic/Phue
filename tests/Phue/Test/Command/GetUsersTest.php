@@ -14,36 +14,13 @@ use Phue\Command\GetUsers;
 /**
  * Tests for Phue\Command\GetUsers
  */
-class GetUsersTest extends TestCase
+class GetUsersTest extends AbstractCommandTest
 {
     public function setUp(): void
     {
         $this->getUsers = new GetUsers();
         
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+        parent::setUp();
     }
 
     /**
@@ -51,7 +28,7 @@ class GetUsersTest extends TestCase
      *
      * @covers \Phue\Command\GetUsers::send
      */
-    public function testFoundNoUsers()
+    public function testFoundNoUsers(): void
     {
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())
@@ -72,15 +49,15 @@ class GetUsersTest extends TestCase
      *
      * @covers \Phue\Command\GetUsers::send
      */
-    public function testFoundUsers()
+    public function testFoundUsers(): void
     {
         // Mock transport results
-        $mockTransportResults = (object) array(
-            'whitelist' => array(
+        $mockTransportResults = (object) [
+            'whitelist' => [
                 'someusername' => new \stdClass(),
                 'anotherusername' => new \stdClass()
-            )
-        );
+            ]
+        ];
         
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())

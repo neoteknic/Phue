@@ -29,21 +29,21 @@ class SoftwareUpdateTest extends TestCase
         $this->mockClient = $this->createMock('\Phue\Client');
         
         // Build stub attributes
-        $this->attributes = (object) array(
+        $this->attributes = (object) [
             'updatestate' => 2,
             'checkforupdate' => false,
-            'devicetypes' => (object) array(
+            'devicetypes' => (object) [
                 'bridge' => true,
-                'lights' => array(
+                'lights' => [
                     '1',
                     '2',
                     '3'
-                )
-            ),
+                ]
+            ],
             'url' => '',
             'text' => '010000000',
             'notify' => false
-        );
+        ];
         
         // Create software update object
         $this->softwareUpdate = new SoftwareUpdate($this->attributes, 
@@ -55,7 +55,7 @@ class SoftwareUpdateTest extends TestCase
      *
      * @covers \Phue\SoftwareUpdate::getUpdateState
      */
-    public function testGetUpdateState()
+    public function testGetUpdateState(): void
     {
         $this->assertEquals($this->attributes->updatestate, 
             $this->softwareUpdate->getUpdateState());
@@ -66,7 +66,7 @@ class SoftwareUpdateTest extends TestCase
      *
      * @covers \Phue\SoftwareUpdate::installUpdates
      */
-    public function testInstallUpdates()
+    public function testInstallUpdates(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -86,7 +86,7 @@ class SoftwareUpdateTest extends TestCase
      *
      * @covers \Phue\SoftwareUpdate::checkingForUpdate
      */
-    public function testCheckingForUpdate()
+    public function testCheckingForUpdate(): void
     {
         $this->assertEquals($this->attributes->checkforupdate, 
             $this->softwareUpdate->checkingForUpdate());
@@ -97,7 +97,7 @@ class SoftwareUpdateTest extends TestCase
      *
      * @covers \Phue\SoftwareUpdate::checkForUpdate
      */
-    public function testCheckForUpdate()
+    public function testCheckForUpdate(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -117,7 +117,7 @@ class SoftwareUpdateTest extends TestCase
      *
      * @covers \Phue\SoftwareUpdate::isBridgeUpdatable
      */
-    public function testIsBridgeUpdatable()
+    public function testIsBridgeUpdatable(): void
     {
         $this->assertEquals($this->attributes->devicetypes->bridge, 
             $this->softwareUpdate->isBridgeUpdatable());
@@ -128,7 +128,7 @@ class SoftwareUpdateTest extends TestCase
      *
      * @covers \Phue\SoftwareUpdate::getUpdatableLights
      */
-    public function testGetUpdatableLights()
+    public function testGetUpdatableLights(): void
     {
         $this->assertEquals($this->attributes->devicetypes->lights, 
             $this->softwareUpdate->getUpdatableLights());
@@ -139,7 +139,7 @@ class SoftwareUpdateTest extends TestCase
      *
      * @covers \Phue\SoftwareUpdate::getReleaseNotesUrl
      */
-    public function testGetReleaseNotesUrl()
+    public function testGetReleaseNotesUrl(): void
     {
         $this->assertEquals($this->attributes->url, 
             $this->softwareUpdate->getReleaseNotesUrl());
@@ -150,7 +150,7 @@ class SoftwareUpdateTest extends TestCase
      *
      * @covers \Phue\SoftwareUpdate::getReleaseNotesBrief
      */
-    public function testGetReleaseNotesBrief()
+    public function testGetReleaseNotesBrief(): void
     {
         $this->assertEquals($this->attributes->text, 
             $this->softwareUpdate->getReleaseNotesBrief());
@@ -161,7 +161,7 @@ class SoftwareUpdateTest extends TestCase
      *
      * @covers \Phue\SoftwareUpdate::isInstallNotificationEnabled
      */
-    public function testIsInstallNotificationEnabled()
+    public function testIsInstallNotificationEnabled(): void
     {
         $this->assertEquals($this->attributes->notify, 
             $this->softwareUpdate->isInstallNotificationEnabled());
@@ -172,7 +172,7 @@ class SoftwareUpdateTest extends TestCase
      *
      * @covers \Phue\SoftwareUpdate::disableInstallNotification
      */
-    public function testDisableInstallNotification()
+    public function testDisableInstallNotification(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())

@@ -14,36 +14,15 @@ use Phue\Command\GetBridge;
 /**
  * Tests for Phue\Command\GetBridge
  */
-class GetBridgeTest extends TestCase
+class GetBridgeTest extends AbstractCommandTest
 {
+    private GetBridge $getBridge;
+
     public function setUp(): void
     {
         $this->getBridge = new GetBridge();
-        
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+
+        parent::setUp();
     }
 
     /**
@@ -51,7 +30,7 @@ class GetBridgeTest extends TestCase
      *
      * @covers \Phue\Command\GetBridge::send
      */
-    public function testGetBridge()
+    public function testGetBridge(): void
     {
         // Mock transport results
         $mockTransportResults = new \stdClass();

@@ -8,7 +8,9 @@
  */
 namespace Phue\Test;
 
+use Mockery\Mock;
 use PHPUnit\Framework\TestCase;
+use Phue\Client;
 use Phue\Scene;
 
 /**
@@ -16,7 +18,7 @@ use Phue\Scene;
  */
 class SceneTest extends TestCase
 {
-    private $mockClient;
+    private Client|Mock $mockClient;
     private Scene $scene;
     private object $attributes;
 
@@ -47,7 +49,7 @@ class SceneTest extends TestCase
      *
      * @covers \Phue\Scene::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
         $this->assertEquals('custom-id', $this->scene->getId());
     }
@@ -57,7 +59,7 @@ class SceneTest extends TestCase
      *
      * @covers \Phue\Scene::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals($this->attributes->name, $this->scene->getName());
     }
@@ -67,7 +69,7 @@ class SceneTest extends TestCase
      *
      * @covers \Phue\Scene::getLightIds
      */
-    public function testGetLightIds()
+    public function testGetLightIds(): void
     {
         $this->assertEquals($this->attributes->lights, $this->scene->getLightIds());
     }
@@ -77,7 +79,7 @@ class SceneTest extends TestCase
      *
      * @covers \Phue\Scene::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals($this->scene->getId(), (string) $this->scene);
     }

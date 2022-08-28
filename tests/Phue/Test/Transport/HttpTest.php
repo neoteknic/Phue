@@ -9,7 +9,9 @@
 namespace Phue\Test\Transport;
 
 use PHPUnit\Framework\TestCase;
+use Phue\Transport\Adapter\AdapterInterface;
 use Phue\Transport\Exception\ConnectionException;
+use Phue\Transport\Exception\UnauthorizedUserException;
 use Phue\Transport\Http;
 
 /**
@@ -27,8 +29,7 @@ class HttpTest extends TestCase
         $this->mockClient = $this->createMock('\Phue\Client');
         
         // Mock transport adapter
-        $this->mockAdapter = $this->createMock(
-            '\Phue\Transport\Adapter\AdapterInterface');
+        $this->mockAdapter = $this->createMock(AdapterInterface::class);
         
         // Set transport
         $this->transport = new Http($this->mockClient);
@@ -39,7 +40,7 @@ class HttpTest extends TestCase
      *
      * @covers Http::__construct
      */
-    public function testClientProperty()
+    public function testClientProperty(): void
     {
         // Ensure property is set properly
         #this->assertAttributeEquals($this->mockClient, 'client', $this->transport);
@@ -50,10 +51,9 @@ class HttpTest extends TestCase
      *
      * @covers Http::getAdapter
      */
-    public function testGetDefaultAdapter()
+    public function testGetDefaultAdapter(): void
     {
-        $this->assertInstanceOf('\Phue\Transport\Adapter\AdapterInterface', 
-            $this->transport->getAdapter());
+        $this->assertInstanceOf(AdapterInterface::class, $this->transport->getAdapter());
     }
 
     /**
@@ -62,7 +62,7 @@ class HttpTest extends TestCase
      * @covers Http::getAdapter
      * @covers Http::setAdapter
      */
-    public function testCustomAdapter()
+    public function testCustomAdapter(): void
     {
         $this->transport->setAdapter($this->mockAdapter);
         
@@ -74,7 +74,7 @@ class HttpTest extends TestCase
      *
      * @covers Http::sendRequest
      */
-    public function testSendRequestBadStatusCode()
+    public function testSendRequestBadStatusCode(): void
     {
         $this->expectException(ConnectionException::class);
 
@@ -93,10 +93,8 @@ class HttpTest extends TestCase
      *
      * @covers Http::sendRequest
      * @covers Http::getJsonResponse
-     *
-     *
      */
-    public function testSendRequestBadContentType()
+    public function testSendRequestBadContentType(): void
     {
         $this->expectException(ConnectionException::class);
         // Stub adapter methods
@@ -115,16 +113,16 @@ class HttpTest extends TestCase
      * @covers Http::sendRequest
      * @covers Http::getJsonResponse
      */
-    public function testSendRequestErrorResponse()
+    public function testSendRequestErrorResponse(): void
     {
-        $this->expectException(\Phue\Transport\Exception\UnauthorizedUserException::class);
+        $this->expectException(UnauthorizedUserException::class);
         // Mock response
-        $mockResponse = array(
-            'error' => array(
+        $mockResponse = [
+            'error' => [
                 'type' => 1,
                 'description' => 'Some kind of error'
-            )
-        );
+            ]
+        ];
         
         // Stub adapter methods
         $this->stubMockAdapterResponseMethods($mockResponse, 200, 'application/json');
@@ -143,16 +141,16 @@ class HttpTest extends TestCase
      * @covers Http::getJsonResponse
      * @throws ConnectionException
      */
-    public function testSendRequestArray()
+    public function testSendRequestArray(): void
     {
         // Mock response
         // $mockResponse = [
         // 'value 1', 'value 2'
         // ];
-        $mockResponse = array(
+        $mockResponse = [
             'value 1',
             'value 2'
-        );
+        ];
         
         // Stub adapter methods
         $this->stubMockAdapterResponseMethods($mockResponse, 200, 'application/json');
@@ -170,12 +168,10 @@ class HttpTest extends TestCase
      * @covers Http::sendRequest
      * @covers Http::getJsonResponse
      */
-    public function testSendRequestSuccess()
+    public function testSendRequestSuccess(): void
     {
         // Mock response
-        $mockResponse = array(
-            'success' => '123'
-        );
+        $mockResponse = ['success' => '123'];
         
         // Stub adapter methods
         $this->stubMockAdapterResponseMethods($mockResponse, 200, 'application/json');
@@ -195,7 +191,7 @@ class HttpTest extends TestCase
      *
      * @covers Http::getExceptionByType
      */
-    public function testThrowExceptionByType($type, $exceptionName)
+    public function testThrowExceptionByType($type, $exceptionName): void
     {
         $this->assertInstanceOf($exceptionName, 
             $this->transport->getExceptionByType($type, null));
@@ -208,18 +204,18 @@ class HttpTest extends TestCase
      */
     public function providerErrorTypes(): array
     {
-        $errorTypes = array(
-            array(
+        $errorTypes = [
+            [
                 - 1,
                 'Phue\Transport\Exception\BridgeException'
-            )
-        );
+            ]
+        ];
         
         foreach (Http::$exceptionMap as $errorId => $errorClass) {
-            $errorTypes[] = array(
+            $errorTypes[] = [
                 $errorId,
                 $errorClass
-            );
+            ];
         }
         
         return $errorTypes;
@@ -230,7 +226,7 @@ class HttpTest extends TestCase
      *
      * @param array $response Response body
      */
-    protected function stubMockAdapterResponseMethods(array $response, int $httpStatusCode, string $contentType)
+    protected function stubMockAdapterResponseMethods(array $response, int $httpStatusCode, string $contentType): void
     {
         // Stub send method on transport adapter
         $this->mockAdapter->expects($this->once())

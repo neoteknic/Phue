@@ -10,22 +10,22 @@ namespace Phue\Test\LightModel;
 
 use PHPUnit\Framework\TestCase;
 use Phue\LightModel\LightModelFactory;
+use Phue\LightModel\Lst001Model;
+use Phue\LightModel\UnknownModel;
 
 /**
  * Tests for Phue\LightModel\LightModelFactory
  */
 class LightModelFactoryTest extends TestCase
 {
-
     /**
      * Test: Getting unknown model
      *
      * @covers \Phue\LightModel\LightModelFactory::build
      */
-    public function testGetUnknownModel()
+    public function testGetUnknownModel(): void
     {
-        $this->assertInstanceOf('\Phue\LightModel\UnknownModel', 
-            LightModelFactory::build('whatever'));
+        $this->assertInstanceOf(UnknownModel::class, LightModelFactory::build('whatever'));
     }
 
     /**
@@ -33,9 +33,8 @@ class LightModelFactoryTest extends TestCase
      *
      * @covers \Phue\LightModel\LightModelFactory::build
      */
-    public function testGetKnownModel()
+    public function testGetKnownModel(): void
     {
-        $this->assertInstanceOf('\Phue\LightModel\Lst001Model', 
-            LightModelFactory::build('LST001'));
+        $this->assertInstanceOf(Lst001Model::class, LightModelFactory::build('LST001'));
     }
 }
