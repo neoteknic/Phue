@@ -8,7 +8,9 @@
  */
 namespace Phue\Test;
 
+use Mockery\Mock;
 use PHPUnit\Framework\TestCase;
+use Phue\Client;
 use Phue\Rule;
 
 /**
@@ -16,7 +18,7 @@ use Phue\Rule;
  */
 class RuleTest extends TestCase
 {
-    private $mockClient;
+    private Client|Mock $mockClient;
     private object $attributes;
     private Rule $rule;
 
@@ -95,7 +97,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
         $this->assertEquals(4, $this->rule->getId());
     }
@@ -105,7 +107,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals($this->attributes->name, $this->rule->getName());
     }
@@ -115,7 +117,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::getLastTriggeredTime
      */
-    public function testGetLastTriggeredTime()
+    public function testGetLastTriggeredTime(): void
     {
         $this->assertEquals($this->attributes->lasttriggered, 
             $this->rule->getLastTriggeredTime());
@@ -126,7 +128,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::getCreateDate
      */
-    public function testGetCreateDate()
+    public function testGetCreateDate(): void
     {
         $this->assertEquals($this->attributes->created, $this->rule->getCreateDate());
     }
@@ -136,7 +138,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::getTriggeredCount
      */
-    public function testGetTriggeredCount()
+    public function testGetTriggeredCount(): void
     {
         $this->assertEquals($this->attributes->timestriggered, 
             $this->rule->getTriggeredCount());
@@ -147,7 +149,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::getOwner
      */
-    public function testGetOwner()
+    public function testGetOwner(): void
     {
         $this->assertEquals($this->attributes->owner, $this->rule->getOwner());
     }
@@ -157,7 +159,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::isEnabled
      */
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertTrue($this->rule->isEnabled());
     }
@@ -167,7 +169,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::getConditions
      */
-    public function testGetConditions()
+    public function testGetConditions(): void
     {
         $conditions = $this->rule->getConditions();
         
@@ -181,7 +183,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::getActions
      */
-    public function testGetActions()
+    public function testGetActions(): void
     {
         $actions = $this->rule->getActions();
         
@@ -195,7 +197,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::delete
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
@@ -209,7 +211,7 @@ class RuleTest extends TestCase
      *
      * @covers \Phue\Rule::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals($this->rule->getId(), (string) $this->rule);
     }

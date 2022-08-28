@@ -1,4 +1,8 @@
 parameters:
+    level: 6
+    paths:
+        - library
+
     checkMissingIterableValueType: false
     reportUnmatchedIgnoredErrors: false
     ignoreErrors:

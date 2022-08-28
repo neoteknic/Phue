@@ -7,6 +7,7 @@
  * @license   http://github.com/sqmk/Phue/wiki/License
  */
 namespace Phue\Test\Helper;
+
 use PHPUnit\Framework\TestCase;
 use Phue\Helper\ColorConversion;
 
@@ -20,7 +21,7 @@ class ColorConversionTest extends TestCase
      *
      * @covers \Phue\Helper\ColorConversion::convertRGBToXY
      */
-    public function testConvertRGBToXY()
+    public function testConvertRGBToXY(): void
     {
         // Values from: http://www.developers.meethue.com/documentation/hue-xy-values
         
@@ -48,7 +49,7 @@ class ColorConversionTest extends TestCase
      *
      * @covers \Phue\Helper\ColorConversion::convertXYToRGB
      */
-    public function testConvertXYToRGB()
+    public function testConvertXYToRGB(): void
     {
         // Conversion back from the test above
         

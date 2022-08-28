@@ -21,7 +21,7 @@ class TimerTest extends TestCase
      *
      * @covers \Phue\TimePattern\Timer
      */
-    public function testCreateTime()
+    public function testCreateTime(): void
     {
         $timer = new Timer(3925);
         $this->assertMatchesRegularExpression('/^R12\/PT01:05:25$/', (string) $timer->repeat(12));

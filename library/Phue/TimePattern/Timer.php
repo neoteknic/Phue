@@ -40,7 +40,7 @@ class Timer extends AbstractTimePattern
     {
         $timer = 'PT' . date('H:i:s', $this->seconds);
         
-        if ($this->repeat !== null) {
+        if ($this->repeat != null) {
             $timer = sprintf('R%1$02d/%2$s', $this->repeat, $timer);
         }
         

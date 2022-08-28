@@ -8,7 +8,6 @@
  */
 namespace Phue\Test\Command;
 
-use PHPUnit\Framework\TestCase;
 use Phue\Command\CreateSchedule;
 use Phue\Schedule;
 use Phue\Transport\TransportInterface;
@@ -16,44 +15,18 @@ use Phue\Transport\TransportInterface;
 /**
  * Tests for Phue\Command\CreateSchedule
  */
-class CreateScheduleTest extends TestCase
+class CreateScheduleTest extends AbstractCommandTest
 {
     public function setUp(): void
     {
         // Ensure proper timezone
         date_default_timezone_set('UTC');
         
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+        parent::setUp();
         
         // Mock actionable command
-        $this->mockCommand = $this->createMock('\Phue\Command\ActionableInterface', 
-            array(
-                'getActionableParams'
-            ));
-        
+        $this->mockCommand = $this->createMock('\Phue\Command\ActionableInterface');
+
         // Stub command's getActionableParams method
         $this->mockCommand->expects($this->any())
             ->method('getActionableParams')
@@ -71,7 +44,7 @@ class CreateScheduleTest extends TestCase
      *
      * @covers \Phue\Command\CreateSchedule::name
      */
-    public function testName()
+    public function testName(): void
     {
         $x = new CreateSchedule();
         $command = $x->name('Dummy!');
@@ -88,7 +61,7 @@ class CreateScheduleTest extends TestCase
      *
      * @covers \Phue\Command\CreateSchedule::description
      */
-    public function testDescription()
+    public function testDescription(): void
     {
         $x = new CreateSchedule();
         $command = $x->description('Description!');
@@ -105,7 +78,7 @@ class CreateScheduleTest extends TestCase
      *
      * @covers \Phue\Command\CreateSchedule::time
      */
-    public function testTime()
+    public function testTime(): void
     {
         $x = new CreateSchedule();
         $command = $x->time('2010-10-20T10:11:12');
@@ -122,7 +95,7 @@ class CreateScheduleTest extends TestCase
      *
      * @covers \Phue\Command\CreateSchedule::command
      */
-    public function testCommand()
+    public function testCommand(): void
     {
         $x = new CreateSchedule();
         $command = $x->command($this->mockCommand);
@@ -139,7 +112,7 @@ class CreateScheduleTest extends TestCase
      *
      * @covers \Phue\Command\CreateSchedule::status
      */
-    public function testStatus()
+    public function testStatus(): void
     {
         $x = new CreateSchedule();
         $command = $x->status(Schedule::STATUS_ENABLED);
@@ -157,7 +130,7 @@ class CreateScheduleTest extends TestCase
      *
      * @covers \Phue\Command\CreateSchedule::autodelete
      */
-    public function testAutoDelete()
+    public function testAutoDelete(): void
     {
         $x = new CreateSchedule();
         $command = $x->autodelete(true);
@@ -174,7 +147,7 @@ class CreateScheduleTest extends TestCase
      * @covers \Phue\Command\CreateSchedule::__construct
      * @covers \Phue\Command\CreateSchedule::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         $command = new CreateSchedule('Dummy!', '2012-12-30T10:11:12', 
             $this->mockCommand);

@@ -21,7 +21,7 @@ class SensorModelFactoryTest extends TestCase
      *
      * @covers \Phue\SensorModel\SensorModelFactory::build
      */
-    public function testGetUnknownModel()
+    public function testGetUnknownModel(): void
     {
         $this->assertInstanceOf('\Phue\SensorModel\UnknownModel', 
             SensorModelFactory::build('whatever'));
@@ -32,7 +32,7 @@ class SensorModelFactoryTest extends TestCase
      *
      * @covers \Phue\SensorModel\SensorModelFactory::build
      */
-    public function testGetKnownModel()
+    public function testGetKnownModel(): void
     {
         $this->assertInstanceOf('\Phue\SensorModel\ZgpswitchModel', 
             SensorModelFactory::build('ZGPSWITCH'));

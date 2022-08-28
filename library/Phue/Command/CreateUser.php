@@ -47,7 +47,7 @@ class CreateUser implements CommandInterface
     /**
      * Send command
      *
-     * @return \stdClass Authentication response
+     * @return \stdClass|string Authentication response
      */
     public function send(Client $client): \stdClass|string
     {

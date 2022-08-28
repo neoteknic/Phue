@@ -13,37 +13,15 @@ use Phue\Command\GetScenes;
 
 /**
  * Tests for Phue\Command\GetScenes
+ * @property GetScenes $getScenes
  */
-class GetScenesTest extends TestCase
+class GetScenesTest extends AbstractCommandTest
 {
     public function setUp(): void
     {
-        $this->getScenes = new GetScenes();
+       $this->getScenes = new GetScenes();
         
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+       parent::setUp();
     }
 
     /**
@@ -51,7 +29,7 @@ class GetScenesTest extends TestCase
      *
      * @covers \Phue\Command\GetScenes::send
      */
-    public function testFoundNoScenes()
+    public function testFoundNoScenes(): void
     {
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())
@@ -72,13 +50,13 @@ class GetScenesTest extends TestCase
      *
      * @covers \Phue\Command\GetScenes::send
      */
-    public function testFoundScenes()
+    public function testFoundScenes(): void
     {
         // Mock transport results
-        $mockTransportResults = (object) array(
+        $mockTransportResults = (object) [
             1 => new \stdClass(),
             2 => new \stdClass()
-        );
+        ];
         
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())

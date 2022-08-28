@@ -15,43 +15,15 @@ use Phue\Transport\TransportInterface;
 /**
  * Tests for Phue\Command\DeleteSchedule
  */
-class DeleteScheduleTest extends TestCase
+class DeleteScheduleTest extends AbstractCommandTest
 {
-    public function setUp(): void
-    {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
-    }
-
     /**
      * Test: Send command
      *
      * @covers \Phue\Command\DeleteSchedule::__construct
      * @covers \Phue\Command\DeleteSchedule::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         $command = new DeleteSchedule(4);
         

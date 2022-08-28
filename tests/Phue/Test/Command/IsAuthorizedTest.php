@@ -14,41 +14,14 @@ use Phue\Command\IsAuthorized;
 /**
  * Tests for Phue\Command\IsAuthorized
  */
-class IsAuthorizedTest extends TestCase
+class IsAuthorizedTest extends AbstractCommandTest
 {
-    public function setUp(): void
-    {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
-    }
-
     /**
      * Test: Is authorized
      *
      * @covers \Phue\Command\IsAuthorized::send
      */
-    public function testIsAuthorized()
+    public function testIsAuthorized(): void
     {
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())
@@ -64,7 +37,7 @@ class IsAuthorizedTest extends TestCase
      *
      * @covers \Phue\Command\IsAuthorized::send
      */
-    public function testIsNotAuthorized()
+    public function testIsNotAuthorized(): void
     {
         // Stub transport's sendRequest
         $this->mockTransport->expects($this->once())

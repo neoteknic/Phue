@@ -52,7 +52,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
         $this->assertEquals(6, $this->schedule->getId());
     }
@@ -63,7 +63,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals($this->attributes->name, $this->schedule->getName());
     }
@@ -74,7 +74,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::setName
      * @covers \Phue\Schedule::getName
      */
-    public function testSetName()
+    public function testSetName(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
@@ -94,7 +94,7 @@ class ScheduleTest extends TestCase
      *
      * @covers \Phue\Schedule::getDescription
      */
-    public function testGetDescription()
+    public function testGetDescription(): void
     {
         $this->assertEquals($this->attributes->description, 
             $this->schedule->getDescription());
@@ -106,7 +106,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::setDescription
      * @covers \Phue\Schedule::getDescription
      */
-    public function testSetDescription()
+    public function testSetDescription(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
@@ -128,7 +128,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::getTime
      */
-    public function testGetTime()
+    public function testGetTime(): void
     {
         $this->assertEquals($this->attributes->time, $this->schedule->getTime());
     }
@@ -139,7 +139,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::setTime
      * @covers \Phue\Schedule::getTime
      */
-    public function testSetTime()
+    public function testSetTime(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
@@ -161,7 +161,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::getCommand
      */
-    public function testGetCommand()
+    public function testGetCommand(): void
     {
         $this->assertEquals((array) $this->attributes->command, 
             $this->schedule->getCommand());
@@ -173,7 +173,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::setCommand
      * @covers \Phue\Schedule::getCommand
      */
-    public function testSetCommand()
+    public function testSetCommand(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
@@ -212,7 +212,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::getStatus
      */
-    public function testGetStatus()
+    public function testGetStatus(): void
     {
         $this->assertEquals($this->attributes->status, $this->schedule->getStatus());
     }
@@ -223,7 +223,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::setStatus
      * @covers \Phue\Schedule::getStatus
      */
-    public function testSetStatus()
+    public function testSetStatus(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
@@ -244,7 +244,7 @@ class ScheduleTest extends TestCase
      *
      * @covers \Phue\Schedule::isEnabled
      */
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertTrue($this->schedule->isEnabled());
     }
@@ -255,7 +255,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::isAutoDeleted
      */
-    public function testIsAutoDeleted()
+    public function testIsAutoDeleted(): void
     {
         $this->assertEquals($this->attributes->autodelete, 
             $this->schedule->isAutoDeleted());
@@ -267,7 +267,7 @@ class ScheduleTest extends TestCase
      * @covers \Phue\Schedule::setAutoDelete
      * @covers \Phue\Schedule::isAutoDeleted
      */
-    public function testSetAutoDelete()
+    public function testSetAutoDelete(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
@@ -287,7 +287,7 @@ class ScheduleTest extends TestCase
      *
      * @covers \Phue\Schedule::delete
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
@@ -301,7 +301,7 @@ class ScheduleTest extends TestCase
      *
      * @covers \Phue\Schedule::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals($this->schedule->getId(), (string) $this->schedule);
     }

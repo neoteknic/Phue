@@ -14,36 +14,14 @@ use Phue\Command\Ping;
 /**
  * Tests for Phue\Command\Ping
  */
-class PingTest extends TestCase
+class PingTest extends AbstractCommandTest
 {
-    public function setUp(): void
-    {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client getTransport usage
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
-    }
-
     /**
      * Test: Send ping command
      *
      * @covers \Phue\Command\Ping::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())

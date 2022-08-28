@@ -59,7 +59,7 @@ class SetGroupAttributesTest extends TestCase
      * @covers \Phue\Command\SetGroupAttributes::lights
      * @covers \Phue\Command\SetGroupAttributes::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Build command
         $setGroupAttributesCmd = new SetGroupAttributes($this->mockGroup);
@@ -80,7 +80,7 @@ class SetGroupAttributesTest extends TestCase
     /**
      * Stub transport's sendRequest with an expected payload
      */
-    protected function stubTransportSendRequestWithPayload(\stdClass $payload)
+    protected function stubTransportSendRequestWithPayload(\stdClass $payload): void
     {
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())

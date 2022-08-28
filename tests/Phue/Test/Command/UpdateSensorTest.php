@@ -22,7 +22,7 @@ class UpdateSensorTest extends TestCase
      *
      * @covers \Phue\Command\UpdateSensor::__construct
      */
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $command = new UpdateSensor('4');
     }
@@ -32,7 +32,7 @@ class UpdateSensorTest extends TestCase
      *
      * @covers \Phue\Command\UpdateSensor::name
      */
-    public function testName()
+    public function testName(): void
     {
         $command = new UpdateSensor('4');
         
@@ -44,16 +44,12 @@ class UpdateSensorTest extends TestCase
      *
      * @covers \Phue\Command\UpdateSensor::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Mock client
-        $mockClient = Mockery::mock('\Phue\Client', 
-            // [
-            // 'getUsername' => 'abcdefabcdef01234567890123456789'
-            // ]
-            array(
-                'getUsername' => 'abcdefabcdef01234567890123456789'
-            ))->makePartial();
+        $mockClient = Mockery::mock('\Phue\Client',
+            ['getUsername' => 'abcdefabcdef01234567890123456789'])
+            ->makePartial();
         
         // Mock client commands
         $mockClient->shouldReceive('getTransport->sendRequest');

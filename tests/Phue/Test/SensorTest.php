@@ -58,7 +58,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
         $this->assertEquals(7, $this->sensor->getId());
     }
@@ -68,7 +68,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals($this->attributes->name, $this->sensor->getName());
     }
@@ -78,7 +78,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals($this->attributes->type, $this->sensor->getType());
     }
@@ -88,7 +88,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getModelId
      */
-    public function testGetModelId()
+    public function testGetModelId(): void
     {
         $this->assertEquals($this->attributes->modelid, $this->sensor->getModelId());
     }
@@ -98,7 +98,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getModel
      */
-    public function testGetModel()
+    public function testGetModel(): void
     {
         $this->assertInstanceOf('\Phue\SensorModel\AbstractSensorModel', 
             $this->sensor->getModel());
@@ -109,7 +109,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getManufacturerName
      */
-    public function testGetManufacturerName()
+    public function testGetManufacturerName(): void
     {
         $this->assertEquals($this->attributes->manufacturername, 
             $this->sensor->getManufacturerName());
@@ -120,7 +120,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getSoftwareVersion
      */
-    public function testGetSoftwareVersion()
+    public function testGetSoftwareVersion(): void
     {
         $this->assertEquals($this->attributes->swversion, 
             $this->sensor->getSoftwareVersion());
@@ -131,7 +131,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getSoftwareVersion
      */
-    public function testGetNullSoftwareVersion()
+    public function testGetNullSoftwareVersion(): void
     {
         unset($this->attributes->swversion);
         
@@ -143,7 +143,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getUniqueId
      */
-    public function testGetUniqueId()
+    public function testGetUniqueId(): void
     {
         $this->assertEquals($this->attributes->uniqueid, 
             $this->sensor->getUniqueId());
@@ -154,7 +154,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getUniqueId
      */
-    public function testGetNullUniqueId()
+    public function testGetNullUniqueId(): void
     {
         unset($this->attributes->uniqueid);
         
@@ -166,7 +166,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getState
      */
-    public function testGetState()
+    public function testGetState(): void
     {
         $this->assertInstanceOf('\stdClass', $this->sensor->getState());
     }
@@ -176,7 +176,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::getConfig
      */
-    public function testGetConfig()
+    public function testGetConfig(): void
     {
         $this->assertInstanceOf('\stdClass', $this->sensor->getConfig());
     }
@@ -186,7 +186,7 @@ class SensorTest extends TestCase
      *
      * @covers \Phue\Sensor::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals($this->sensor->getId(), (string) $this->sensor);
     }

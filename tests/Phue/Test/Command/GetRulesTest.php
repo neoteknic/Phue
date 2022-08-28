@@ -8,42 +8,24 @@
  */
 namespace Phue\Test\Command;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Phue\Client;
 use Phue\Command\GetRules;
+use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetRules
  */
-class GetRulesTest extends TestCase
+class GetRulesTest extends AbstractCommandTest
 {
+    private GetRules $getRules;
+
     public function setUp(): void
     {
         $this->getRules = new GetRules();
         
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+       parent::setUp();
     }
 
     /**
@@ -51,7 +33,7 @@ class GetRulesTest extends TestCase
      *
      * @covers \Phue\Command\GetRules::send
      */
-    public function testFoundNoRules()
+    public function testFoundNoRules(): void
     {
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())
@@ -75,10 +57,10 @@ class GetRulesTest extends TestCase
     public function testFoundRules()
     {
         // Mock transport results
-        $mockTransportResults = (object) array(
+        $mockTransportResults = (object) [
             1 => new \stdClass(),
             2 => new \stdClass()
-        );
+        ];
         
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())

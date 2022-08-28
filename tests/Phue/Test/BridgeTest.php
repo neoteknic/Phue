@@ -8,15 +8,17 @@
  */
 namespace Phue\Test;
 
+use Mockery\Mock;
 use PHPUnit\Framework\TestCase;
 use Phue\Bridge;
+use Phue\Client;
 
 /**
  * Tests for Phue\Bridge
  */
 class BridgeTest extends TestCase
 {
-    private $mockClient;
+    private Client|Mock $mockClient;
     private Bridge $bridge;
     private object $attributes;
 
@@ -93,7 +95,7 @@ class BridgeTest extends TestCase
      * @covers \Phue\Bridge::__construct
      * @covers \Phue\Bridge::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals($this->attributes->name, $this->bridge->getName());
     }
@@ -103,7 +105,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::setName
      */
-    public function testSetName()
+    public function testSetName(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -123,7 +125,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getZigBeeChannel
      */
-    public function testGetZigBeeChannel()
+    public function testGetZigBeeChannel(): void
     {
         $this->assertEquals($this->attributes->zigbeechannel, 
             $this->bridge->getZigBeeChannel());
@@ -134,7 +136,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::setZigBeeChannel
      */
-    public function testSetZigBeeChannel()
+    public function testSetZigBeeChannel(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -154,7 +156,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getMacAddress
      */
-    public function testGetMacAddress()
+    public function testGetMacAddress(): void
     {
         $this->assertEquals($this->attributes->mac, $this->bridge->getMacAddress());
     }
@@ -164,7 +166,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::isDhcpEnabled
      */
-    public function testIsDhcpEnabled()
+    public function testIsDhcpEnabled(): void
     {
         $this->assertTrue($this->bridge->isDhcpEnabled());
     }
@@ -174,7 +176,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::enableDhcp
      */
-    public function testEnableDhcp()
+    public function testEnableDhcp(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -194,7 +196,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getIpAddress
      */
-    public function testGetIpAddress()
+    public function testGetIpAddress(): void
     {
         $this->assertEquals('127.0.0.1', $this->bridge->getIpAddress());
     }
@@ -204,7 +206,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::setIpAddress
      */
-    public function testSetIpAddress()
+    public function testSetIpAddress(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -224,7 +226,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getNetmask
      */
-    public function testGetNetmask()
+    public function testGetNetmask(): void
     {
         $this->assertEquals($this->attributes->netmask, $this->bridge->getNetmask());
     }
@@ -234,7 +236,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::setNetmask
      */
-    public function testSetNetmask()
+    public function testSetNetmask(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -255,7 +257,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getGateway
      */
-    public function testGetGateway()
+    public function testGetGateway(): void
     {
         $this->assertEquals($this->attributes->gateway, $this->bridge->getGateway());
     }
@@ -265,7 +267,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::setGateway
      */
-    public function testSetGateway()
+    public function testSetGateway(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -285,7 +287,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getProxyAddress
      */
-    public function testGetProxyAddress()
+    public function testGetProxyAddress(): void
     {
         $this->assertEquals($this->attributes->proxyaddress, 
             $this->bridge->getProxyAddress());
@@ -296,7 +298,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::setProxyAddress
      */
-    public function testSetProxyAddress()
+    public function testSetProxyAddress(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -317,7 +319,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getProxyPort
      */
-    public function testGetProxyPort()
+    public function testGetProxyPort(): void
     {
         $this->assertEquals($this->attributes->proxyport, 
             $this->bridge->getProxyPort());
@@ -328,7 +330,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::setProxyPort
      */
-    public function testSetProxyPort()
+    public function testSetProxyPort(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -348,7 +350,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getUtcTime
      */
-    public function testGetUtcTime()
+    public function testGetUtcTime(): void
     {
         $this->assertEquals($this->attributes->UTC, $this->bridge->getUtcTime());
     }
@@ -358,7 +360,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getLocalTime
      */
-    public function testGetLocalTime()
+    public function testGetLocalTime(): void
     {
         $this->assertEquals($this->attributes->localtime, 
             $this->bridge->getLocalTime());
@@ -369,7 +371,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getTimezone
      */
-    public function testGetTimezone()
+    public function testGetTimezone(): void
     {
         $this->assertEquals($this->attributes->timezone, 
             $this->bridge->getTimezone());
@@ -380,7 +382,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::setTimezone
      */
-    public function testSetTimezone()
+    public function testSetTimezone(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -400,7 +402,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getSoftwareVersion
      */
-    public function testGetSoftwareVersion()
+    public function testGetSoftwareVersion(): void
     {
         $this->assertEquals($this->attributes->swversion, 
             $this->bridge->getSoftwareVersion());
@@ -411,7 +413,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getApiVersion
      */
-    public function testGetApiVersion()
+    public function testGetApiVersion(): void
     {
         $this->assertEquals($this->attributes->apiversion, 
             $this->bridge->getApiVersion());
@@ -422,7 +424,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getSoftwareUpdate
      */
-    public function testGetSoftwareUpdate()
+    public function testGetSoftwareUpdate(): void
     {
         $this->assertInstanceOf('\Phue\SoftwareUpdate', 
             $this->bridge->getSoftwareUpdate());
@@ -433,7 +435,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::isLinkButtonOn
      */
-    public function testIsLinkButtonOn()
+    public function testIsLinkButtonOn(): void
     {
         $this->assertTrue($this->bridge->isLinkButtonOn());
     }
@@ -443,7 +445,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::setLinkButtonOn
      */
-    public function testSetLinkButtonOn()
+    public function testSetLinkButtonOn(): void
     {
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
@@ -463,7 +465,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::arePortalServicesEnabled
      */
-    public function testArePortalServicesEnabled()
+    public function testArePortalServicesEnabled(): void
     {
         $this->assertFalse($this->bridge->arePortalServicesEnabled());
     }
@@ -473,7 +475,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::isPortalConnected
      */
-    public function testIsPortalConnected()
+    public function testIsPortalConnected(): void
     {
         $this->assertTrue($this->bridge->isPortalConnected());
     }
@@ -483,7 +485,7 @@ class BridgeTest extends TestCase
      *
      * @covers \Phue\Bridge::getPortal
      */
-    public function testGetPortal()
+    public function testGetPortal(): void
     {
         $this->assertInstanceOf('\Phue\Portal', $this->bridge->getPortal());
     }

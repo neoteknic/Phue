@@ -33,7 +33,7 @@ class CurlTest extends TestCase
      *
      * @covers CurlAdapter::__construct
      */
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $curlAdapter = new CurlAdapter();
     }
@@ -43,7 +43,7 @@ class CurlTest extends TestCase
      *
      * @covers CurlAdapter::open
      */
-    public function testOpen()
+    public function testOpen(): void
     {
         $this->curlAdapter->open();
         
@@ -56,7 +56,7 @@ class CurlTest extends TestCase
      *
      * @covers CurlAdapter::close
      */
-    public function testClose()
+    public function testClose(): void
     {
         $this->curlAdapter->open();
         $this->curlAdapter->close();
@@ -69,7 +69,7 @@ class CurlTest extends TestCase
      *
      * @covers CurlAdapter::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         $this->curlAdapter->open();
         
@@ -83,7 +83,7 @@ class CurlTest extends TestCase
      *
      * @covers CurlAdapter::getHttpStatusCode
      */
-    public function testGetHttpStatusCode()
+    public function testGetHttpStatusCode(): void
     {
         $this->curlAdapter->open();
         
@@ -97,7 +97,7 @@ class CurlTest extends TestCase
      *
      * @covers CurlAdapter::getContentType
      */
-    public function testGetContentType()
+    public function testGetContentType(): void
     {
         $this->curlAdapter->open();
         

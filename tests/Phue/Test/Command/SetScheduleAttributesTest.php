@@ -20,18 +20,10 @@ class SetScheduleAttributesTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock('\Phue\Client');
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
+        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
         
         // Mock schedule
         $this->mockSchedule = $this->createMock('\Phue\Schedule', null, 
@@ -80,7 +72,7 @@ class SetScheduleAttributesTest extends TestCase
      * @covers \Phue\Command\SetScheduleAttributes::__construct
      * @covers \Phue\Command\SetScheduleAttributes::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Build command
         $setScheduleAttributesCmd = new SetScheduleAttributes($this->mockSchedule);
@@ -107,7 +99,7 @@ class SetScheduleAttributesTest extends TestCase
     /**
      * Stub transport's sendRequest with an expected payload
      */
-    protected function stubTransportSendRequestWithPayload(\stdClass $payload)
+    protected function stubTransportSendRequestWithPayload(\stdClass $payload): void
     {
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())

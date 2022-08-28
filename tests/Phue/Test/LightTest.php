@@ -8,7 +8,9 @@
  */
 namespace Phue\Test;
 
+use Mockery\Mock;
 use PHPUnit\Framework\TestCase;
+use Phue\Client;
 use Phue\Helper\ColorConversion;
 use Phue\Light;
 
@@ -18,7 +20,7 @@ use Phue\Light;
 class LightTest extends TestCase
 {
     private object $attributes;
-    private $mockClient;
+    private Client|Mock $mockClient;
     private Light $light;
 
     public function setUp(): void
@@ -59,7 +61,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::__construct
      * @covers \Phue\Light::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
         $this->assertEquals(5, $this->light->getId());
     }
@@ -70,7 +72,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::__construct
      * @covers \Phue\Light::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals($this->attributes->name, $this->light->getName());
     }
@@ -81,7 +83,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::setName
      * @covers \Phue\Light::getName
      */
-    public function testSetName()
+    public function testSetName(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
@@ -101,7 +103,7 @@ class LightTest extends TestCase
      *
      * @covers \Phue\Light::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals($this->attributes->type, $this->light->getType());
     }
@@ -111,7 +113,7 @@ class LightTest extends TestCase
      *
      * @covers \Phue\Light::getModelId
      */
-    public function testGetModelId()
+    public function testGetModelId(): void
     {
         $this->assertEquals($this->attributes->modelid, $this->light->getModelId());
     }
@@ -121,7 +123,7 @@ class LightTest extends TestCase
      *
      * @covers \Phue\Light::getModel
      */
-    public function testGetModel()
+    public function testGetModel(): void
     {
         $this->assertInstanceOf('\Phue\LightModel\AbstractLightModel', 
             $this->light->getModel());
@@ -132,7 +134,7 @@ class LightTest extends TestCase
      *
      * @covers \Phue\Light::getUniqueId
      */
-    public function testGetUniqueId()
+    public function testGetUniqueId(): void
     {
         $this->assertEquals($this->attributes->uniqueid, $this->light->getUniqueId());
     }
@@ -142,7 +144,7 @@ class LightTest extends TestCase
      *
      * @covers \Phue\Light::getSoftwareVersion
      */
-    public function testGetSoftwareVersion()
+    public function testGetSoftwareVersion(): void
     {
         $this->assertEquals($this->attributes->swversion, 
             $this->light->getSoftwareVersion());
@@ -154,7 +156,7 @@ class LightTest extends TestCase
      * @covers \Phue\Light::isOn
      * @covers \Phue\Light::setOn
      */
-    public function testIsSetOn()
+    public function testIsSetOn(): void
     {
         $this->stubMockClientSendSetLightStateCommand();
         
