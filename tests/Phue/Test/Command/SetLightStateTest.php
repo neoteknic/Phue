@@ -11,6 +11,9 @@ namespace Phue\Test\Command;
 use PHPUnit\Framework\TestCase;
 use Phue\Command\SetLightState;
 use Phue\Helper\ColorConversion;
+use Phue\Light;
+use Phue\Transport\TransportInterface;
+use Phue\Client;
 
 /**
  * Tests for Phue\Command\SetLightState
@@ -20,28 +23,31 @@ class SetLightStateTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $this->mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock light
-        $this->mockLight = $this->createMock('\Phue\Light', null, 
+        $this->mockLight = $this->createMock(
+            Light::class,
+            null,
             array(
                 3,
                 new \stdClass(),
                 $this->mockClient
-            ));
+            )
+        );
         
         // Stub client's getUsername method
         $this->mockClient->expects($this->any())
             ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
+            ->willReturn('abcdefabcdef01234567890123456789');
         
         // Stub client's getTransport method
         $this->mockClient->expects($this->any())
             ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+            ->willReturn($this->mockTransport);
     }
 
     /**
@@ -61,7 +67,8 @@ class SetLightStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) [
                 'on' => $state
-            ]);
+            ]
+        );
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->on($state));
@@ -103,7 +110,8 @@ class SetLightStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) array(
                 'bri' => $brightness
-            ));
+            )
+        );
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->brightness($brightness));
@@ -143,7 +151,8 @@ class SetLightStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) array(
                 'hue' => $value
-            ));
+            )
+        );
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->hue($value));
@@ -183,7 +192,8 @@ class SetLightStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) array(
                 'sat' => $value
-            ));
+            )
+        );
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->saturation($value));
@@ -201,7 +211,7 @@ class SetLightStateTest extends TestCase
      *
      *
      */
-    public function testInvalidXYValue($x, $y)
+    public function testInvalidXYValue($x, $y): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $_x = new SetLightState($this->mockLight);
@@ -228,7 +238,8 @@ class SetLightStateTest extends TestCase
                     $x,
                     $y
                 )
-            ));
+            )
+        );
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->xy($x, $y));
@@ -275,7 +286,8 @@ class SetLightStateTest extends TestCase
                     $xy['y']
                 ),
                 'bri' => $xy['bri']
-            ));
+            )
+        );
 
         // Ensure instance is returned
         $this->assertEquals($command, $command->rgb($red, $green, $blue));
@@ -317,7 +329,8 @@ class SetLightStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) array(
                 'ct' => $temp
-            ));
+            )
+        );
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->colorTemp($temp));
@@ -336,7 +349,8 @@ class SetLightStateTest extends TestCase
         $this->assertNotEmpty(SetLightState::getAlertModes());
         
         $this->assertTrue(
-            in_array(SetLightState::ALERT_SELECT, SetLightState::getAlertModes()));
+            in_array(SetLightState::ALERT_SELECT, SetLightState::getAlertModes())
+        );
     }
 
     /**
@@ -370,7 +384,8 @@ class SetLightStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) array(
                 'alert' => $mode
-            ));
+            )
+        );
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->alert($mode));
@@ -389,7 +404,8 @@ class SetLightStateTest extends TestCase
         $this->assertNotEmpty(SetLightState::getEffectModes());
         
         $this->assertTrue(
-            in_array(SetLightState::EFFECT_NONE, SetLightState::getEffectModes()));
+            in_array(SetLightState::EFFECT_NONE, SetLightState::getEffectModes())
+        );
     }
 
     /**
@@ -423,7 +439,8 @@ class SetLightStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) array(
                 'effect' => $mode
-            ));
+            )
+        );
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->effect($mode));
@@ -463,7 +480,8 @@ class SetLightStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) array(
                 'transitiontime' => $time * 10
-            ));
+            )
+        );
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->transitionTime($time));
@@ -487,7 +505,8 @@ class SetLightStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) [
                 'alert' => 'select'
-            ]);
+            ]
+        );
         
         // Change alert and set state
         $setLightStateCmd->alert('select')->send($this->mockClient);
@@ -514,7 +533,9 @@ class SetLightStateTest extends TestCase
                 'body' => (object) [
                     'alert' => 'select'
                 ]
-            ], $setLightStateCmd->getActionableParams($this->mockClient));
+            ],
+            $setLightStateCmd->getActionableParams($this->mockClient)
+        );
     }
 
     /**
@@ -526,9 +547,12 @@ class SetLightStateTest extends TestCase
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo(
-                "/api/{$this->mockClient->getUsername()}/lights/{$this->mockLight->getId()}/state"), 
-            $this->equalTo('PUT'), $payload);
+                $this->equalTo(
+                    "/api/{$this->mockClient->getUsername()}/lights/{$this->mockLight->getId()}/state"
+                ),
+                $this->equalTo('PUT'),
+                $payload
+            );
     }
 
     /**
@@ -536,7 +560,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerOnState(): array
+    public static function providerOnState(): array
     {
         return [
             [
@@ -553,7 +577,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerInvalidBrightness(): array
+    public static function providerInvalidBrightness(): array
     {
         return [
             [- 1],
@@ -566,7 +590,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerBrightness(): array
+    public static function providerBrightness(): array
     {
         return [
             [0],
@@ -580,7 +604,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerHue(): array
+    public static function providerHue(): array
     {
         return [
             [10000],
@@ -594,7 +618,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerSaturation(): array
+    public static function providerSaturation(): array
     {
         return [
             [0],
@@ -608,7 +632,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerInvalidXY(): array
+    public static function providerInvalidXY(): array
     {
         return [
             [
@@ -635,7 +659,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerXY(): array
+    public static function providerXY(): array
     {
         return [
             [
@@ -658,7 +682,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerInvalidRGB(): array
+    public static function providerInvalidRGB(): array
     {
         return [
             [
@@ -694,7 +718,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerRGB(): array
+    public static function providerRGB(): array
     {
         return array(
             array(
@@ -720,7 +744,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerInvalidColorTemp(): array
+    public static function providerInvalidColorTemp(): array
     {
         return [
             [
@@ -740,7 +764,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerColorTemp(): array
+    public static function providerColorTemp(): array
     {
         return [
             [
@@ -760,7 +784,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerAlert(): array
+    public static function providerAlert(): array
     {
         return [
             [
@@ -780,7 +804,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerEffect(): array
+    public static function providerEffect(): array
     {
         return [
             [
@@ -797,7 +821,7 @@ class SetLightStateTest extends TestCase
      *
      * @return array
      */
-    public function providerTransitionTime(): array
+    public static function providerTransitionTime(): array
     {
         return [
             [

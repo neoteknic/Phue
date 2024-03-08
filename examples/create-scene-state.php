@@ -18,7 +18,8 @@ $lightIds = array(
 
 // Create/modify scene
 $client->sendCommand(
-    new \Phue\Command\CreateScene($sceneId, 'Test Scene', $lightIds));
+    new \Phue\Command\CreateScene($sceneId, 'Test Scene', $lightIds)
+);
 
 echo 'Buffering light states', "\n";
 

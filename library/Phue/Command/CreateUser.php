@@ -19,7 +19,7 @@ class CreateUser implements CommandInterface
     /**
      * Client name
      */
-    const DEFAULT_DEVICE_TYPE = 'Phue';
+    public const DEFAULT_DEVICE_TYPE = 'Phue';
 
     protected string $deviceType;
 

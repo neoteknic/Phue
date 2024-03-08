@@ -10,6 +10,7 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\GetSchedules;
+use Phue\Schedule;
 
 /**
  * Tests for Phue\Command\GetSchedules
@@ -36,8 +37,9 @@ class GetSchedulesTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules"))
-            ->will($this->returnValue(new \stdClass()));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules")
+            )
+            ->willReturn(new \stdClass());
         
         // Send command and get response
         $response = $this->getSchedules->send($this->mockClient);
@@ -64,14 +66,15 @@ class GetSchedulesTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules"))
-            ->will($this->returnValue($mockTransportResults));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules")
+            )
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getSchedules->send($this->mockClient);
         
         // Ensure we have an array of Schedules
         $this->assertIsArray($response);
-        $this->assertContainsOnlyInstancesOf('\Phue\Schedule', $response);
+        $this->assertContainsOnlyInstancesOf(Schedule::class, $response);
     }
 }

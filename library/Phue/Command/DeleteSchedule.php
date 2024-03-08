@@ -32,7 +32,7 @@ class DeleteSchedule implements CommandInterface
     /**
      * Send command
      */
-    public function send(Client $client)
+    public function send(Client $client): void
     {
         $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/schedules/{$this->scheduleId}",

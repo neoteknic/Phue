@@ -14,7 +14,8 @@ use Phue\SensorModel\SensorModelFactory;
 class Sensor
 {
     public function __construct(protected int $id, protected \stdClass $attributes, protected Client $client)
-    {}
+    {
+    }
 
     public function getId(): int
     {
@@ -48,20 +49,12 @@ class Sensor
 
     public function getSoftwareVersion(): ?string
     {
-        if (isset($this->attributes->swversion)) {
-            return $this->attributes->swversion;
-        }
-        
-        return null;
+        return $this->attributes->swversion ?? null;
     }
 
     public function getUniqueId(): ?string
     {
-        if (isset($this->attributes->uniqueid)) {
-            return $this->attributes->uniqueid;
-        }
-        
-        return null;
+        return $this->attributes->uniqueid ?? null;
     }
 
     public function getState(): \stdClass

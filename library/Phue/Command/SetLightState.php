@@ -209,15 +209,15 @@ class SetLightState implements CommandInterface, ActionableInterface
         }
 
         $xy = ColorConversion::convertRGBToXY($red, $green, $blue);
-	    if($bri!==null){
-		    if($bri<0)
-			    $bri=0;
-		    elseif($bri>255)
-			    $bri=255;
-	    }
-	    else{
-		    $bri = $xy['bri'];
-	    }
+        if($bri!==null) {
+            if($bri<0) {
+                $bri=0;
+            } elseif($bri>255) {
+                $bri=255;
+            }
+        } else {
+            $bri = $xy['bri'];
+        }
         return $this->xy($xy['x'], $xy['y'])->brightness($bri);
     }
 
@@ -293,7 +293,7 @@ class SetLightState implements CommandInterface, ActionableInterface
     /**
      * Send command
      */
-    public function send(Client $client)
+    public function send(Client $client): void
     {
         // Get params
         $params = $this->getActionableParams($client);

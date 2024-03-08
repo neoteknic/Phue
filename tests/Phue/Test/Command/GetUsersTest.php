@@ -10,6 +10,7 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\GetUsers;
+use Phue\User;
 
 /**
  * Tests for Phue\Command\GetUsers
@@ -34,7 +35,7 @@ class GetUsersTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/config"))
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Send command and get response
         $response = $this->getUsers->send($this->mockClient);
@@ -63,13 +64,13 @@ class GetUsersTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/config"))
-            ->will($this->returnValue($mockTransportResults));
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getUsers->send($this->mockClient);
         
         // Ensure we have an array of Users
         $this->assertIsArray($response);
-        $this->assertContainsOnlyInstancesOf('\Phue\User', $response);
+        $this->assertContainsOnlyInstancesOf(User::class, $response);
     }
 }

@@ -11,6 +11,8 @@ namespace Phue\Test\Command;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Command\SetGroupAttributes;
+use Phue\Group;
+use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\SetGroupAttributes
@@ -24,15 +26,15 @@ class SetGroupAttributesTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->getMockBuilder('\Phue\Client')
+        $this->mockClient = $this->getMockBuilder(Client::class)
             ->setConstructorArgs(['127.0.0.1'])
             ->getMock()
         ;
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $this->mockTransport = $this->createMock(TransportInterface::class);
 
-        $this->mockGroup = $this->getMockBuilder('\Phue\Group')
+        $this->mockGroup = $this->getMockBuilder(Group::class)
             #->disableOriginalConstructor()
             ->setConstructorArgs([2, new \stdClass(), $this->mockClient])
             ->getMock()
@@ -43,12 +45,12 @@ class SetGroupAttributesTest extends TestCase
         // Stub client's getUsername method
         $this->mockClient->expects($this->any())
             ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
+            ->willReturn('abcdefabcdef01234567890123456789');
         
         // Stub client's getTransport method
         $this->mockClient->expects($this->any())
             ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+            ->willReturn($this->mockTransport);
     }
 
     /**
@@ -69,7 +71,8 @@ class SetGroupAttributesTest extends TestCase
             (object) [
                 'name' => 'Dummy!',
                 'lights' => [3]
-            ]);
+            ]
+        );
         
         // Change name and lights
         $setGroupAttributesCmd->name('Dummy!')

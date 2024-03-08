@@ -12,6 +12,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Command\SetSceneLightState;
+use Phue\Light;
+use Phue\Scene;
+use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\SetSceneLightState
@@ -29,26 +32,26 @@ class SetSceneLightStateTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $this->mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock scene
-        $this->mockScene = $this->createMock('\Phue\Scene');
+        $this->mockScene = $this->createMock(Scene::class);
         
         // Mock light
-        $this->mockLight = $this->createMock('\Phue\Light');
+        $this->mockLight = $this->createMock(Light::class);
         
         // Stub client's getUsername method
         $this->mockClient->expects($this->any())
             ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
+            ->willReturn('abcdefabcdef01234567890123456789');
         
         // Stub client's getTransport method
         $this->mockClient->expects($this->any())
             ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+            ->willReturn($this->mockTransport);
     }
 
     /**
@@ -66,7 +69,8 @@ class SetSceneLightStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) [
                 'ct' => '300'
-            ]);
+            ]
+        );
         
         // Change color temp and set state
         $setSceneLightStateCmd->colorTemp(300)->send($this->mockClient);
@@ -81,8 +85,11 @@ class SetSceneLightStateTest extends TestCase
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo(
-                "/api/{$this->mockClient->getUsername()}/scenes/". (int) $this->mockScene->getId()."/lights/{$this->mockLight->getId()}/state"),
-            $this->equalTo('PUT'), $payload);
+                $this->equalTo(
+                    "/api/{$this->mockClient->getUsername()}/scenes/". (int) $this->mockScene->getId()."/lights/{$this->mockLight->getId()}/state"
+                ),
+                $this->equalTo('PUT'),
+                $payload
+            );
     }
 }

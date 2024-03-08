@@ -10,6 +10,7 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\GetBridge;
+use Phue\Bridge;
 
 /**
  * Tests for Phue\Command\GetBridge
@@ -39,12 +40,12 @@ class GetBridgeTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/config"))
-            ->will($this->returnValue($mockTransportResults));
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getBridge->send($this->mockClient);
         
         // Ensure we have a bridge object
-        $this->assertInstanceOf('\Phue\Bridge', $response);
+        $this->assertInstanceOf(Bridge::class, $response);
     }
 }

@@ -77,8 +77,8 @@ class ColorConversion
         $z = 1.0 - $x - $y;
         $xyz['y'] = $bri / 255;
         //Temp fix for division by zero
-        if($y==0){
-        	$y=0.001;
+        if($y==0) {
+            $y=0.001;
         }
         $xyz['x'] = ($xyz['y'] / $y) * $x;
         $xyz['z'] = ($xyz['y'] / $y) * $z;

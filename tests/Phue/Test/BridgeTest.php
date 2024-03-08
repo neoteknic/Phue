@@ -12,6 +12,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Bridge;
 use Phue\Client;
+use Phue\Command\SetBridgeConfig;
+use Phue\Portal;
+use Phue\SoftwareUpdate;
 
 /**
  * Tests for Phue\Bridge
@@ -26,7 +29,7 @@ class BridgeTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Build stub attributes
         // $this->attributes = (object) [
@@ -111,8 +114,8 @@ class BridgeTest extends TestCase
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetBridgeConfig'))
-            ->will($this->returnValue($this->bridge));
+            ->with($this->isInstanceOf(SetBridgeConfig::class))
+            ->willReturn($this->bridge);
         
         // Ensure setName returns self
         $this->assertEquals($this->bridge, $this->bridge->setName('new name'));
@@ -128,8 +131,10 @@ class BridgeTest extends TestCase
      */
     public function testGetZigBeeChannel(): void
     {
-        $this->assertEquals($this->attributes->zigbeechannel, 
-            $this->bridge->getZigBeeChannel());
+        $this->assertEquals(
+            $this->attributes->zigbeechannel,
+            $this->bridge->getZigBeeChannel()
+        );
     }
 
     /**
@@ -142,8 +147,8 @@ class BridgeTest extends TestCase
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetBridgeConfig'))
-            ->will($this->returnValue($this->bridge));
+            ->with($this->isInstanceOf(SetBridgeConfig::class))
+            ->willReturn($this->bridge);
         
         // Ensure setZigBeeChannel returns self
         $this->assertEquals($this->bridge, $this->bridge->setZigBeeChannel(10));
@@ -182,8 +187,8 @@ class BridgeTest extends TestCase
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetBridgeConfig'))
-            ->will($this->returnValue($this->bridge));
+            ->with($this->isInstanceOf(SetBridgeConfig::class))
+            ->willReturn($this->bridge);
         
         // Ensure enableDhcp returns self
         $this->assertEquals($this->bridge, $this->bridge->enableDhcp(false));
@@ -212,8 +217,8 @@ class BridgeTest extends TestCase
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetBridgeConfig'))
-            ->will($this->returnValue($this->bridge));
+            ->with($this->isInstanceOf(SetBridgeConfig::class))
+            ->willReturn($this->bridge);
         
         // Ensure setIpAddress returns self
         $this->assertEquals($this->bridge, $this->bridge->setIpAddress('127.0.0.1'));
@@ -242,12 +247,14 @@ class BridgeTest extends TestCase
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetBridgeConfig'))
-            ->will($this->returnValue($this->bridge));
+            ->with($this->isInstanceOf(SetBridgeConfig::class))
+            ->willReturn($this->bridge);
         
         // Ensure setNetmask returns self
-        $this->assertEquals($this->bridge, 
-            $this->bridge->setNetmask('255.255.255.1'));
+        $this->assertEquals(
+            $this->bridge,
+            $this->bridge->setNetmask('255.255.255.1')
+        );
         
         // Ensure new value can be retrieved by getNetmask
         $this->assertEquals('255.255.255.1', $this->bridge->getNetmask());
@@ -273,8 +280,8 @@ class BridgeTest extends TestCase
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetBridgeConfig'))
-            ->will($this->returnValue($this->bridge));
+            ->with($this->isInstanceOf(SetBridgeConfig::class))
+            ->willReturn($this->bridge);
         
         // Ensure setGateway returns self
         $this->assertEquals($this->bridge, $this->bridge->setGateway('10.0.0.1'));
@@ -290,8 +297,10 @@ class BridgeTest extends TestCase
      */
     public function testGetProxyAddress(): void
     {
-        $this->assertEquals($this->attributes->proxyaddress, 
-            $this->bridge->getProxyAddress());
+        $this->assertEquals(
+            $this->attributes->proxyaddress,
+            $this->bridge->getProxyAddress()
+        );
     }
 
     /**
@@ -304,12 +313,14 @@ class BridgeTest extends TestCase
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetBridgeConfig'))
-            ->will($this->returnValue($this->bridge));
+            ->with($this->isInstanceOf(SetBridgeConfig::class))
+            ->willReturn($this->bridge);
         
         // Ensure setProxyAddress returns self
-        $this->assertEquals($this->bridge, 
-            $this->bridge->setProxyAddress('127.0.0.1'));
+        $this->assertEquals(
+            $this->bridge,
+            $this->bridge->setProxyAddress('127.0.0.1')
+        );
         
         // Ensure new value can be retrieved by setProxyAddress
         $this->assertEquals('127.0.0.1', $this->bridge->getProxyAddress());
@@ -322,8 +333,10 @@ class BridgeTest extends TestCase
      */
     public function testGetProxyPort(): void
     {
-        $this->assertEquals($this->attributes->proxyport, 
-            $this->bridge->getProxyPort());
+        $this->assertEquals(
+            $this->attributes->proxyport,
+            $this->bridge->getProxyPort()
+        );
     }
 
     /**
@@ -336,8 +349,8 @@ class BridgeTest extends TestCase
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetBridgeConfig'))
-            ->will($this->returnValue($this->bridge));
+            ->with($this->isInstanceOf(SetBridgeConfig::class))
+            ->willReturn($this->bridge);
         
         // Ensure setProxyAddress returns self
         $this->assertEquals($this->bridge, $this->bridge->setProxyPort(79));
@@ -363,8 +376,10 @@ class BridgeTest extends TestCase
      */
     public function testGetLocalTime(): void
     {
-        $this->assertEquals($this->attributes->localtime, 
-            $this->bridge->getLocalTime());
+        $this->assertEquals(
+            $this->attributes->localtime,
+            $this->bridge->getLocalTime()
+        );
     }
 
     /**
@@ -374,8 +389,10 @@ class BridgeTest extends TestCase
      */
     public function testGetTimezone(): void
     {
-        $this->assertEquals($this->attributes->timezone, 
-            $this->bridge->getTimezone());
+        $this->assertEquals(
+            $this->attributes->timezone,
+            $this->bridge->getTimezone()
+        );
     }
 
     /**
@@ -388,8 +405,8 @@ class BridgeTest extends TestCase
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetBridgeConfig'))
-            ->will($this->returnValue($this->bridge));
+            ->with($this->isInstanceOf(SetBridgeConfig::class))
+            ->willReturn($this->bridge);
         
         // Ensure setTimezone returns self
         $this->assertEquals($this->bridge, $this->bridge->setTimezone('Antarctica'));
@@ -405,8 +422,10 @@ class BridgeTest extends TestCase
      */
     public function testGetSoftwareVersion(): void
     {
-        $this->assertEquals($this->attributes->swversion, 
-            $this->bridge->getSoftwareVersion());
+        $this->assertEquals(
+            $this->attributes->swversion,
+            $this->bridge->getSoftwareVersion()
+        );
     }
 
     /**
@@ -416,8 +435,10 @@ class BridgeTest extends TestCase
      */
     public function testGetApiVersion(): void
     {
-        $this->assertEquals($this->attributes->apiversion, 
-            $this->bridge->getApiVersion());
+        $this->assertEquals(
+            $this->attributes->apiversion,
+            $this->bridge->getApiVersion()
+        );
     }
 
     /**
@@ -427,8 +448,10 @@ class BridgeTest extends TestCase
      */
     public function testGetSoftwareUpdate(): void
     {
-        $this->assertInstanceOf('\Phue\SoftwareUpdate', 
-            $this->bridge->getSoftwareUpdate());
+        $this->assertInstanceOf(
+            SoftwareUpdate::class,
+            $this->bridge->getSoftwareUpdate()
+        );
     }
 
     /**
@@ -451,14 +474,14 @@ class BridgeTest extends TestCase
         // Expect client's sendCommand usage
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetBridgeConfig'))
-            ->will($this->returnValue($this->bridge));
+            ->with($this->isInstanceOf(SetBridgeConfig::class))
+            ->willReturn($this->bridge);
         
         // Ensure setLinkButtonOn returns self
         $this->assertEquals($this->bridge, $this->bridge->setLinkButtonOn(false));
         
         // Ensure new value can be retrieved by isLinkButtonOn
-        $this->assertEquals(false, $this->bridge->isLinkButtonOn());
+        $this->assertFalse($this->bridge->isLinkButtonOn());
     }
 
     /**
@@ -488,6 +511,6 @@ class BridgeTest extends TestCase
      */
     public function testGetPortal(): void
     {
-        $this->assertInstanceOf('\Phue\Portal', $this->bridge->getPortal());
+        $this->assertInstanceOf(Portal::class, $this->bridge->getPortal());
     }
 }

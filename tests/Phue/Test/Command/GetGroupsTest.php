@@ -10,6 +10,7 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\GetGroups;
+use Phue\Group;
 
 /**
  * Tests for Phue\Command\GetGroups
@@ -36,7 +37,7 @@ class GetGroupsTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/groups"))
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Send command and get response
         $response = $this->getGroups->send($this->mockClient);
@@ -51,7 +52,7 @@ class GetGroupsTest extends AbstractCommandTest
      *
      * @covers \Phue\Command\GetGroups::send
      */
-    public function testFoundGroups()
+    public function testFoundGroups(): void
     {
         // Mock transport results
         $mockTransportResults = (object) array(
@@ -63,13 +64,13 @@ class GetGroupsTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/groups"))
-            ->will($this->returnValue($mockTransportResults));
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getGroups->send($this->mockClient);
         
         // Ensure we have an array of Groups
         $this->assertIsArray($response);
-        $this->assertContainsOnlyInstancesOf('\Phue\Group', $response);
+        $this->assertContainsOnlyInstancesOf(Group::class, $response);
     }
 }

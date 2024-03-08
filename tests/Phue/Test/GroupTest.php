@@ -14,6 +14,9 @@ use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Helper\ColorConversion;
 use Phue\Group;
+use Phue\Command\SetGroupState;
+use Phue\Command\DeleteGroup;
+use Phue\Command\SetGroupAttributes;
 
 /**
  * Tests for Phue\Group
@@ -27,7 +30,7 @@ class GroupTest extends TestCase
 
     public function setUp(): void
     {
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Build stub attributes
         $this->attributes = (object) [
@@ -90,8 +93,8 @@ class GroupTest extends TestCase
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetGroupAttributes'))
-            ->will($this->returnValue($this->group));
+            ->with($this->isInstanceOf(SetGroupAttributes::class))
+            ->willReturn($this->group);
         
         // Ensure setName returns self
         $this->assertEquals($this->group, $this->group->setName('new name'));
@@ -131,17 +134,19 @@ class GroupTest extends TestCase
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetGroupAttributes'))
-            ->will($this->returnValue($this->group));
+            ->with($this->isInstanceOf(SetGroupAttributes::class))
+            ->willReturn($this->group);
         
         // Ensure setLights return self
-        $this->assertEquals($this->group, 
+        $this->assertEquals(
+            $this->group,
             $this->group->setLights(array(
                 1,
                 2,
                 3,
                 4
-            )));
+            ))
+        );
         
         // Ensure lights can be retrieved by getLights
         $this->assertEquals(
@@ -150,7 +155,9 @@ class GroupTest extends TestCase
                 2,
                 3,
                 4
-            ), $this->group->getLightIds());
+            ),
+            $this->group->getLightIds()
+        );
     }
 
     /**
@@ -184,8 +191,10 @@ class GroupTest extends TestCase
         $this->stubMockClientSendSetGroupStateCommand();
         
         // Make sure original brightness is retrievable
-        $this->assertEquals($this->attributes->action->bri, 
-            $this->group->getBrightness());
+        $this->assertEquals(
+            $this->attributes->action->bri,
+            $this->group->getBrightness()
+        );
         
         // Ensure setBrightness returns self
         $this->assertEquals($this->group, $this->group->setBrightness(254));
@@ -225,8 +234,10 @@ class GroupTest extends TestCase
         $this->stubMockClientSendSetGroupStateCommand();
         
         // Make sure original saturation is retrievable
-        $this->assertEquals($this->attributes->action->sat, 
-            $this->group->getSaturation());
+        $this->assertEquals(
+            $this->attributes->action->sat,
+            $this->group->getSaturation()
+        );
         
         // Ensure setSaturation returns self
         $this->assertEquals($this->group, $this->group->setSaturation(200));
@@ -254,7 +265,9 @@ class GroupTest extends TestCase
             array(
                 'x' => $this->attributes->action->xy[0],
                 'y' => $this->attributes->action->xy[1]
-            ), $this->group->getXY());
+            ),
+            $this->group->getXY()
+        );
         
         // Ensure setXY returns self
         $this->assertEquals($this->group, $this->group->setXY(0.1, 0.2));
@@ -264,7 +277,9 @@ class GroupTest extends TestCase
             array(
                 'x' => 0.1,
                 'y' => 0.2
-            ), $this->group->getXY());
+            ),
+            $this->group->getXY()
+        );
     }
 
     /**
@@ -273,7 +288,7 @@ class GroupTest extends TestCase
      * @covers \Phue\Group::getRGB
      * @covers \Phue\Group::setRGB
      */
-    public function testGetSetRGB()
+    public function testGetSetRGB(): void
     {
         $this->stubMockClientSendSetGroupStateCommand();
 
@@ -288,7 +303,9 @@ class GroupTest extends TestCase
                 'red' => $rgb['red'],
                 'green' => $rgb['green'],
                 'blue' => $rgb['blue']
-            ), $this->group->getRGB());
+            ),
+            $this->group->getRGB()
+        );
 
         // Ensure setRGB returns self
         $this->assertEquals($this->group, $this->group->setRGB(50, 50, 50));
@@ -299,7 +316,9 @@ class GroupTest extends TestCase
                 'red' => 50,
                 'green' => 50,
                 'blue' => 50
-            ), $this->group->getRGB());
+            ),
+            $this->group->getRGB()
+        );
     }
 
     /**
@@ -313,8 +332,10 @@ class GroupTest extends TestCase
         $this->stubMockClientSendSetGroupStateCommand();
         
         // Make sure original color temp is retrievable
-        $this->assertEquals($this->attributes->action->ct, 
-            $this->group->getColorTemp());
+        $this->assertEquals(
+            $this->attributes->action->ct,
+            $this->group->getColorTemp()
+        );
         
         // Ensure setColorTemp returns self
         $this->assertEquals($this->group, $this->group->setColorTemp(412));
@@ -334,8 +355,10 @@ class GroupTest extends TestCase
         $this->stubMockClientSendSetGroupStateCommand();
         
         // Make sure original effect is retrievable
-        $this->assertEquals($this->attributes->action->effect, 
-            $this->group->getEffect());
+        $this->assertEquals(
+            $this->attributes->action->effect,
+            $this->group->getEffect()
+        );
         
         // Ensure setEffect returns self
         $this->assertEquals($this->group, $this->group->setEffect('colorloop'));
@@ -351,8 +374,10 @@ class GroupTest extends TestCase
      */
     public function testGetColormode(): void
     {
-        $this->assertEquals($this->attributes->action->colormode, 
-            $this->group->getColorMode());
+        $this->assertEquals(
+            $this->attributes->action->colormode,
+            $this->group->getColorMode()
+        );
     }
 
     /**
@@ -377,7 +402,7 @@ class GroupTest extends TestCase
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\DeleteGroup'));
+            ->with($this->isInstanceOf(DeleteGroup::class));
         
         $this->group->delete();
     }
@@ -399,6 +424,6 @@ class GroupTest extends TestCase
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetGroupState'));
+            ->with($this->isInstanceOf(SetGroupState::class));
     }
 }

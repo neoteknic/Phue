@@ -53,8 +53,7 @@ class Streaming implements AdapterInterface
             ]
         );
 
-        if(!$address)
-        {
+        if(!$address) {
             return false;
         }
 

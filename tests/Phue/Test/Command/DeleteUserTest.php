@@ -23,7 +23,7 @@ class DeleteUserTest extends AbstractCommandTest
      * @covers \Phue\Command\DeleteUser::__construct
      * @covers \Phue\Command\DeleteUser::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         $command = new DeleteUser('atestusername');
         
@@ -31,9 +31,11 @@ class DeleteUserTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo(
-                "/api/{$this->mockClient->getUsername()}/config/whitelist/atestusername"), 
-            $this->equalTo(TransportInterface::METHOD_DELETE));
+                $this->equalTo(
+                    "/api/{$this->mockClient->getUsername()}/config/whitelist/atestusername"
+                ),
+                $this->equalTo(TransportInterface::METHOD_DELETE)
+            );
         
         // Send command
         $command->send($this->mockClient);

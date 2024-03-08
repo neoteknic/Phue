@@ -12,6 +12,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Sensor;
+use Phue\SensorModel\AbstractSensorModel;
 
 /**
  * Tests for Phue\Sensor
@@ -29,7 +30,7 @@ class SensorTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Build stub attributes
         $this->attributes = (object) [
@@ -103,8 +104,10 @@ class SensorTest extends TestCase
      */
     public function testGetModel(): void
     {
-        $this->assertInstanceOf('\Phue\SensorModel\AbstractSensorModel', 
-            $this->sensor->getModel());
+        $this->assertInstanceOf(
+            AbstractSensorModel::class,
+            $this->sensor->getModel()
+        );
     }
 
     /**
@@ -114,8 +117,10 @@ class SensorTest extends TestCase
      */
     public function testGetManufacturerName(): void
     {
-        $this->assertEquals($this->attributes->manufacturername, 
-            $this->sensor->getManufacturerName());
+        $this->assertEquals(
+            $this->attributes->manufacturername,
+            $this->sensor->getManufacturerName()
+        );
     }
 
     /**
@@ -125,8 +130,10 @@ class SensorTest extends TestCase
      */
     public function testGetSoftwareVersion(): void
     {
-        $this->assertEquals($this->attributes->swversion, 
-            $this->sensor->getSoftwareVersion());
+        $this->assertEquals(
+            $this->attributes->swversion,
+            $this->sensor->getSoftwareVersion()
+        );
     }
 
     /**
@@ -148,8 +155,10 @@ class SensorTest extends TestCase
      */
     public function testGetUniqueId(): void
     {
-        $this->assertEquals($this->attributes->uniqueid, 
-            $this->sensor->getUniqueId());
+        $this->assertEquals(
+            $this->attributes->uniqueid,
+            $this->sensor->getUniqueId()
+        );
     }
 
     /**
@@ -171,7 +180,7 @@ class SensorTest extends TestCase
      */
     public function testGetState(): void
     {
-        $this->assertInstanceOf('\stdClass', $this->sensor->getState());
+        $this->assertInstanceOf(\stdClass::class, $this->sensor->getState());
     }
 
     /**
@@ -181,7 +190,7 @@ class SensorTest extends TestCase
      */
     public function testGetConfig(): void
     {
-        $this->assertInstanceOf('\stdClass', $this->sensor->getConfig());
+        $this->assertInstanceOf(\stdClass::class, $this->sensor->getConfig());
     }
 
     /**

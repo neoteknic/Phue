@@ -21,7 +21,8 @@ class SoftwareUpdate
     const STATE_INSTALLING = 3;
 
     public function __construct(protected \stdClass $attributes, protected Client $client)
-    {}
+    {
+    }
 
     public function getUpdateState(): int
     {
@@ -62,9 +63,9 @@ class SoftwareUpdate
             )
         );
         
-         $this->attributes->checkforupdate = true;
+        $this->attributes->checkforupdate = true;
         
-          return $this;
+        return $this;
     }
 
     public function isBridgeUpdatable(): bool

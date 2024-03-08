@@ -10,6 +10,9 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\SetGroupState;
+use Phue\Group;
+use Phue\Transport\TransportInterface;
+use Phue\Client;
 
 /**
  * Tests for Phue\Command\SetGroupState
@@ -19,28 +22,31 @@ class SetGroupStateTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $this->mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock group
-        $this->mockGroup = $this->createMock('\Phue\Group', null, 
+        $this->mockGroup = $this->createMock(
+            Group::class,
+            null,
             array(
                 2,
                 new \stdClass(),
                 $this->mockClient
-            ));
+            )
+        );
         
         // Stub client's getUsername method
         $this->mockClient->expects($this->any())
             ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
+            ->willReturn('abcdefabcdef01234567890123456789');
         
         // Stub client's getTransport method
         $this->mockClient->expects($this->any())
             ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+            ->willReturn($this->mockTransport);
     }
 
     /**
@@ -60,7 +66,8 @@ class SetGroupStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) array(
                 'scene' => $scene
-            ));
+            )
+        );
         
         // Ensure instance is returned
         $this->assertEquals($command, $command->scene($scene));
@@ -84,7 +91,8 @@ class SetGroupStateTest extends TestCase
         $this->stubTransportSendRequestWithPayload(
             (object) [
                 'ct' => '300'
-            ]);
+            ]
+        );
         
         // Change color temp and set state
         $setGroupStateCmd->colorTemp(300)->send($this->mockClient);
@@ -111,7 +119,9 @@ class SetGroupStateTest extends TestCase
                 'body' => (object) [
                     'alert' => 'select'
                 ]
-            ], $setGroupStateCmd->getActionableParams($this->mockClient));
+            ],
+            $setGroupStateCmd->getActionableParams($this->mockClient)
+        );
     }
 
     /**
@@ -126,8 +136,11 @@ class SetGroupStateTest extends TestCase
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo(
-                "/api/{$this->mockClient->getUsername()}/groups/{$this->mockGroup->getId()}/action"), 
-            $this->equalTo('PUT'), $payload);
+                $this->equalTo(
+                    "/api/{$this->mockClient->getUsername()}/groups/{$this->mockGroup->getId()}/action"
+                ),
+                $this->equalTo('PUT'),
+                $payload
+            );
     }
 }

@@ -33,8 +33,9 @@ class DeleteGroupTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/groups/5"), 
-            $this->equalTo(TransportInterface::METHOD_DELETE));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/groups/5"),
+                $this->equalTo(TransportInterface::METHOD_DELETE)
+            );
         
         // Send command
         $command->send($this->mockClient);

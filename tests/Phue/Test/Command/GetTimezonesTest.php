@@ -37,8 +37,9 @@ class GetTimezonesTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequestBypassBodyValidation')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/info/timezones"))
-            ->will($this->returnValue($mockTransportResults));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/info/timezones")
+            )
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getTimezones->send($this->mockClient);

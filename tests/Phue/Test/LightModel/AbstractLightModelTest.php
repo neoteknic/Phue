@@ -22,7 +22,8 @@ class AbstractLightModelTest extends TestCase
     {
         // Mock client
         $this->mockAbstractLightModel = $this->getMockForAbstractClass(
-            '\Phue\LightModel\AbstractLightModel');
+            AbstractLightModel::class
+        );
     }
 
     /**
@@ -32,8 +33,10 @@ class AbstractLightModelTest extends TestCase
      */
     public function testGetId(): void
     {
-        $this->assertEquals(AbstractLightModel::MODEL_ID,
-            $this->mockAbstractLightModel->getId());
+        $this->assertEquals(
+            AbstractLightModel::MODEL_ID,
+            $this->mockAbstractLightModel->getId()
+        );
     }
 
     /**
@@ -43,8 +46,10 @@ class AbstractLightModelTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals(AbstractLightModel::MODEL_NAME,
-            $this->mockAbstractLightModel->getName());
+        $this->assertEquals(
+            AbstractLightModel::MODEL_NAME,
+            $this->mockAbstractLightModel->getName()
+        );
     }
 
     /**
@@ -54,8 +59,10 @@ class AbstractLightModelTest extends TestCase
      */
     public function testCanRetainState(): void
     {
-        $this->assertEquals(AbstractLightModel::CAN_RETAIN_STATE,
-            $this->mockAbstractLightModel->canRetainState());
+        $this->assertEquals(
+            AbstractLightModel::CAN_RETAIN_STATE,
+            $this->mockAbstractLightModel->canRetainState()
+        );
     }
 
     /**
@@ -65,7 +72,9 @@ class AbstractLightModelTest extends TestCase
      */
     public function testToString(): void
     {
-        $this->assertEquals(AbstractLightModel::MODEL_NAME,
-            (string) $this->mockAbstractLightModel);
+        $this->assertEquals(
+            AbstractLightModel::MODEL_NAME,
+            (string) $this->mockAbstractLightModel
+        );
     }
 }

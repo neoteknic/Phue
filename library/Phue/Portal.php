@@ -11,7 +11,8 @@ namespace Phue;
 class Portal
 {
     public function __construct(protected \stdClass $attributes, protected Client $client)
-    {}
+    {
+    }
 
     public function isSignedOn(): bool
     {

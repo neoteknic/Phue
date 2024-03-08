@@ -11,6 +11,7 @@ namespace Phue\Test\Command;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Phue\Command\UpdateSensorConfig;
+use Phue\Client;
 
 /**
  * Tests for Phue\Command\UpdateSensorConfig
@@ -47,7 +48,7 @@ class UpdateSensorConfigTest extends TestCase
     public function testSend(): void
     {
         // Mock client
-        $mockClient = Mockery::mock('\Phue\Client', ['getUsername' => 'abcdefabcdef01234567890123456789'])
+        $mockClient = Mockery::mock(Client::class, ['getUsername' => 'abcdefabcdef01234567890123456789'])
             ->makePartial();
         
         // Mock client commands

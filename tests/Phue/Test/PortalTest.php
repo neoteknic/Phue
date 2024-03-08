@@ -29,7 +29,7 @@ class PortalTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Build stub attributes
         // $this->attributes = (object) [
@@ -86,7 +86,9 @@ class PortalTest extends TestCase
      */
     public function testGetCommunication(): void
     {
-        $this->assertEquals($this->attributes->communication, 
-            $this->portal->getCommunication());
+        $this->assertEquals(
+            $this->attributes->communication,
+            $this->portal->getCommunication()
+        );
     }
 }

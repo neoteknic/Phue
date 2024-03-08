@@ -33,7 +33,7 @@ class SetBridgeConfig implements CommandInterface
         $this->config = $config;
     }
 
-    public function send(Client $client)
+    public function send(Client $client): void
     {
         $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/config",

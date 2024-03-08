@@ -11,6 +11,9 @@ namespace Phue\Test\Command;
 use PHPUnit\Framework\TestCase;
 use Phue\Command\SetScheduleAttributes;
 use Phue\Transport\TransportInterface;
+use Phue\Command\ActionableInterface;
+use Phue\Schedule;
+use Phue\Client;
 
 /**
  * Tests for Phue\Command\SetScheduleAttributes
@@ -20,50 +23,50 @@ class SetScheduleAttributesTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $this->mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock schedule
-        $this->mockSchedule = $this->createMock('\Phue\Schedule', null, 
+        $this->mockSchedule = $this->createMock(
+            Schedule::class,
+            null,
             array(
                 12,
                 new \stdClass(),
                 $this->mockClient
-            ));
+            )
+        );
         
         // Stub client's getUsername method
         $this->mockClient->expects($this->any())
             ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
+            ->willReturn('abcdefabcdef01234567890123456789');
         
         // Stub client's getTransport method
         $this->mockClient->expects($this->any())
             ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+            ->willReturn($this->mockTransport);
         
         // Mock actionable command
-        $this->mockCommand = $this->createMock('\Phue\Command\ActionableInterface', 
+        $this->mockCommand = $this->createMock(
+            ActionableInterface::class,
             array(
                 'getActionableParams'
-            ));
+            )
+        );
         
         // Stub command's getActionableParams method
         $this->mockCommand->expects($this->any())
             ->method('getActionableParams')
-            ->will(
-            // $this->returnValue([
-            // 'address' => '/thing/value',
-            // 'method' => 'POST',
-            // 'body' => 'Dummy'
-            // ])
-            $this->returnValue(
-                array(
+            ->willReturn(
+                [
                     'address' => '/thing/value',
                     'method' => 'POST',
                     'body' => 'Dummy'
-                )));
+                ]
+            );
     }
 
     /**
@@ -87,7 +90,8 @@ class SetScheduleAttributesTest extends TestCase
                     'address' => "/api/{$this->mockClient->getUsername()}/thing/value",
                     'body' => "Dummy"
                 )
-            ));
+            )
+        );
         
         // Change name, description
         $setScheduleAttributesCmd->name('Dummy!')
@@ -105,8 +109,11 @@ class SetScheduleAttributesTest extends TestCase
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo(
-                "/api/{$this->mockClient->getUsername()}/schedules/{$this->mockSchedule->getId()}"), 
-            $this->equalTo('PUT'), $payload);
+                $this->equalTo(
+                    "/api/{$this->mockClient->getUsername()}/schedules/{$this->mockSchedule->getId()}"
+                ),
+                $this->equalTo('PUT'),
+                $payload
+            );
     }
 }

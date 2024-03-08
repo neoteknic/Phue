@@ -9,6 +9,7 @@
 namespace Phue\Test\Command;
 
 use Phue\Command\GetLightById;
+use Phue\Light;
 
 /**
  * Tests for Phue\Command\GetLightById
@@ -27,13 +28,13 @@ class GetLightByIdTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with("/api/{$this->mockClient->getUsername()}/lights/10")
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Get light
         $x = new GetLightById(10);
         $light = $x->send($this->mockClient);
         
         // Ensure type is correct
-        $this->assertInstanceOf('\Phue\Light', $light);
+        $this->assertInstanceOf(Light::class, $light);
     }
 }

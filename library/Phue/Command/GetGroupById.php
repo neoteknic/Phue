@@ -17,7 +17,8 @@ use Phue\Group;
 class GetGroupById implements CommandInterface
 {
     public function __construct(protected int $groupId)
-    {}
+    {
+    }
 
     public function send(Client $client): Group
     {

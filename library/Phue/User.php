@@ -13,7 +13,8 @@ use Phue\Command\DeleteUser;
 class User
 {
     public function __construct(protected string $username, protected \stdClass $attributes, protected Client $client)
-    {}
+    {
+    }
 
     public function getUsername(): string
     {

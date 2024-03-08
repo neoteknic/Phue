@@ -25,15 +25,17 @@ class DeleteRuleTest extends AbstractCommandTest
      * @covers \Phue\Command\DeleteRule::__construct
      * @covers \Phue\Command\DeleteRule::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         $command = new DeleteRule(5);
         
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/rules/5"), 
-            $this->equalTo(TransportInterface::METHOD_DELETE));
+            ->with(
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/rules/5"),
+                $this->equalTo(TransportInterface::METHOD_DELETE)
+            );
         
         // Send command
         $command->send($this->mockClient);

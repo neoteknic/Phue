@@ -10,8 +10,8 @@ if (is_file(__DIR__ . '/../vendor/autoload.php')) {
 // Show usage if host and username not passed
 if (!isset($argv[1], $argv[2])) {
     echo "Philips Hue Light Lister", "\n\n",
-         "Usage:", "\n",
-         "  <host> <username>", "\n\n";
+    "Usage:", "\n",
+    "  <host> <username>", "\n\n";
     exit(1);
 }
 
@@ -41,5 +41,5 @@ echo "List of lights:", "\n";
 
 foreach ($client->getLights() as $light) {
     echo "\t", "#{$light->getId()} - ", $light->isOn() ? 'On' : 'Off',
-         " - {$light->getName()} - {$light->getModel()}", "\n";
+    " - {$light->getName()} - {$light->getModel()}", "\n";
 }

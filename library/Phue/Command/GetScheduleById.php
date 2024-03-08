@@ -17,7 +17,8 @@ use Phue\Schedule;
 class GetScheduleById implements CommandInterface
 {
     public function __construct(protected int $scheduleId)
-    {}
+    {
+    }
 
     public function send(Client $client): Schedule
     {

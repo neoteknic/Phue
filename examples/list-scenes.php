@@ -12,5 +12,5 @@ echo 'Listing scenes:', "\n";
 
 foreach ($client->getScenes() as $scene) {
     echo "\t", "#{$scene->getId()} - {$scene->getName()}", "\n",
-        "\t\t", "Light Ids: ", implode(', ', $scene->getLightIds()), "\n";
+    "\t\t", "Light Ids: ", implode(', ', $scene->getLightIds()), "\n";
 }

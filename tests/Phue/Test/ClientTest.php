@@ -10,6 +10,17 @@ namespace Phue\Test;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
+use Phue\Command\CommandInterface;
+use Phue\Transport\TransportInterface;
+use Phue\Transport\Http;
+use Phue\Rule;
+use Phue\Sensor;
+use Phue\Scene;
+use Phue\Schedule;
+use Phue\Group;
+use Phue\Light;
+use Phue\User;
+use Phue\Bridge;
 
 /**
  * Tests for Phue\Client
@@ -60,18 +71,18 @@ class ClientTest extends TestCase
     public function testGetBridge(): void
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $mockTransport = $this->createMock(TransportInterface::class);
         
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Set transport
         $this->client->setTransport($mockTransport);
         
         // Ensure return type is Bridge
-        $this->assertInstanceOf('\Phue\Bridge', $this->client->getBridge());
+        $this->assertInstanceOf(Bridge::class, $this->client->getBridge());
     }
 
     /**
@@ -82,7 +93,7 @@ class ClientTest extends TestCase
     public function testGetUsers(): void
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock results for sendRequest
         $mockResults = (object) array(
@@ -96,7 +107,7 @@ class ClientTest extends TestCase
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->will($this->returnValue($mockResults));
+            ->willReturn($mockResults);
         
         // Set transport
         $this->client->setTransport($mockTransport);
@@ -108,7 +119,7 @@ class ClientTest extends TestCase
         $this->assertCount(3, $users);
         
         // Ensure return type is an array of users
-        $this->assertContainsOnlyInstancesOf('\Phue\User', $users);
+        $this->assertContainsOnlyInstancesOf(User::class, $users);
     }
 
     /**
@@ -119,7 +130,7 @@ class ClientTest extends TestCase
     public function testGetLights(): void
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock results for sendRequest
         // $mockResults = (object) [
@@ -134,7 +145,7 @@ class ClientTest extends TestCase
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->will($this->returnValue($mockResults));
+            ->willReturn($mockResults);
         
         // Set transport
         $this->client->setTransport($mockTransport);
@@ -146,7 +157,7 @@ class ClientTest extends TestCase
         $this->assertCount(2, $lights);
         
         // Ensure return type is an array of lights
-        $this->assertContainsOnlyInstancesOf('\Phue\Light', $lights);
+        $this->assertContainsOnlyInstancesOf(Light::class, $lights);
     }
 
     /**
@@ -157,7 +168,7 @@ class ClientTest extends TestCase
     public function testGetGroups(): void
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock results for sendRequest
         // $mockResults = (object) [
@@ -172,7 +183,7 @@ class ClientTest extends TestCase
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->will($this->returnValue($mockResults));
+            ->willReturn($mockResults);
         
         // Set transport
         $this->client->setTransport($mockTransport);
@@ -184,7 +195,7 @@ class ClientTest extends TestCase
         $this->assertCount(2, $groups);
         
         // Ensure return type is an array of groups
-        $this->assertContainsOnlyInstancesOf('\Phue\Group', $groups);
+        $this->assertContainsOnlyInstancesOf(Group::class, $groups);
     }
 
     /**
@@ -195,7 +206,7 @@ class ClientTest extends TestCase
     public function testGetSchedules(): void
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock results for sendRequest
         $mockResults = (object) [
@@ -207,7 +218,7 @@ class ClientTest extends TestCase
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->will($this->returnValue($mockResults));
+            ->willReturn($mockResults);
         
         // Set transport
         $this->client->setTransport($mockTransport);
@@ -219,7 +230,7 @@ class ClientTest extends TestCase
         $this->assertCount(3, $schedules);
         
         // Ensure return type is an array of schedules
-        $this->assertContainsOnlyInstancesOf('\Phue\Schedule', $schedules);
+        $this->assertContainsOnlyInstancesOf(Schedule::class, $schedules);
     }
 
     /**
@@ -230,7 +241,7 @@ class ClientTest extends TestCase
     public function testGetScenes(): void
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock results for sendRequest
         $mockResults = (object) [
@@ -242,7 +253,7 @@ class ClientTest extends TestCase
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->will($this->returnValue($mockResults));
+            ->willReturn($mockResults);
         
         // Set transport
         $this->client->setTransport($mockTransport);
@@ -254,7 +265,7 @@ class ClientTest extends TestCase
         $this->assertCount(3, $scenes);
         
         // Ensure return type is an array of scenes
-        $this->assertContainsOnlyInstancesOf('\Phue\Scene', $scenes);
+        $this->assertContainsOnlyInstancesOf(Scene::class, $scenes);
     }
 
     /**
@@ -265,7 +276,7 @@ class ClientTest extends TestCase
     public function testGetSensors(): void
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock results for sendRequest
         $mockResults = (object) array(
@@ -276,7 +287,7 @@ class ClientTest extends TestCase
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->will($this->returnValue($mockResults));
+            ->willReturn($mockResults);
         
         // Set transport
         $this->client->setTransport($mockTransport);
@@ -288,7 +299,7 @@ class ClientTest extends TestCase
         $this->assertCount(2, $sensors);
         
         // Ensure return type is an array of sensors
-        $this->assertContainsOnlyInstancesOf('\Phue\Sensor', $sensors);
+        $this->assertContainsOnlyInstancesOf(Sensor::class, $sensors);
     }
 
     /**
@@ -299,7 +310,7 @@ class ClientTest extends TestCase
     public function testGetRules(): void
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock results for sendRequest
         $mockResults = (object) [
@@ -310,7 +321,7 @@ class ClientTest extends TestCase
         // Stub transports sendRequest method
         $mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->will($this->returnValue($mockResults));
+            ->willReturn($mockResults);
         
         // Set transport
         $this->client->setTransport($mockTransport);
@@ -322,7 +333,7 @@ class ClientTest extends TestCase
         $this->assertCount(2, $rules);
         
         // Ensure return type is an array of rules
-        $this->assertContainsOnlyInstancesOf('\Phue\Rule', $rules);
+        $this->assertContainsOnlyInstancesOf(Rule::class, $rules);
     }
 
     /**
@@ -333,7 +344,7 @@ class ClientTest extends TestCase
     public function testGetTimezones(): void
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock results for sendRequestBypassBodyValidation
         $mockResults = array();
@@ -341,7 +352,7 @@ class ClientTest extends TestCase
         // Stub transports sendRequestBypassBodyValidation method
         $mockTransport->expects($this->once())
             ->method('sendRequestBypassBodyValidation')
-            ->will($this->returnValue($mockResults));
+            ->willReturn($mockResults);
         
         // Set transport
         $this->client->setTransport($mockTransport);
@@ -361,8 +372,10 @@ class ClientTest extends TestCase
      */
     public function testInstantiateDefaultTransport(): void
     {
-        $this->assertInstanceOf('\Phue\Transport\Http', 
-            $this->client->getTransport());
+        $this->assertInstanceOf(
+            Http::class,
+            $this->client->getTransport()
+        );
     }
 
     /**
@@ -374,7 +387,7 @@ class ClientTest extends TestCase
     public function testPassingTransportDependency(): void
     {
         // Mock transport
-        $mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $mockTransport = $this->createMock(TransportInterface::class);
         
         $this->client->setTransport($mockTransport);
         
@@ -389,15 +402,17 @@ class ClientTest extends TestCase
     public function testSendCommand(): void
     {
         // Mock command
-        $mockCommand = $this->createMock('Phue\Command\CommandInterface');
+        $mockCommand = $this->createMock(CommandInterface::class);
         
         // Stub command's send method
         $mockCommand->expects($this->once())
             ->method('send')
             ->with($this->equalTo($this->client))
-            ->will($this->returnValue('sample response'));
+            ->willReturn('sample response');
         
-        $this->assertEquals('sample response', 
-            $this->client->sendCommand($mockCommand));
+        $this->assertEquals(
+            'sample response',
+            $this->client->sendCommand($mockCommand)
+        );
     }
 }

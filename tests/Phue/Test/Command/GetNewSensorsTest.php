@@ -37,8 +37,9 @@ class GetNewSensorsTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/sensors/new"))
-            ->will($this->returnValue($mockTransportResults));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/sensors/new")
+            )
+            ->willReturn($mockTransportResults);
     }
 
     /**
@@ -48,7 +49,7 @@ class GetNewSensorsTest extends AbstractCommandTest
      * @covers \Phue\Command\GetNewSensors::getSensors
      * @covers \Phue\Command\GetNewSensors::isScanActive
      */
-    public function testGetNewSensors()
+    public function testGetNewSensors(): void
     {
         // Send command and get response
         $response = $this->getNewSensors->send($this->mockClient);

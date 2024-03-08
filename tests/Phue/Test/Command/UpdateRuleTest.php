@@ -11,6 +11,9 @@ namespace Phue\Test\Command;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Phue\Command\UpdateRule;
+use Phue\Command\ActionableInterface;
+use Phue\Condition;
+use Phue\Client;
 
 /**
  * Tests for Phue\Command\UpdateRule
@@ -47,8 +50,10 @@ class UpdateRuleTest extends TestCase
     public function testSend(): void
     {
         // Mock client
-        $mockClient = Mockery::mock('\Phue\Client', 
-            ['getUsername' => 'abcdefabcdef01234567890123456789'])->makePartial();
+        $mockClient = Mockery::mock(
+            Client::class,
+            ['getUsername' => 'abcdefabcdef01234567890123456789']
+        )->makePartial();
         
         // Mock client commands
         $mockClient->shouldReceive('getTransport->sendRequest');
@@ -56,9 +61,11 @@ class UpdateRuleTest extends TestCase
         $rule = new UpdateRule('5');
 
         $command = $rule->addCondition(
-            Mockery::mock('\Phue\Condition')->makePartial())
+            Mockery::mock(Condition::class)->makePartial()
+        )
             ->addAction(
-            Mockery::mock('\Phue\Command\ActionableInterface')->shouldIgnoreMissing())
+                Mockery::mock(ActionableInterface::class)->shouldIgnoreMissing()
+            )
             ->send($mockClient);
     }
 }

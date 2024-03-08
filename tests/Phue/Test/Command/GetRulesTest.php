@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Command\GetRules;
 use Phue\Transport\TransportInterface;
+use Phue\Rule;
 
 /**
  * Tests for Phue\Command\GetRules
@@ -25,7 +26,7 @@ class GetRulesTest extends AbstractCommandTest
     {
         $this->getRules = new GetRules();
         
-       parent::setUp();
+        parent::setUp();
     }
 
     /**
@@ -39,7 +40,7 @@ class GetRulesTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/rules"))
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Send command and get response
         $response = $this->getRules->send($this->mockClient);
@@ -54,7 +55,7 @@ class GetRulesTest extends AbstractCommandTest
      *
      * @covers \Phue\Command\GetRules::send
      */
-    public function testFoundRules()
+    public function testFoundRules(): void
     {
         // Mock transport results
         $mockTransportResults = (object) [
@@ -66,13 +67,13 @@ class GetRulesTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/rules"))
-            ->will($this->returnValue($mockTransportResults));
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getRules->send($this->mockClient);
         
         // Ensure we have an array of Rules
         $this->assertIsArray($response);
-        $this->assertContainsOnlyInstancesOf('\Phue\Rule', $response);
+        $this->assertContainsOnlyInstancesOf(Rule::class, $response);
     }
 }

@@ -20,7 +20,8 @@ class StartLightScan implements CommandInterface
      * @param string[]|null $deviceIds Array of device ids
      */
     public function __construct(protected ?array $deviceIds = null)
-    {}
+    {
+    }
 
     public function send(Client $client): mixed
     {

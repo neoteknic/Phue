@@ -26,9 +26,11 @@ class StartLightScanTest extends AbstractCommandTest
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/lights"), 
-            $this->equalTo('POST'))
-            ->will($this->returnValue('success!'));
+            ->with(
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/lights"),
+                $this->equalTo('POST')
+            )
+            ->willReturn('success!');
         
         // $this->assertEquals(
         // 'success!',

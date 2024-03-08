@@ -14,6 +14,9 @@ use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Helper\ColorConversion;
 use Phue\Light;
+use Phue\Command\SetLightState;
+use Phue\LightModel\AbstractLightModel;
+use Phue\Command\SetLightName;
 
 /**
  * Tests for Phue\Light
@@ -27,7 +30,7 @@ class LightTest extends TestCase
 
     public function setUp(): void
     {
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Build stub attributes
         $this->attributes = (object) [
@@ -90,8 +93,8 @@ class LightTest extends TestCase
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetLightName'))
-            ->will($this->returnValue($this->light));
+            ->with($this->isInstanceOf(SetLightName::class))
+            ->willReturn($this->light);
         
         // Ensure setName returns self
         $this->assertEquals($this->light, $this->light->setName('new name'));
@@ -127,8 +130,10 @@ class LightTest extends TestCase
      */
     public function testGetModel(): void
     {
-        $this->assertInstanceOf('\Phue\LightModel\AbstractLightModel', 
-            $this->light->getModel());
+        $this->assertInstanceOf(
+            AbstractLightModel::class,
+            $this->light->getModel()
+        );
     }
 
     /**
@@ -148,8 +153,10 @@ class LightTest extends TestCase
      */
     public function testGetSoftwareVersion(): void
     {
-        $this->assertEquals($this->attributes->swversion, 
-            $this->light->getSoftwareVersion());
+        $this->assertEquals(
+            $this->attributes->swversion,
+            $this->light->getSoftwareVersion()
+        );
     }
 
     /**
@@ -178,13 +185,15 @@ class LightTest extends TestCase
      * @covers \Phue\Light::getBrightness
      * @covers \Phue\Light::setBrightness
      */
-    public function testGetSetBrightness()
+    public function testGetSetBrightness(): void
     {
         $this->stubMockClientSendSetLightStateCommand();
         
         // Make sure original brightness is retrievable
-        $this->assertEquals($this->attributes->state->bri, 
-            $this->light->getBrightness());
+        $this->assertEquals(
+            $this->attributes->state->bri,
+            $this->light->getBrightness()
+        );
         
         // Ensure setBrightness returns self
         $this->assertEquals($this->light, $this->light->setBrightness(254));
@@ -224,8 +233,10 @@ class LightTest extends TestCase
         $this->stubMockClientSendSetLightStateCommand();
         
         // Make sure original saturation is retrievable
-        $this->assertEquals($this->attributes->state->sat, 
-            $this->light->getSaturation());
+        $this->assertEquals(
+            $this->attributes->state->sat,
+            $this->light->getSaturation()
+        );
         
         // Ensure setSaturation returns self
         $this->assertEquals($this->light, $this->light->setSaturation(200));
@@ -249,7 +260,9 @@ class LightTest extends TestCase
             array(
                 'x' => $this->attributes->state->xy[0],
                 'y' => $this->attributes->state->xy[1]
-            ), $this->light->getXY());
+            ),
+            $this->light->getXY()
+        );
         
         // Ensure setXY returns self
         $this->assertEquals($this->light, $this->light->setXY(0.1, 0.2));
@@ -259,7 +272,9 @@ class LightTest extends TestCase
             array(
                 'x' => 0.1,
                 'y' => 0.2
-            ), $this->light->getXY());
+            ),
+            $this->light->getXY()
+        );
     }
 
     /**
@@ -283,7 +298,9 @@ class LightTest extends TestCase
                 'red' => $rgb['red'],
                 'green' => $rgb['green'],
                 'blue' => $rgb['blue']
-            ), $this->light->getRGB());
+            ),
+            $this->light->getRGB()
+        );
 
         // Ensure setRGB returns self
         $this->assertEquals($this->light, $this->light->setRGB(50, 50, 50));
@@ -294,7 +311,9 @@ class LightTest extends TestCase
                 'red' => 50,
                 'green' => 50,
                 'blue' => 50
-            ), $this->light->getRGB());
+            ),
+            $this->light->getRGB()
+        );
     }
 
     /**
@@ -308,8 +327,10 @@ class LightTest extends TestCase
         $this->stubMockClientSendSetLightStateCommand();
         
         // Make sure original color temp is retrievable
-        $this->assertEquals($this->attributes->state->ct, 
-            $this->light->getColorTemp());
+        $this->assertEquals(
+            $this->attributes->state->ct,
+            $this->light->getColorTemp()
+        );
         
         // Ensure setColorTemp returns self
         $this->assertEquals($this->light, $this->light->setColorTemp(412));
@@ -329,8 +350,10 @@ class LightTest extends TestCase
         $this->stubMockClientSendSetLightStateCommand();
         
         // Make sure original alert is retrievable
-        $this->assertEquals($this->attributes->state->alert, 
-            $this->light->getAlert());
+        $this->assertEquals(
+            $this->attributes->state->alert,
+            $this->light->getAlert()
+        );
         
         // Ensure setAlert returns self
         $this->assertEquals($this->light, $this->light->setAlert('lselect'));
@@ -350,8 +373,10 @@ class LightTest extends TestCase
         $this->stubMockClientSendSetLightStateCommand();
         
         // Make sure original effect is retrievable
-        $this->assertEquals($this->attributes->state->effect, 
-            $this->light->getEffect());
+        $this->assertEquals(
+            $this->attributes->state->effect,
+            $this->light->getEffect()
+        );
         
         // Ensure setEffect returns self
         $this->assertEquals($this->light, $this->light->setEffect('colorloop'));
@@ -368,7 +393,7 @@ class LightTest extends TestCase
     public function testGetColormode(): void
     {
         $this->assertEquals(
-            $this->attributes->state->colormode, 
+            $this->attributes->state->colormode,
             $this->light->getColorMode()
         );
     }
@@ -401,8 +426,10 @@ class LightTest extends TestCase
      */
     public function testIsReachable(): void
     {
-        $this->assertEquals($this->attributes->state->reachable, 
-            $this->light->isReachable());
+        $this->assertEquals(
+            $this->attributes->state->reachable,
+            $this->light->isReachable()
+        );
     }
 
     /**
@@ -422,6 +449,6 @@ class LightTest extends TestCase
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetLightState'));
+            ->with($this->isInstanceOf(SetLightState::class));
     }
 }

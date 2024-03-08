@@ -14,6 +14,7 @@ use Phue\Command\CreateSchedule;
 use Phue\Schedule;
 use Phue\Transport\TransportInterface;
 use ReflectionObject;
+use Phue\TimePattern\TimePatternInterface;
 
 /**
  * Tests for Phue\Command\CreateSchedule
@@ -33,18 +34,18 @@ class CreateScheduleTest extends AbstractCommandTest
         parent::setUp();
         
         // Mock actionable command
-        $this->mockCommand = $this->createMock('\Phue\Command\ActionableInterface');
+        $this->mockCommand = $this->createMock(ActionableInterface::class);
 
         // Stub command's getActionableParams method
         $this->mockCommand->expects($this->any())
             ->method('getActionableParams')
-            ->will(
-            $this->returnValue(
+            ->willReturn(
                 array(
                     'address' => '/thing/value',
                     'method' => 'POST',
                     'body' => 'Dummy'
-                )));
+                )
+            );
     }
 
     /**
@@ -100,7 +101,7 @@ class CreateScheduleTest extends AbstractCommandTest
         $command = $x->time('2010-10-20T10:11:12');
         
         // Ensure property is set properly
-        $this->assertInstanceOf('\Phue\TimePattern\TimePatternInterface', $command->getTime());
+        $this->assertInstanceOf(TimePatternInterface::class, $command->getTime());
         
         // Ensure self object is returned
         $this->assertEquals($command, $command->time('+10 seconds'));
@@ -174,28 +175,33 @@ class CreateScheduleTest extends AbstractCommandTest
      */
     public function testSend(): void
     {
-        $command = new CreateSchedule('Dummy!', '2012-12-30T10:11:12', 
-            $this->mockCommand);
+        $command = new CreateSchedule(
+            'Dummy!',
+            '2012-12-30T10:11:12',
+            $this->mockCommand
+        );
         $command->description('Description!');
         
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules"), 
-            $this->equalTo(TransportInterface::METHOD_POST), 
-            $this->equalTo(
-                (object) array(
-                    'name' => 'Dummy!',
-                    'description' => 'Description!',
-                    'time' => '2012-12-30T10:11:12',
-                    'command' => array(
-                        'method' => TransportInterface::METHOD_POST,
-                        'address' => "/api/{$this->mockClient->getUsername()}/thing/value",
-                        'body' => "Dummy"
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules"),
+                $this->equalTo(TransportInterface::METHOD_POST),
+                $this->equalTo(
+                    (object) array(
+                        'name' => 'Dummy!',
+                        'description' => 'Description!',
+                        'time' => '2012-12-30T10:11:12',
+                        'command' => array(
+                            'method' => TransportInterface::METHOD_POST,
+                            'address' => "/api/{$this->mockClient->getUsername()}/thing/value",
+                            'body' => "Dummy"
+                        )
                     )
-                )))
-            ->will($this->returnValue(4));
+                )
+            )
+            ->willReturn(4);
         
         // Send command and get response
         $scheduleId = $command->send($this->mockClient);
