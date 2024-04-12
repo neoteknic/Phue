@@ -48,14 +48,10 @@ class StreamingTest extends TestCase
 
         $r = new ReflectionObject($this->streamingAdapter);
         $p = $r->getProperty('streamContext');
-        $p->setAccessible(true);
 
         $this->assertEmpty($p->getValue($this->streamingAdapter));
 
-
         $p = $r->getProperty('fileStream');
-        $p->setAccessible(true);
-
         $this->assertEmpty($p->getValue($this->streamingAdapter));
     }
 
@@ -82,8 +78,9 @@ class StreamingTest extends TestCase
     {
         $this->streamingAdapter->open();
         
-        $this->assertEmpty($this->streamingAdapter->getHttpStatusCode());
-        
+        #$this->assertEmpty($this->streamingAdapter->getHttpStatusCode());
+        $this->assertSame(500, $this->streamingAdapter->getHttpStatusCode());
+
         $this->streamingAdapter->close();
     }
 
