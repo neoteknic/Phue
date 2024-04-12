@@ -68,8 +68,12 @@ class Streaming implements AdapterInterface
     public function getHttpStatusCode(): int
     {
         preg_match('#^HTTP/1\.1 (\d+)#mi', $this->getHeaders(), $matches);
-        
-        return $matches[1] ?? false;
+
+        if(isset($matches[1])) {
+            return (int) $matches[1];
+        }
+
+        return 500;
     }
 
     /**
