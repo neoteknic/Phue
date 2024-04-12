@@ -10,6 +10,7 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\GetScheduleById;
+use Phue\Schedule;
 
 /**
  * Tests for Phue\Command\GetScheduleById
@@ -28,13 +29,13 @@ class GetScheduleByIdTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with("/api/{$this->mockClient->getUsername()}/schedules/9")
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Get schedule
         $sched = new GetScheduleById(9);
         $schedule = $sched->send($this->mockClient);
         
         // Ensure type is correct
-        $this->assertInstanceOf('\Phue\Schedule', $schedule);
+        $this->assertInstanceOf(Schedule::class, $schedule);
     }
 }

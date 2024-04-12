@@ -39,8 +39,9 @@ class GetNewLightsTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/lights/new"))
-            ->will($this->returnValue($mockTransportResults));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/lights/new")
+            )
+            ->willReturn($mockTransportResults);
     }
 
     /**

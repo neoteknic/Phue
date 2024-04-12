@@ -12,6 +12,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\User;
+use Phue\Command\DeleteUser;
 
 /**
  * Tests for Phue\User
@@ -27,7 +28,7 @@ class UserTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Stub username
         $this->username = 'phpunittest';
@@ -71,8 +72,10 @@ class UserTest extends TestCase
      */
     public function testGetCreateDate(): void
     {
-        $this->assertEquals($this->attributes->{'create date'}, 
-            $this->user->getCreateDate());
+        $this->assertEquals(
+            $this->attributes->{'create date'},
+            $this->user->getCreateDate()
+        );
     }
 
     /**
@@ -82,8 +85,10 @@ class UserTest extends TestCase
      */
     public function testGetLastUseDate(): void
     {
-        $this->assertEquals($this->attributes->{'last use date'}, 
-            $this->user->getLastUseDate());
+        $this->assertEquals(
+            $this->attributes->{'last use date'},
+            $this->user->getLastUseDate()
+        );
     }
 
     /**
@@ -95,7 +100,7 @@ class UserTest extends TestCase
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\DeleteUser'));
+            ->with($this->isInstanceOf(DeleteUser::class));
         
         $this->user->delete();
     }

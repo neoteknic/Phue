@@ -31,7 +31,8 @@ class ConditionTest extends TestCase
                 'address' => '/sensors/2/state/buttonevent',
                 'operator' => 'eq',
                 'value' => '16'
-            ]);
+            ]
+        );
     }
 
     /**
@@ -106,7 +107,9 @@ class ConditionTest extends TestCase
                 'address' => '/sensors/2/state/buttonevent',
                 'operator' => 'eq',
                 'value' => '16'
-            ), $this->condition->export());
+            ),
+            $this->condition->export()
+        );
     }
 
     /**
@@ -118,8 +121,10 @@ class ConditionTest extends TestCase
     {
         $this->condition->equals();
         
-        $this->assertEquals(Condition::OPERATOR_EQUALS, 
-            $this->condition->getOperator());
+        $this->assertEquals(
+            Condition::OPERATOR_EQUALS,
+            $this->condition->getOperator()
+        );
     }
 
     /**
@@ -131,8 +136,10 @@ class ConditionTest extends TestCase
     {
         $this->condition->greaterThan();
         
-        $this->assertEquals(Condition::OPERATOR_GREATER_THAN, 
-            $this->condition->getOperator());
+        $this->assertEquals(
+            Condition::OPERATOR_GREATER_THAN,
+            $this->condition->getOperator()
+        );
     }
 
     /**
@@ -144,8 +151,10 @@ class ConditionTest extends TestCase
     {
         $this->condition->lessThan();
         
-        $this->assertEquals(Condition::OPERATOR_LESS_THAN, 
-            $this->condition->getOperator());
+        $this->assertEquals(
+            Condition::OPERATOR_LESS_THAN,
+            $this->condition->getOperator()
+        );
     }
 
     /**
@@ -157,7 +166,9 @@ class ConditionTest extends TestCase
     {
         $this->condition->changed();
         
-        $this->assertEquals(Condition::OPERATOR_CHANGED, 
-            $this->condition->getOperator());
+        $this->assertEquals(
+            Condition::OPERATOR_CHANGED,
+            $this->condition->getOperator()
+        );
     }
 }

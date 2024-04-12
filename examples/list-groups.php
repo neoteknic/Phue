@@ -12,5 +12,7 @@ echo 'Listing groups:', "\n";
 
 foreach ($client->getGroups() as $group) {
     echo "\t", "#{$group->getId()} - {$group->getName()}", "\n", "\t\t Type: ", $group->getType(), "\n", "\t\t Lights: ", implode(
-        ', ', $group->getLightIds()), "\n";
+        ', ',
+        $group->getLightIds()
+    ), "\n";
 }

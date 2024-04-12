@@ -54,10 +54,12 @@ class CreateUserTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo('/api'), $this->equalTo('POST'), $this->anything())
-            ->will($this->returnValue('success!'));
+            ->willReturn('success!');
         
         $x = new CreateUser('phpunit');
-        $this->assertEquals('success!', 
-            $x->send($this->mockClient));
+        $this->assertEquals(
+            'success!',
+            $x->send($this->mockClient)
+        );
     }
 }

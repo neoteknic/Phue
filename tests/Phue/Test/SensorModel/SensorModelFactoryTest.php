@@ -10,6 +10,8 @@ namespace Phue\Test\SensorModel;
 
 use PHPUnit\Framework\TestCase;
 use Phue\SensorModel\SensorModelFactory;
+use Phue\SensorModel\ZgpswitchModel;
+use Phue\SensorModel\UnknownModel;
 
 /**
  * Tests for Phue\SensorModel\SensorModelFactory
@@ -23,8 +25,10 @@ class SensorModelFactoryTest extends TestCase
      */
     public function testGetUnknownModel(): void
     {
-        $this->assertInstanceOf('\Phue\SensorModel\UnknownModel', 
-            SensorModelFactory::build('whatever'));
+        $this->assertInstanceOf(
+            UnknownModel::class,
+            SensorModelFactory::build('whatever')
+        );
     }
 
     /**
@@ -34,7 +38,9 @@ class SensorModelFactoryTest extends TestCase
      */
     public function testGetKnownModel(): void
     {
-        $this->assertInstanceOf('\Phue\SensorModel\ZgpswitchModel', 
-            SensorModelFactory::build('ZGPSWITCH'));
+        $this->assertInstanceOf(
+            ZgpswitchModel::class,
+            SensorModelFactory::build('ZGPSWITCH')
+        );
     }
 }

@@ -17,7 +17,8 @@ use Phue\Sensor;
 class GetSensorById implements CommandInterface
 {
     public function __construct(protected int $sensorId)
-    {}
+    {
+    }
 
     public function send(Client $client): Sensor
     {

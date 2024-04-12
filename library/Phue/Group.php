@@ -86,7 +86,7 @@ class Group implements LightInterface
     {
         $x = new SetGroupState($this);
         $y = $x->on($flag);
-	    $this->updateTransition($x);
+        $this->updateTransition($x);
         $this->client->sendCommand($y);
 
         $this->attributes->action->on = $flag;
@@ -102,7 +102,7 @@ class Group implements LightInterface
     public function setAlert(string $mode = SetLightState::ALERT_LONG_SELECT): static
     {
         $x = new SetGroupState($this);
-	    $this->updateTransition($x);
+        $this->updateTransition($x);
         $y = $x->alert($mode);
         $this->client->sendCommand($y);
         $this->attributes->action->alert = $mode;
@@ -120,7 +120,7 @@ class Group implements LightInterface
     public function setBrightness(int $level = SetLightState::BRIGHTNESS_MAX): static
     {
         $x = new SetGroupState($this);
-	    $this->updateTransition($x);
+        $this->updateTransition($x);
         $y = $x->brightness($level);
         $this->client->sendCommand($y);
 
@@ -137,7 +137,7 @@ class Group implements LightInterface
     public function setHue(int $value): static
     {
         $x = new SetGroupState($this);
-	    $this->updateTransition($x);
+        $this->updateTransition($x);
         $y = $x->hue($value);
         $this->client->sendCommand($y);
 
@@ -156,7 +156,7 @@ class Group implements LightInterface
     public function setSaturation(int $value): static
     {
         $x = new SetGroupState($this);
-	    $this->updateTransition($x);
+        $this->updateTransition($x);
         $y = $x->saturation($value);
         $this->client->sendCommand($y);
 
@@ -181,7 +181,7 @@ class Group implements LightInterface
     public function setXY(float $x, float $y): static
     {
         $_x = new SetGroupState($this);
-	    $this->updateTransition($_x);
+        $this->updateTransition($_x);
         $_y = $_x->xy($x, $y);
         $this->client->sendCommand($_y);
 
@@ -204,23 +204,23 @@ class Group implements LightInterface
     {
         $xy  = $this->getXY();
         $bri = $this->getBrightness();
-	    return ColorConversion::convertXYToRGB($xy['x'], $xy['y'], $bri);
+        return ColorConversion::convertXYToRGB($xy['x'], $xy['y'], $bri);
     }
 
-	/**
-	 * Set XY and brightness calculated from RGB
-	 *
-	 * @param int $red Red value
-	 * @param int $green Green value
-	 * @param int $blue Blue value
-	 *
-	 * @param int|null $bri Brightness if needed
-	 */
+    /**
+     * Set XY and brightness calculated from RGB
+     *
+     * @param int $red Red value
+     * @param int $green Green value
+     * @param int $blue Blue value
+     *
+     * @param int|null $bri Brightness if needed
+     */
     public function setRGB(int $red, int $green, int $blue, ?int $bri=null): static
     {
         $x = new SetGroupState($this);
-	    $this->updateTransition($x);
-        $y = $x->rgb($red, $green, $blue,$bri);
+        $this->updateTransition($x);
+        $y = $x->rgb($red, $green, $blue, $bri);
         $this->client->sendCommand($y);
 
         // Change internal xy, brightness and colormode state
@@ -229,11 +229,10 @@ class Group implements LightInterface
             $xy['x'],
             $xy['y']
         );
-        if($bri===null){
-	        $this->attributes->action->bri = $bri;
-        }
-        else{
-	        $this->attributes->action->bri = max($red, $green, $blue);
+        if($bri===null) {
+            $this->attributes->action->bri = $bri;
+        } else {
+            $this->attributes->action->bri = max($red, $green, $blue);
         }
 
         $this->attributes->action->colormode = 'xy';
@@ -295,20 +294,20 @@ class Group implements LightInterface
         return $this;
     }
 
-	/**
-	 * @param $time float Seconds
-	 */
-	public function setTransition(float $time): void
-	{
-		$this->transition = $time;
-	}
+    /**
+     * @param $time float Seconds
+     */
+    public function setTransition(float $time): void
+    {
+        $this->transition = $time;
+    }
 
-	private function updateTransition(SetLightState $x): void
-	{
-		if($this->transition!==null){
-			$x->transitionTime($this->transition);
-		}
-	}
+    private function updateTransition(SetLightState $x): void
+    {
+        if($this->transition!==null) {
+            $x->transitionTime($this->transition);
+        }
+    }
 
     /**
      * Delete group

@@ -11,13 +11,15 @@ namespace Phue;
 
 use Phue\Command\SetBridgeConfig;
 
-class Bridge {
+class Bridge
+{
 
     /**
      * @param \stdClass $attributes
      * @param Client $client Phue client
      */
-    public function __construct(protected \stdClass $attributes, protected Client $client) {
+    public function __construct(protected \stdClass $attributes, protected Client $client)
+    {
     }
 
     public function getName(): string
@@ -68,7 +70,7 @@ class Bridge {
         return (bool) $this->attributes->dhcp;
     }
 
-    public function enableDhcp(bool $state = TRUE): static
+    public function enableDhcp(bool $state = true): static
     {
         $this->client->sendCommand(
             new SetBridgeConfig(
@@ -150,8 +152,7 @@ class Bridge {
 
     public function setProxyAddress(
         string $proxyAddress = SetBridgeConfig::DEFAULT_PROXY_ADDRESS
-    ): static
-    {
+    ): static {
 
         $this->client->sendCommand(
             new SetBridgeConfig(
@@ -236,7 +237,7 @@ class Bridge {
         return (bool) $this->attributes->linkbutton;
     }
 
-    public function setLinkButtonOn(bool $state = TRUE): static
+    public function setLinkButtonOn(bool $state = true): static
     {
         $this->client->sendCommand(
             new SetBridgeConfig(

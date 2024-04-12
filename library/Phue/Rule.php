@@ -12,12 +12,13 @@ use Phue\Command\DeleteRule;
 
 class Rule
 {
-    const STATUS_ENABLED = 'enabled';
+    public const STATUS_ENABLED = 'enabled';
 
-    const STATUS_DISABLED = 'disabled';
+    public const STATUS_DISABLED = 'disabled';
 
     public function __construct(protected int $id, protected \stdClass $attributes, protected Client $client)
-    {}
+    {
+    }
 
     public function getId(): int
     {

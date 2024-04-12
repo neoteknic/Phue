@@ -10,6 +10,9 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\SetLightName;
+use Phue\Light;
+use Phue\Transport\TransportInterface;
+use Phue\Client;
 
 /**
  * Tests for Phue\Command\SetLightName
@@ -19,28 +22,31 @@ class SetLightNameTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface');
+        $this->mockTransport = $this->createMock(TransportInterface::class);
         
         // Mock light
-        $this->mockLight = $this->createMock('\Phue\Light', null, 
+        $this->mockLight = $this->createMock(
+            Light::class,
+            null,
             array(
                 3,
                 new \stdClass(),
                 $this->mockClient
-            ));
+            )
+        );
         
         // Stub client's getUsername method
         $this->mockClient->expects($this->any())
             ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
+            ->willReturn('abcdefabcdef01234567890123456789');
         
         // Stub client's getTransport method
         $this->mockClient->expects($this->any())
             ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+            ->willReturn($this->mockTransport);
     }
 
     /**
@@ -55,9 +61,12 @@ class SetLightNameTest extends TestCase
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo(
-                "/api/{$this->mockClient->getUsername()}/lights/{$this->mockLight->getId()}"), 
-            $this->equalTo('PUT'), $this->isInstanceOf('\stdClass'));
+                $this->equalTo(
+                    "/api/{$this->mockClient->getUsername()}/lights/{$this->mockLight->getId()}"
+                ),
+                $this->equalTo('PUT'),
+                $this->isInstanceOf(\stdClass::class)
+            );
         
         $lightname = new SetLightName($this->mockLight, 'Dummy name');
         $lightname->send($this->mockClient);

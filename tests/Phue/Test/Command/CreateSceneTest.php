@@ -124,18 +124,21 @@ class CreateSceneTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo(
-                "/api/{$this->mockClient->getUsername()}/scenes/phue-test"), 
-            $this->equalTo(TransportInterface::METHOD_PUT), 
-            $this->equalTo(
-                (object) [
-                    'name' => 'Scene test',
-                    'lights' => [
-                        2,
-                        3
-                    ],
-                    'transitiontime' => 50
-                ]));
+                $this->equalTo(
+                    "/api/{$this->mockClient->getUsername()}/scenes/phue-test"
+                ),
+                $this->equalTo(TransportInterface::METHOD_PUT),
+                $this->equalTo(
+                    (object) [
+                        'name' => 'Scene test',
+                        'lights' => [
+                            2,
+                            3
+                        ],
+                        'transitiontime' => 50
+                    ]
+                )
+            );
         
         // Send command
         $command->send($this->mockClient);

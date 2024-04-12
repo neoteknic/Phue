@@ -13,7 +13,8 @@ use Phue\Command\DeleteScene;
 class Scene
 {
     public function __construct(protected string $id, protected \stdClass $attributes, protected Client $client)
-    {}
+    {
+    }
 
     public function getId(): string
     {

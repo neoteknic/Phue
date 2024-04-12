@@ -18,7 +18,8 @@ class Schedule
     const STATUS_DISABLED = 'disabled';
 
     public function __construct(protected int $id, protected \stdClass $attributes, protected Client $client)
-    {}
+    {
+    }
 
     public function getId(): int
     {

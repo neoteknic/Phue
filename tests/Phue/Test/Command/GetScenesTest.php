@@ -10,6 +10,7 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\GetScenes;
+use Phue\Scene;
 
 /**
  * Tests for Phue\Command\GetScenes
@@ -19,9 +20,9 @@ class GetScenesTest extends AbstractCommandTest
 {
     public function setUp(): void
     {
-       $this->getScenes = new GetScenes();
+        $this->getScenes = new GetScenes();
         
-       parent::setUp();
+        parent::setUp();
     }
 
     /**
@@ -35,7 +36,7 @@ class GetScenesTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/scenes"))
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Send command and get response
         $response = $this->getScenes->send($this->mockClient);
@@ -62,13 +63,13 @@ class GetScenesTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/scenes"))
-            ->will($this->returnValue($mockTransportResults));
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getScenes->send($this->mockClient);
         
         // Ensure we have an array of Scenes
         $this->assertIsArray($response);
-        $this->assertContainsOnlyInstancesOf('\Phue\Scene', $response);
+        $this->assertContainsOnlyInstancesOf(Scene::class, $response);
     }
 }

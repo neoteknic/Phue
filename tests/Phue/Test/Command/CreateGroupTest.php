@@ -69,21 +69,24 @@ class CreateGroupTest extends AbstractCommandTest
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/groups"), 
-            $this->equalTo(TransportInterface::METHOD_POST), 
-            $this->equalTo(
-                (object) [
-                    'name' => 'Dummy',
-                    'lights' => [
-                        2,
-                        3
+            ->with(
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/groups"),
+                $this->equalTo(TransportInterface::METHOD_POST),
+                $this->equalTo(
+                    (object) [
+                        'name' => 'Dummy',
+                        'lights' => [
+                            2,
+                            3
+                        ]
                     ]
-                ]))
+                )
+            )
             ->
-        // ->will($this->returnValue((object)['id' => '/path/5']));
-        will($this->returnValue((object) [
-            'id' => '5'
-            ]));
+        // ->willReturn((object)['id' => '/path/5']));
+        willReturn((object)[
+                'id' => '5'
+            ]);
         
         // Send command and get response
         $groupId = $command->send($this->mockClient);

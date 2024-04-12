@@ -12,6 +12,39 @@ use Phue\Client;
 use Phue\Transport\Exception\ConnectionException;
 use Phue\Transport\Adapter\AdapterInterface;
 use Phue\Transport\Adapter\Curl as DefaultAdapter;
+use Phue\Transport\Exception\InternalErrorException;
+use Phue\Transport\Exception\ScheduleTimeInPastException;
+use Phue\Transport\Exception\InvalidScheduleTagException;
+use Phue\Transport\Exception\ScheduleTimeUpdateException;
+use Phue\Transport\Exception\InvalidScheduleTimeZoneException;
+use Phue\Transport\Exception\ScheduleListFullException;
+use Phue\Transport\Exception\RuleActivationException;
+use Phue\Transport\Exception\RuleActionException;
+use Phue\Transport\Exception\RuleConditionException;
+use Phue\Transport\Exception\RuleListFullException;
+use Phue\Transport\Exception\SensorListFullException;
+use Phue\Transport\Exception\SensorCreationProhibitedException;
+use Phue\Transport\Exception\SceneBufferFullException;
+use Phue\Transport\Exception\SceneCreationInProgressException;
+use Phue\Transport\Exception\GroupUnmodifiableException;
+use Phue\Transport\Exception\DeviceUnreachableException;
+use Phue\Transport\Exception\LightGroupTableFullException;
+use Phue\Transport\Exception\GroupTableFullException;
+use Phue\Transport\Exception\DeviceParameterUnmodifiableException;
+use Phue\Transport\Exception\InvalidUpdateStateException;
+use Phue\Transport\Exception\DisablingDhcpProhibitedException;
+use Phue\Transport\Exception\LinkButtonException;
+use Phue\Transport\Exception\PortalConnectionRequiredException;
+use Phue\Transport\Exception\TooManyItemsInListException;
+use Phue\Transport\Exception\ParameterUnmodifiableException;
+use Phue\Transport\Exception\InvalidValueException;
+use Phue\Transport\Exception\ParameterUnavailableException;
+use Phue\Transport\Exception\MissingParameterException;
+use Phue\Transport\Exception\MethodUnavailableException;
+use Phue\Transport\Exception\ResourceUnavailableException;
+use Phue\Transport\Exception\InvalidJsonBodyException;
+use Phue\Transport\Exception\UnauthorizedUserException;
+use Phue\Transport\Exception\BridgeException;
 
 /**
  * Http transport
@@ -21,39 +54,39 @@ class Http implements TransportInterface
     protected ?AdapterInterface $adapter;
 
     public static array $exceptionMap = [
-        0 => 'Phue\Transport\Exception\BridgeException',
-        1 => 'Phue\Transport\Exception\UnauthorizedUserException',
-        2 => 'Phue\Transport\Exception\InvalidJsonBodyException',
-        3 => 'Phue\Transport\Exception\ResourceUnavailableException',
-        4 => 'Phue\Transport\Exception\MethodUnavailableException',
-        5 => 'Phue\Transport\Exception\MissingParameterException',
-        6 => 'Phue\Transport\Exception\ParameterUnavailableException',
-        7 => 'Phue\Transport\Exception\InvalidValueException',
-        8 => 'Phue\Transport\Exception\ParameterUnmodifiableException',
-        11 => 'Phue\Transport\Exception\TooManyItemsInListException',
-        12 => 'Phue\Transport\Exception\PortalConnectionRequiredException',
-        101 => 'Phue\Transport\Exception\LinkButtonException',
-        110 => 'Phue\Transport\Exception\DisablingDhcpProhibitedException',
-        111 => 'Phue\Transport\Exception\InvalidUpdateStateException',
-        201 => 'Phue\Transport\Exception\DeviceParameterUnmodifiableException',
-        301 => 'Phue\Transport\Exception\GroupTableFullException',
-        302 => 'Phue\Transport\Exception\LightGroupTableFullException',
-        304 => 'Phue\Transport\Exception\DeviceUnreachableException',
-        305 => 'Phue\Transport\Exception\GroupUnmodifiableException',
-        401 => 'Phue\Transport\Exception\SceneCreationInProgressException',
-        402 => 'Phue\Transport\Exception\SceneBufferFullException',
-        501 => 'Phue\Transport\Exception\SensorCreationProhibitedException',
-        502 => 'Phue\Transport\Exception\SensorListFullException',
-        601 => 'Phue\Transport\Exception\RuleListFullException',
-        607 => 'Phue\Transport\Exception\RuleConditionException',
-        608 => 'Phue\Transport\Exception\RuleActionException',
-        609 => 'Phue\Transport\Exception\RuleActivationException',
-        701 => 'Phue\Transport\Exception\ScheduleListFullException',
-        702 => 'Phue\Transport\Exception\InvalidScheduleTimeZoneException',
-        703 => 'Phue\Transport\Exception\ScheduleTimeUpdateException',
-        704 => 'Phue\Transport\Exception\InvalidScheduleTagException',
-        705 => 'Phue\Transport\Exception\ScheduleTimeInPastException',
-        901 => 'Phue\Transport\Exception\InternalErrorException'
+        0 => BridgeException::class,
+        1 => UnauthorizedUserException::class,
+        2 => InvalidJsonBodyException::class,
+        3 => ResourceUnavailableException::class,
+        4 => MethodUnavailableException::class,
+        5 => MissingParameterException::class,
+        6 => ParameterUnavailableException::class,
+        7 => InvalidValueException::class,
+        8 => ParameterUnmodifiableException::class,
+        11 => TooManyItemsInListException::class,
+        12 => PortalConnectionRequiredException::class,
+        101 => LinkButtonException::class,
+        110 => DisablingDhcpProhibitedException::class,
+        111 => InvalidUpdateStateException::class,
+        201 => DeviceParameterUnmodifiableException::class,
+        301 => GroupTableFullException::class,
+        302 => LightGroupTableFullException::class,
+        304 => DeviceUnreachableException::class,
+        305 => GroupUnmodifiableException::class,
+        401 => SceneCreationInProgressException::class,
+        402 => SceneBufferFullException::class,
+        501 => SensorCreationProhibitedException::class,
+        502 => SensorListFullException::class,
+        601 => RuleListFullException::class,
+        607 => RuleConditionException::class,
+        608 => RuleActionException::class,
+        609 => RuleActivationException::class,
+        701 => ScheduleListFullException::class,
+        702 => InvalidScheduleTimeZoneException::class,
+        703 => ScheduleTimeUpdateException::class,
+        704 => InvalidScheduleTagException::class,
+        705 => ScheduleTimeInPastException::class,
+        901 => InternalErrorException::class
     ];
 
     /**

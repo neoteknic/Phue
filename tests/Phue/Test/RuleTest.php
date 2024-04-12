@@ -9,14 +9,21 @@
 namespace Phue\Test;
 
 use Mockery\Mock;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversFunction;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Rule;
+use Phue\Command\DeleteRule;
+use Phue\Condition;
 
 /**
  * Tests for Phue\Rule
  */
+#[CoversClass(Rule::class)]
+#[CoversFunction('getId')]
 class RuleTest extends TestCase
 {
     /** @var MockObject&Client $mockClient */
@@ -30,7 +37,7 @@ class RuleTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Build stub attributes
         // $this->attributes = (object) [
@@ -94,11 +101,6 @@ class RuleTest extends TestCase
         $this->rule = new Rule(4, $this->attributes, $this->mockClient);
     }
 
-    /**
-     * Test: Getting Id
-     *
-     * @covers \Phue\Rule::getId
-     */
     public function testGetId(): void
     {
         $this->assertEquals(4, $this->rule->getId());
@@ -121,8 +123,10 @@ class RuleTest extends TestCase
      */
     public function testGetLastTriggeredTime(): void
     {
-        $this->assertEquals($this->attributes->lasttriggered, 
-            $this->rule->getLastTriggeredTime());
+        $this->assertEquals(
+            $this->attributes->lasttriggered,
+            $this->rule->getLastTriggeredTime()
+        );
     }
 
     /**
@@ -142,8 +146,10 @@ class RuleTest extends TestCase
      */
     public function testGetTriggeredCount(): void
     {
-        $this->assertEquals($this->attributes->timestriggered, 
-            $this->rule->getTriggeredCount());
+        $this->assertEquals(
+            $this->attributes->timestriggered,
+            $this->rule->getTriggeredCount()
+        );
     }
 
     /**
@@ -177,7 +183,7 @@ class RuleTest extends TestCase
         
         $this->assertCount(2, $conditions);
         
-        $this->assertContainsOnlyInstancesOf('\Phue\Condition', $conditions);
+        $this->assertContainsOnlyInstancesOf(Condition::class, $conditions);
     }
 
     /**
@@ -191,7 +197,7 @@ class RuleTest extends TestCase
         
         $this->assertCount(1, $actions);
         
-        $this->assertContainsOnlyInstancesOf('\stdClass', $actions);
+        $this->assertContainsOnlyInstancesOf(\stdClass::class, $actions);
     }
 
     /**
@@ -203,7 +209,7 @@ class RuleTest extends TestCase
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\DeleteRule'));
+            ->with($this->isInstanceOf(DeleteRule::class));
         
         $this->rule->delete();
     }

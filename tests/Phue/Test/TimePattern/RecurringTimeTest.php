@@ -23,8 +23,14 @@ class RecurringTimeTest extends TestCase
      */
     public function testCreateTime(): void
     {
-        $this->assertMatchesRegularExpression('/^W34\/T14:02:05$/',
+        $this->assertMatchesRegularExpression(
+            '/^W34\/T14:02:05$/',
             (string) new RecurringTime(
-                RecurringTime::TUESDAY | RecurringTime::SATURDAY, 14, 2, 5));
+                RecurringTime::TUESDAY | RecurringTime::SATURDAY,
+                14,
+                2,
+                5
+            )
+        );
     }
 }

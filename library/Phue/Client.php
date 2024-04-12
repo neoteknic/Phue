@@ -25,7 +25,8 @@ use Phue\Transport\TransportInterface;
 /**
  * Client for connecting to Philips Hue bridge
  */
-class Client {
+class Client
+{
 
     protected string $host;
 
@@ -33,80 +34,93 @@ class Client {
 
     protected TransportInterface $transport;
 
-    public function __construct(string $host, ?string $username = NULL) {
+    public function __construct(string $host, ?string $username = null)
+    {
         $this->setHost($host);
         $this->setUsername($username);
         $this->setTransport(new Http($this));
     }
 
-    public function getHost() : string {
+    public function getHost() : string
+    {
         return $this->host;
     }
 
-    public function setHost(string $host) : Client {
+    public function setHost(string $host) : Client
+    {
         $this->host = $host;
         return $this;
     }
 
-    public function getUsername() : ?string {
+    public function getUsername() : ?string
+    {
         return $this->username;
     }
 
-    public function setUsername(?string $username) : Client {
+    public function setUsername(?string $username) : Client
+    {
         $this->username = (string) $username;
         return $this;
     }
 
-    public function getBridge() : Bridge {
+    public function getBridge() : Bridge
+    {
         return $this->sendCommand(new GetBridge());
     }
 
     /**
      * @return User[]
      */
-    public function getUsers() : array {
+    public function getUsers() : array
+    {
         return $this->sendCommand(new GetUsers());
     }
 
     /**
      * @return Light[]
      */
-    public function getLights() : array {
+    public function getLights() : array
+    {
         return $this->sendCommand(new GetLights());
     }
 
     /**
      * @return Group[]
      */
-    public function getGroups() : array {
+    public function getGroups() : array
+    {
         return $this->sendCommand(new GetGroups());
     }
 
     /**
      * @return Schedule[]
      */
-    public function getSchedules() : array {
+    public function getSchedules() : array
+    {
         return $this->sendCommand(new GetSchedules());
     }
 
     /**
      * @return Scene[]
      */
-    public function getScenes() : array {
+    public function getScenes() : array
+    {
         return $this->sendCommand(new GetScenes());
     }
 
     /**
      * @return Sensor[]
      */
-    public function getSensors() : array {
+    public function getSensors() : array
+    {
         return $this->sendCommand(new GetSensors());
     }
 
     /**
      * @return Rule[]
      */
-    public function getRules() : array {
+    public function getRules() : array
+    {
         return $this->sendCommand(new GetRules());
     }
 
@@ -115,15 +129,18 @@ class Client {
      *
      * @return array List of timezones
      */
-    public function getTimezones() : array {
+    public function getTimezones() : array
+    {
         return $this->sendCommand(new GetTimezones());
     }
 
-    public function getTransport() : TransportInterface {
+    public function getTransport() : TransportInterface
+    {
         return $this->transport;
     }
 
-    public function setTransport(TransportInterface $transport) : Client {
+    public function setTransport(TransportInterface $transport) : Client
+    {
         $this->transport = $transport;
         return $this;
     }

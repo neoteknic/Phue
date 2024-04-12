@@ -15,7 +15,7 @@ use Phue\Client;
  */
 class Ping implements CommandInterface
 {
-    public function send(Client $client)
+    public function send(Client $client): void
     {
         $client->getTransport()->sendRequest('/api/none/config');
     }

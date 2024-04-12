@@ -9,6 +9,7 @@
 namespace Phue\Test\Command;
 
 use Phue\Command\GetLights;
+use Phue\Light;
 
 /**
  * Tests for Phue\Command\GetLights
@@ -35,7 +36,7 @@ class GetLightsTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/lights"))
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Send command and get response
         $response = $this->getLights->send($this->mockClient);
@@ -62,13 +63,13 @@ class GetLightsTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/lights"))
-            ->will($this->returnValue($mockTransportResults));
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getLights->send($this->mockClient);
         
         // Ensure we have an array of Lights
         $this->assertIsArray($response);
-        $this->assertContainsOnlyInstancesOf('\Phue\Light', $response);
+        $this->assertContainsOnlyInstancesOf(Light::class, $response);
     }
 }

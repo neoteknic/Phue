@@ -23,7 +23,9 @@ class RandomizedTimeTest extends TestCase
      */
     public function testCreateTime(): void
     {
-        $this->assertMatchesRegularExpression('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}A01:01:20$/',
-            (string) new RandomizedTime('now', 3680));
+        $this->assertMatchesRegularExpression(
+            '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}A01:01:20$/',
+            (string) new RandomizedTime('now', 3680)
+        );
     }
 }

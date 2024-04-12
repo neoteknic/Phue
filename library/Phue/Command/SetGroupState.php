@@ -15,7 +15,8 @@ use Phue\Transport\TransportInterface;
 /**
  * Set group action command
  */
-class SetGroupState extends SetLightState {
+class SetGroupState extends SetLightState
+{
 
     protected int $groupId;
 
@@ -40,7 +41,7 @@ class SetGroupState extends SetLightState {
         return $this;
     }
 
-    public function send(Client $client)
+    public function send(Client $client): void
     {
         // Get params
         $params = $this->getActionableParams($client);

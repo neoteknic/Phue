@@ -19,7 +19,6 @@ trait AssertHelpersTrait
     {
         $r = new ReflectionObject($obj);
         $p = $r->getProperty($property);
-        $p->setAccessible(true);
 
         $this->assertEquals($expect, $p->getValue($obj));
     }

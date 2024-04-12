@@ -30,7 +30,7 @@ class SceneTest extends TestCase
     public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client');
+        $this->mockClient = $this->createMock(Client::class);
         
         // Build stub attributes
         $this->attributes = (object) [

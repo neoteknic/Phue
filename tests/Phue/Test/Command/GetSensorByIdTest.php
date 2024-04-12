@@ -10,6 +10,7 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\GetSensorById;
+use Phue\Sensor;
 
 /**
  * Tests for Phue\Command\GetSensorById
@@ -28,13 +29,13 @@ class GetSensorByIdTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with("/api/{$this->mockClient->getUsername()}/sensors/10")
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Get light
         $x = new GetSensorById(10);
         $sensor = $x->send($this->mockClient);
         
         // Ensure type is correct
-        $this->assertInstanceOf('\Phue\Sensor', $sensor);
+        $this->assertInstanceOf(Sensor::class, $sensor);
     }
 }

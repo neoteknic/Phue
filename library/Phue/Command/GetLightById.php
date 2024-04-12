@@ -17,7 +17,8 @@ use Phue\Light;
 class GetLightById implements CommandInterface
 {
     public function __construct(protected int $lightId)
-    {}
+    {
+    }
 
     public function send(Client $client): Light
     {

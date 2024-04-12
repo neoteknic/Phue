@@ -31,8 +31,9 @@ class DeleteScheduleTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules/4"), 
-            $this->equalTo(TransportInterface::METHOD_DELETE));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules/4"),
+                $this->equalTo(TransportInterface::METHOD_DELETE)
+            );
         
         // Send command
         $command->send($this->mockClient);

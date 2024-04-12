@@ -26,9 +26,11 @@ class StartSensorScanTest extends AbstractCommandTest
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/sensors"), 
-            $this->equalTo('POST'))
-            ->will($this->returnValue('success!'));
+            ->with(
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/sensors"),
+                $this->equalTo('POST')
+            )
+            ->willReturn('success!');
         
         $sensor = new StartSensorScan();
         $this->assertEquals('success!', $sensor->send($this->mockClient));

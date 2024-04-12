@@ -10,6 +10,7 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\GetGroupById;
+use Phue\Group;
 
 /**
  * Tests for Phue\Command\GetGroupById
@@ -28,13 +29,13 @@ class GetGroupByIdTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with("/api/{$this->mockClient->getUsername()}/groups/5")
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Get group
         $x = new GetGroupById(5);
         $group = $x->send($this->mockClient);
         
         // Ensure type is correct
-        $this->assertInstanceOf('\Phue\Group', $group);
+        $this->assertInstanceOf(Group::class, $group);
     }
 }

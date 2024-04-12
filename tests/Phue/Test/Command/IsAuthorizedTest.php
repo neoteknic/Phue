@@ -10,6 +10,7 @@ namespace Phue\Test\Command;
 
 use PHPUnit\Framework\TestCase;
 use Phue\Command\IsAuthorized;
+use Phue\Transport\Exception\UnauthorizedUserException;
 
 /**
  * Tests for Phue\Command\IsAuthorized
@@ -44,7 +45,7 @@ class IsAuthorizedTest extends AbstractCommandTest
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}"))
             ->will($this->throwException(
-                $this->createMock('\Phue\Transport\Exception\UnauthorizedUserException')
+                $this->createMock(UnauthorizedUserException::class)
             ));
         
         $auth = new IsAuthorized();

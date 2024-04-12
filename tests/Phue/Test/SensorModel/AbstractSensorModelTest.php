@@ -32,8 +32,10 @@ class AbstractSensorModelTest extends TestCase
      */
     public function testGetId(): void
     {
-        $this->assertEquals(AbstractSensorModel::MODEL_ID,
-            $this->mockAbstractSensorModel->getId());
+        $this->assertEquals(
+            AbstractSensorModel::MODEL_ID,
+            $this->mockAbstractSensorModel->getId()
+        );
     }
 
     /**
@@ -43,8 +45,10 @@ class AbstractSensorModelTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals(AbstractSensorModel::MODEL_NAME,
-            $this->mockAbstractSensorModel->getName());
+        $this->assertEquals(
+            AbstractSensorModel::MODEL_NAME,
+            $this->mockAbstractSensorModel->getName()
+        );
     }
 
     /**
@@ -54,7 +58,9 @@ class AbstractSensorModelTest extends TestCase
      */
     public function testToString(): void
     {
-        $this->assertEquals(AbstractSensorModel::MODEL_NAME,
-            (string) $this->mockAbstractSensorModel);
+        $this->assertEquals(
+            AbstractSensorModel::MODEL_NAME,
+            (string) $this->mockAbstractSensorModel
+        );
     }
 }

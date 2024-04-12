@@ -28,8 +28,10 @@ class SetBridgeConfigTest extends AbstractCommandTest
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/config"), 
-            $this->equalTo('PUT'), $this->isInstanceOf('\stdClass'));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/config"),
+                $this->equalTo('PUT'),
+                $this->isInstanceOf(\stdClass::class)
+            );
         
         $bridgeconfig = new SetBridgeConfig(array(
             'name' => 'test'
