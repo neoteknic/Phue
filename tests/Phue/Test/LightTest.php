@@ -23,7 +23,7 @@ use Phue\Command\SetLightName;
  */
 class LightTest extends TestCase
 {
-    private object $attributes;
+    private object $attrirtbutes;
     /** @var MockObject&Client $mockClient */
     private $mockClient;
     private Light $light;
@@ -285,6 +285,7 @@ class LightTest extends TestCase
      */
     public function testGetSetRGB(): void
     {
+		//TODO: Fix this test
         $this->stubMockClientSendSetLightStateCommand();
 
         // Make sure original rgb is retrievable
