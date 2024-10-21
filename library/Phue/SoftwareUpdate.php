@@ -10,191 +10,101 @@ namespace Phue;
 
 use Phue\Command\SetBridgeConfig;
 
-/**
- * Software Update object
- */
 class SoftwareUpdate
 {
-
-    /**
-     * State: No update
-     */
     const STATE_NO_UPDATE = 0;
 
-    /**
-     * State: Downloading
-     */
     const STATE_DOWNLOADING = 1;
 
-    /**
-     * State: Ready to install
-     */
     const STATE_READY_TO_INSTALL = 2;
 
-    /**
-     * State: Installing
-     */
     const STATE_INSTALLING = 3;
 
-    /**
-     * Sofware Update attributes
-     *
-     * @var \stdClass
-     */
-    protected $attributes;
-
-    /**
-     * Phue client
-     *
-     * @var Client
-     */
-    protected $client;
-
-    /**
-     * Construct a Phue SoftwareUpdate object
-     *
-     * @param \stdClass $attributes
-     *            SoftwareUpdate attributes
-     * @param Client $client
-     *            Phue client
-     */
-    public function __construct(\stdClass $attributes, Client $client)
+    public function __construct(protected \stdClass $attributes, protected Client $client)
     {
-        $this->attributes = $attributes;
-        $this->client = $client;
     }
 
-    /**
-     * Get update state
-     *
-     * @return int Update state
-     */
-    public function getUpdateState()
+    public function getUpdateState(): int
     {
         return $this->attributes->updatestate;
     }
 
-    /**
-     * Install updates
-     *
-     * @return self This object
-     */
-    public function installUpdates()
+    public function installUpdates(): static
     {
         $this->client->sendCommand(
             new SetBridgeConfig(
-                array(
-                    'swupdate' => array(
+                [
+                    'swupdate' => [
                         'updatestate' => self::STATE_INSTALLING
-                    )
-                )
+                    ]
+                ]
             )
         );
         
-                $this->attributes->updatestate = self::STATE_INSTALLING;
+        $this->attributes->updatestate = self::STATE_INSTALLING;
         
-                return $this;
+        return $this;
     }
 
-    /**
-     * Checking for update?
-     *
-     * @return bool True if checking, false if not
-     */
-    public function checkingForUpdate()
+    public function checkingForUpdate(): bool
     {
         return $this->attributes->checkforupdate;
     }
 
-    /**
-     * Check for update
-     *
-     * @param bool $state
-     *            True to check for update, false if not
-     *
-     * @return self This object
-     */
-    public function checkForUpdate()
+    public function checkForUpdate(): static
     {
         $this->client->sendCommand(
             new SetBridgeConfig(
-                array(
-                    'swupdate' => array(
+                [
+                    'swupdate' => [
                         'checkforupdate' => true
-                    )
-                )
+                    ]
+                ]
             )
         );
         
-                $this->attributes->checkforupdate = true;
+        $this->attributes->checkforupdate = true;
         
-                return $this;
+        return $this;
     }
 
-    /**
-     * Is bridge updatable?
-     *
-     * @return bool True if updatable, false if not
-     */
-    public function isBridgeUpdatable()
+    public function isBridgeUpdatable(): bool
     {
         return (bool) $this->attributes->devicetypes->bridge;
     }
 
     /**
-     * Get updatable lights
-     *
      * @return array List of updatable light ids
      */
-    public function getUpdatableLights()
+    public function getUpdatableLights(): array
     {
         return (array) $this->attributes->devicetypes->lights;
     }
 
-    /**
-     * Get release notes URL
-     *
-     * @return string Release notes URL
-     */
-    public function getReleaseNotesUrl()
+    public function getReleaseNotesUrl(): string
     {
         return $this->attributes->url;
     }
 
-    /**
-     * Get release notes brief
-     *
-     * @return string Release notes
-     */
-    public function getReleaseNotesBrief()
+    public function getReleaseNotesBrief(): string
     {
         return $this->attributes->text;
     }
 
-    /**
-     * Is the install notification enabled?
-     *
-     * @return bool True if completed, false if not
-     */
-    public function isInstallNotificationEnabled()
+    public function isInstallNotificationEnabled(): bool
     {
         return (bool) $this->attributes->notify;
     }
 
-    /**
-     * Disable the install notification
-     *
-     * @return self This object
-     */
-    public function disableInstallNotification()
+    public function disableInstallNotification(): static
     {
         $this->client->sendCommand(
             new SetBridgeConfig(
-                array(
-                    'swupdate' => array(
+                [
+                    'swupdate' => [
                         'notify' => false
-                    )
-                )
+                    ]
+                ]
             )
         );
         

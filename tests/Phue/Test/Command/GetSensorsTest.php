@@ -8,47 +8,20 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetSensors;
-use Phue\Transport\TransportInterface;
+use Phue\Sensor;
 
 /**
  * Tests for Phue\Command\GetSensors
  */
-class GetSensorsTest extends \PHPUnit_Framework_TestCase
+class GetSensorsTest extends AbstractCommandTest
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getSensors = new GetSensors();
         
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+        parent::setUp();
     }
 
     /**
@@ -56,19 +29,19 @@ class GetSensorsTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\GetSensors::send
      */
-    public function testFoundNoSensors()
+    public function testFoundNoSensors(): void
     {
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/sensors"))
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Send command and get response
         $response = $this->getSensors->send($this->mockClient);
         
         // Ensure we have an empty array
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEmpty($response);
     }
 
@@ -77,7 +50,7 @@ class GetSensorsTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\GetSensors::send
      */
-    public function testFoundSensors()
+    public function testFoundSensors(): void
     {
         // Mock transport results
         $mockTransportResults = (object) array(
@@ -89,13 +62,13 @@ class GetSensorsTest extends \PHPUnit_Framework_TestCase
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/sensors"))
-            ->will($this->returnValue($mockTransportResults));
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getSensors->send($this->mockClient);
         
         // Ensure we have an array of Sensors
-        $this->assertInternalType('array', $response);
-        $this->assertContainsOnlyInstancesOf('\Phue\Sensor', $response);
+        $this->assertIsArray($response);
+        $this->assertContainsOnlyInstancesOf(Sensor::class, $response);
     }
 }

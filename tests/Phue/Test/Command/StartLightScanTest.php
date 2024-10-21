@@ -8,59 +8,29 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\StartLightScan;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\StartLightScan
  */
-class StartLightScanTest extends \PHPUnit_Framework_TestCase
+class StartLightScanTest extends AbstractCommandTest
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
-    {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
-    }
-
     /**
      * Test: Send start light scan command
      *
      * @covers \Phue\Command\StartLightScan::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/lights"), 
-            $this->equalTo('POST'))
-            ->will($this->returnValue('success!'));
+            ->with(
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/lights"),
+                $this->equalTo('POST')
+            )
+            ->willReturn('success!');
         
         // $this->assertEquals(
         // 'success!',

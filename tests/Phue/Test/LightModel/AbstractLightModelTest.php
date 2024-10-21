@@ -8,22 +8,22 @@
  */
 namespace Phue\Test\LightModel;
 
+use PHPUnit\Framework\TestCase;
 use Phue\LightModel\AbstractLightModel;
 
 /**
  * Tests for Phue\LightModel\AbstractLightModel
  */
-class AbstractLightModelTest extends \PHPUnit_Framework_TestCase
+class AbstractLightModelTest extends TestCase
 {
+    private $mockAbstractLightModel;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
         $this->mockAbstractLightModel = $this->getMockForAbstractClass(
-            '\Phue\LightModel\AbstractLightModel');
+            AbstractLightModel::class
+        );
     }
 
     /**
@@ -31,10 +31,12 @@ class AbstractLightModelTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\LightModel\AbstractLightModel::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
-        $this->assertEquals($this->mockAbstractLightModel->getId(), 
-            AbstractLightModel::MODEL_ID);
+        $this->assertEquals(
+            AbstractLightModel::MODEL_ID,
+            $this->mockAbstractLightModel->getId()
+        );
     }
 
     /**
@@ -42,10 +44,12 @@ class AbstractLightModelTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\LightModel\AbstractLightModel::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
-        $this->assertEquals($this->mockAbstractLightModel->getName(), 
-            AbstractLightModel::MODEL_NAME);
+        $this->assertEquals(
+            AbstractLightModel::MODEL_NAME,
+            $this->mockAbstractLightModel->getName()
+        );
     }
 
     /**
@@ -53,10 +57,12 @@ class AbstractLightModelTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\LightModel\AbstractLightModel::canRetainState
      */
-    public function testCanRetainState()
+    public function testCanRetainState(): void
     {
-        $this->assertEquals($this->mockAbstractLightModel->canRetainState(), 
-            AbstractLightModel::CAN_RETAIN_STATE);
+        $this->assertEquals(
+            AbstractLightModel::CAN_RETAIN_STATE,
+            $this->mockAbstractLightModel->canRetainState()
+        );
     }
 
     /**
@@ -64,9 +70,11 @@ class AbstractLightModelTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\LightModel\AbstractLightModel::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
-        $this->assertEquals((string) $this->mockAbstractLightModel, 
-            AbstractLightModel::MODEL_NAME);
+        $this->assertEquals(
+            AbstractLightModel::MODEL_NAME,
+            (string) $this->mockAbstractLightModel
+        );
     }
 }

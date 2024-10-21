@@ -8,65 +8,38 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetNewSensors;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetNewSensors
  */
-class GetNewSensorsTest extends \PHPUnit_Framework_TestCase
+class GetNewSensorsTest extends AbstractCommandTest
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getNewSensors = new GetNewSensors();
         
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+        parent::setUp();
         
         // Mock transport results
-        $mockTransportResults = (object) array(
-            '1' => (object) array(
+        $mockTransportResults = (object) [
+            '1' => (object) [
                 'name' => 'Sensor 1'
-            ),
-            '2' => (object) array(
+            ],
+            '2' => (object) [
                 'name' => 'Sensor 2'
-            ),
+            ],
             'lastscan' => 'active'
-        );
+        ];
         
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/sensors/new"))
-            ->will($this->returnValue($mockTransportResults));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/sensors/new")
+            )
+            ->willReturn($mockTransportResults);
     }
 
     /**
@@ -76,7 +49,7 @@ class GetNewSensorsTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Command\GetNewSensors::getSensors
      * @covers \Phue\Command\GetNewSensors::isScanActive
      */
-    public function testGetNewSensors()
+    public function testGetNewSensors(): void
     {
         // Send command and get response
         $response = $this->getNewSensors->send($this->mockClient);
@@ -85,10 +58,10 @@ class GetNewSensorsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->getNewSensors, $response);
         
         // Ensure array of sensors
-        $this->assertInternalType('array', $response->getSensors());
+        $this->assertIsArray($response->getSensors());
         
         // Ensure expected number of sensors
-        $this->assertEquals(2, count($response->getSensors()));
+        $this->assertCount(2, $response->getSensors());
         
         // Ensure lastscan is active
         $this->assertTrue($response->isScanActive());

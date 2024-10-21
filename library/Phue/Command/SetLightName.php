@@ -9,7 +9,6 @@
 namespace Phue\Command;
 
 use Phue\Client;
-use Phue\Light;
 use Phue\Transport\TransportInterface;
 
 /**
@@ -17,42 +16,17 @@ use Phue\Transport\TransportInterface;
  */
 class SetLightName implements CommandInterface
 {
+    protected int $lightId;
 
     /**
-     * Light Id
-     *
-     * @var string
+     * @param mixed $light Light Id or Light object
      */
-    protected $lightId;
-
-    /**
-     * New name
-     *
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * Constructs a command
-     *
-     * @param mixed $light
-     *            Light Id or Light object
-     * @param string $name
-     *            Name of light
-     */
-    public function __construct($light, $name)
+    public function __construct(mixed $light, protected string $name)
     {
-        $this->lightId = (string) $light;
-        $this->name = (string) $name;
+        $this->lightId = (int) (string) $light;
     }
 
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     */
-    public function send(Client $client)
+    public function send(Client $client): void
     {
         $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/lights/{$this->lightId}",

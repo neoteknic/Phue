@@ -25,155 +25,102 @@ use Phue\Transport\TransportInterface;
 /**
  * Client for connecting to Philips Hue bridge
  */
-class Client {
-    /**
-     * Host address
-     *
-     * @var string
-     */
+class Client
+{
+
     protected string $host;
 
-    /**
-     * Username
-     *
-     * @var string
-     */
     protected string $username;
 
-    /**
-     * Transport
-     *
-     * @var TransportInterface
-     */
     protected TransportInterface $transport;
 
-    /**
-     * Construct a Phue Client
-     *
-     * @param string $host
-     *            Host address
-     * @param string $username
-     *            Username
-     */
-    public function __construct(string $host, ?string $username = NULL) {
+    public function __construct(string $host, ?string $username = null)
+    {
         $this->setHost($host);
         $this->setUsername($username);
         $this->setTransport(new Http($this));
     }
 
-    /**
-     * Get host
-     *
-     * @return string Host address
-     */
-    public function getHost() : string {
+    public function getHost() : string
+    {
         return $this->host;
     }
 
-    /**
-     * Set host
-     *
-     * @param string $host
-     *            Host
-     *
-     * @return self This object
-     */
-    public function setHost(string $host) : Client {
-        $this->host = (string) $host;
+    public function setHost(string $host) : Client
+    {
+        $this->host = $host;
         return $this;
     }
 
-    /**
-     * Get username
-     *
-     * @return string Username
-     */
-    public function getUsername() : ?string {
+    public function getUsername() : ?string
+    {
         return $this->username;
     }
 
-    /**
-     * Set username
-     *
-     * @param string $username
-     *            Username
-     *
-     * @return self This object
-     */
-    public function setUsername(?string $username) : Client {
+    public function setUsername(?string $username) : Client
+    {
         $this->username = (string) $username;
         return $this;
     }
 
-    /**
-     * Get bridge
-     *
-     * @return Bridge Bridge object
-     */
-    public function getBridge() : Bridge {
+    public function getBridge() : Bridge
+    {
         return $this->sendCommand(new GetBridge());
     }
 
     /**
-     * Get users
-     *
-     * @return User[] List of User objects
+     * @return User[]
      */
-    public function getUsers() : array {
+    public function getUsers() : array
+    {
         return $this->sendCommand(new GetUsers());
     }
 
     /**
-     * Get lights
-     *
-     * @return Light[] List of Light objects
+     * @return Light[]
      */
-    public function getLights() : array {
+    public function getLights() : array
+    {
         return $this->sendCommand(new GetLights());
     }
 
     /**
-     * Get groups
-     *
-     * @return Group[] List of Group objects
+     * @return Group[]
      */
-    public function getGroups() : array {
+    public function getGroups() : array
+    {
         return $this->sendCommand(new GetGroups());
     }
 
     /**
-     * Get schedules
-     *
-     * @return Schedule[] List of Schedule objects
+     * @return Schedule[]
      */
-    public function getSchedules() : array {
+    public function getSchedules() : array
+    {
         return $this->sendCommand(new GetSchedules());
     }
 
     /**
-     * Get scenes
-     *
-     * @return Scene[] List of Scene objects
+     * @return Scene[]
      */
-    public function getScenes() : array {
+    public function getScenes() : array
+    {
         return $this->sendCommand(new GetScenes());
     }
 
     /**
-     * Get sensors
-     *
-     * @return Sensor[] List of Sensor objects
+     * @return Sensor[]
      */
-    public function getSensors() : array {
+    public function getSensors() : array
+    {
         return $this->sendCommand(new GetSensors());
     }
 
     /**
-     * Get rules
-     *
-     * @return Rule[] List of Rule objects
+     * @return Rule[]
      */
-    public function getRules() : array {
+    public function getRules() : array
+    {
         return $this->sendCommand(new GetRules());
     }
 
@@ -182,41 +129,24 @@ class Client {
      *
      * @return array List of timezones
      */
-    public function getTimezones() : array {
+    public function getTimezones() : array
+    {
         return $this->sendCommand(new GetTimezones());
     }
 
-    /**
-     * Get transport
-     *
-     * @return TransportInterface Transport
-     */
-    public function getTransport() : TransportInterface {
+    public function getTransport() : TransportInterface
+    {
         return $this->transport;
     }
 
-    /**
-     * Set transport
-     *
-     * @param TransportInterface $transport
-     *            Transport
-     *
-     * @return self This object
-     */
-    public function setTransport(TransportInterface $transport) : Client {
+    public function setTransport(TransportInterface $transport) : Client
+    {
         $this->transport = $transport;
         return $this;
     }
 
-    /**
-     * Send command to server
-     *
-     * @param CommandInterface $command
-     *            Phue command
-     *
-     * @return mixed Command result
-     */
-    public function sendCommand(CommandInterface $command) {
+    public function sendCommand(CommandInterface $command): mixed
+    {
         return $command->send($this);
     }
 }

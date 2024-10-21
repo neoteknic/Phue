@@ -16,41 +16,22 @@ use Phue\Transport\TransportInterface;
  */
 class CreateUser implements CommandInterface
 {
-
     /**
      * Client name
      */
-    const DEFAULT_DEVICE_TYPE = 'Phue';
+    public const DEFAULT_DEVICE_TYPE = 'Phue';
 
-    /**
-     * Device type
-     *
-     * @var string
-     */
-    protected $deviceType;
+    protected string $deviceType;
 
-    /**
-     * Instantiates a create user command
-     *
-     * @param string $deviceType
-     *            Device type
-     */
-    public function __construct($deviceType = self::DEFAULT_DEVICE_TYPE)
+    public function __construct(string $deviceType = self::DEFAULT_DEVICE_TYPE)
     {
         $this->setDeviceType($deviceType);
     }
 
     /**
-     * Set device type
-     *
-     * @param string $deviceType
-     *            Device type
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return self This object
      */
-    public function setDeviceType($deviceType)
+    public function setDeviceType(string $deviceType): static
     {
         if (strlen($deviceType) > 40) {
             throw new \InvalidArgumentException(
@@ -58,7 +39,7 @@ class CreateUser implements CommandInterface
             );
         }
         
-        $this->deviceType = (string) $deviceType;
+        $this->deviceType = $deviceType;
         
         return $this;
     }
@@ -66,12 +47,9 @@ class CreateUser implements CommandInterface
     /**
      * Send command
      *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return \stdClass Authentication response
+     * @return \stdClass|string Authentication response
      */
-    public function send(Client $client)
+    public function send(Client $client): \stdClass|string
     {
         // Get response
         $response = $client->getTransport()->sendRequest(
@@ -86,17 +64,14 @@ class CreateUser implements CommandInterface
     /**
      * Build request data
      *
-     * @param Client $client
-     *            Phue client
-     *
      * @return \stdClass Request data object
      */
-    protected function buildRequestData(Client $client)
+    protected function buildRequestData(Client $client): \stdClass
     {
         // Initialize data to send
-        $request = array(
+        $request = [
             'devicetype' => $this->deviceType
-        );
+        ];
         
         return (object) $request;
     }

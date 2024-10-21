@@ -8,30 +8,31 @@
  */
 namespace Phue\Test;
 
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Schedule;
+use Phue\Command\DeleteSchedule;
+use Phue\Command\SetScheduleAttributes;
+use Phue\Command\ActionableInterface;
 
 /**
  * Tests for Phue\Schedule
  */
-class ScheduleTest extends \PHPUnit_Framework_TestCase
+class ScheduleTest extends TestCase
 {
+    /** @var MockObject&Client $mockClient */
+    private $mockClient;
+    private object $attributes;
+    private Schedule $schedule;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Force default timezone
         date_default_timezone_set('UTC');
         
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock(Client::class);
         
         // Build stub attributes
         $this->attributes = (object) array(
@@ -57,7 +58,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
         $this->assertEquals(6, $this->schedule->getId());
     }
@@ -68,7 +69,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals($this->attributes->name, $this->schedule->getName());
     }
@@ -79,13 +80,13 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::setName
      * @covers \Phue\Schedule::getName
      */
-    public function testSetName()
+    public function testSetName(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetScheduleAttributes'))
-            ->will($this->returnValue($this->schedule));
+            ->with($this->isInstanceOf(SetScheduleAttributes::class))
+            ->willReturn($this->schedule);
         
         // Ensure setName returns self
         $this->assertEquals($this->schedule, $this->schedule->setName('new name'));
@@ -99,10 +100,12 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Schedule::getDescription
      */
-    public function testGetDescription()
+    public function testGetDescription(): void
     {
-        $this->assertEquals($this->attributes->description, 
-            $this->schedule->getDescription());
+        $this->assertEquals(
+            $this->attributes->description,
+            $this->schedule->getDescription()
+        );
     }
 
     /**
@@ -111,17 +114,19 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::setDescription
      * @covers \Phue\Schedule::getDescription
      */
-    public function testSetDescription()
+    public function testSetDescription(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetScheduleAttributes'))
-            ->will($this->returnValue($this->schedule));
+            ->with($this->isInstanceOf(SetScheduleAttributes::class))
+            ->willReturn($this->schedule);
         
         // Ensure setDescription returns self
-        $this->assertEquals($this->schedule, 
-            $this->schedule->setDescription('new description'));
+        $this->assertEquals(
+            $this->schedule,
+            $this->schedule->setDescription('new description')
+        );
         
         // Ensure new description can be retrieved by getDescription
         $this->assertEquals('new description', $this->schedule->getDescription());
@@ -133,7 +138,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::getTime
      */
-    public function testGetTime()
+    public function testGetTime(): void
     {
         $this->assertEquals($this->attributes->time, $this->schedule->getTime());
     }
@@ -144,17 +149,19 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::setTime
      * @covers \Phue\Schedule::getTime
      */
-    public function testSetTime()
+    public function testSetTime(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetScheduleAttributes'))
-            ->will($this->returnValue($this->schedule));
+            ->with($this->isInstanceOf(SetScheduleAttributes::class))
+            ->willReturn($this->schedule);
         
         // Ensure setTime returns self
-        $this->assertEquals($this->schedule, 
-            $this->schedule->setTime('2010-10-20T10:11:12'));
+        $this->assertEquals(
+            $this->schedule,
+            $this->schedule->setTime('2010-10-20T10:11:12')
+        );
         
         // Ensure new time can be retrieved by getTime
         $this->assertEquals('2010-10-20T10:11:12', $this->schedule->getTime());
@@ -166,10 +173,12 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::getCommand
      */
-    public function testGetCommand()
+    public function testGetCommand(): void
     {
-        $this->assertEquals((array) $this->attributes->command, 
-            $this->schedule->getCommand());
+        $this->assertEquals(
+            (array) $this->attributes->command,
+            $this->schedule->getCommand()
+        );
     }
 
     /**
@@ -178,19 +187,21 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::setCommand
      * @covers \Phue\Schedule::getCommand
      */
-    public function testSetCommand()
+    public function testSetCommand(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetScheduleAttributes'))
-            ->will($this->returnValue($this->schedule));
+            ->with($this->isInstanceOf(SetScheduleAttributes::class))
+            ->willReturn($this->schedule);
         
         // Mock actionable command
-        $mockCommand = $this->createMock('\Phue\Command\ActionableInterface', 
+        $mockCommand = $this->createMock(
+            ActionableInterface::class,
             array(
                 'getActionableParams'
-            ));
+            )
+        );
         
         $actionableParams = array(
             'address' => '/api/endpoint',
@@ -201,11 +212,13 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
         // Stub command's getActionableParams method
         $mockCommand->expects($this->any())
             ->method('getActionableParams')
-            ->will($this->returnValue((object) $actionableParams));
+            ->willReturn((object)$actionableParams);
         
         // Ensure setCommand returns self
-        $this->assertEquals($this->schedule, 
-            $this->schedule->setCommand($mockCommand));
+        $this->assertEquals(
+            $this->schedule,
+            $this->schedule->setCommand($mockCommand)
+        );
         
         // Ensure new command can be retrieved by getCommand
         $this->assertEquals($actionableParams, $this->schedule->getCommand());
@@ -217,7 +230,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::getStatus
      */
-    public function testGetStatus()
+    public function testGetStatus(): void
     {
         $this->assertEquals($this->attributes->status, $this->schedule->getStatus());
     }
@@ -228,17 +241,19 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::setStatus
      * @covers \Phue\Schedule::getStatus
      */
-    public function testSetStatus()
+    public function testSetStatus(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetScheduleAttributes'))
-            ->will($this->returnValue($this->schedule));
+            ->with($this->isInstanceOf(SetScheduleAttributes::class))
+            ->willReturn($this->schedule);
         
         // Ensure setStatus returns self
-        $this->assertEquals($this->schedule, 
-            $this->schedule->setStatus(Schedule::STATUS_ENABLED));
+        $this->assertEquals(
+            $this->schedule,
+            $this->schedule->setStatus(Schedule::STATUS_ENABLED)
+        );
         
         // Ensure new status can be retrieved by getStatus
         $this->assertEquals(Schedule::STATUS_ENABLED, $this->schedule->getStatus());
@@ -249,7 +264,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Schedule::isEnabled
      */
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertTrue($this->schedule->isEnabled());
     }
@@ -260,10 +275,12 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::__construct
      * @covers \Phue\Schedule::isAutoDeleted
      */
-    public function testIsAutoDeleted()
+    public function testIsAutoDeleted(): void
     {
-        $this->assertEquals($this->attributes->autodelete, 
-            $this->schedule->isAutoDeleted());
+        $this->assertEquals(
+            $this->attributes->autodelete,
+            $this->schedule->isAutoDeleted()
+        );
     }
 
     /**
@@ -272,19 +289,19 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Schedule::setAutoDelete
      * @covers \Phue\Schedule::isAutoDeleted
      */
-    public function testSetAutoDelete()
+    public function testSetAutoDelete(): void
     {
         // Stub client's sendCommand method
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\SetScheduleAttributes'))
-            ->will($this->returnValue($this->schedule));
+            ->with($this->isInstanceOf(SetScheduleAttributes::class))
+            ->willReturn($this->schedule);
         
         // Ensure setAutoDelete returns self
         $this->assertEquals($this->schedule, $this->schedule->setAutoDelete(true));
         
         // Ensure autodelete can be retrieved by isAutoDeleted
-        $this->assertEquals(true, $this->schedule->isAutoDeleted());
+        $this->assertTrue($this->schedule->isAutoDeleted());
     }
 
     /**
@@ -292,11 +309,11 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Schedule::delete
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         $this->mockClient->expects($this->once())
             ->method('sendCommand')
-            ->with($this->isInstanceOf('\Phue\Command\DeleteSchedule'));
+            ->with($this->isInstanceOf(DeleteSchedule::class));
         
         $this->schedule->delete();
     }
@@ -306,7 +323,7 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Schedule::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals($this->schedule->getId(), (string) $this->schedule);
     }

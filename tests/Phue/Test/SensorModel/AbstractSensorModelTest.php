@@ -8,22 +8,21 @@
  */
 namespace Phue\Test\SensorModel;
 
+use Mockery\Mock;
+use PHPUnit\Framework\TestCase;
 use Phue\SensorModel\AbstractSensorModel;
 
 /**
  * Tests for Phue\SensorModel\AbstractSensorModel
  */
-class AbstractSensorModelTest extends \PHPUnit_Framework_TestCase
+class AbstractSensorModelTest extends TestCase
 {
+    private AbstractSensorModel|Mock $mockAbstractSensorModel;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
-        $this->mockAbstractSensorModel = $this->getMockForAbstractClass(
-            '\Phue\SensorModel\AbstractSensorModel');
+        $this->mockAbstractSensorModel = $this->getMockForAbstractClass(AbstractSensorModel::class);
     }
 
     /**
@@ -31,10 +30,12 @@ class AbstractSensorModelTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\SensorModel\AbstractSensorModel::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
-        $this->assertEquals($this->mockAbstractSensorModel->getId(), 
-            AbstractSensorModel::MODEL_ID);
+        $this->assertEquals(
+            AbstractSensorModel::MODEL_ID,
+            $this->mockAbstractSensorModel->getId()
+        );
     }
 
     /**
@@ -42,10 +43,12 @@ class AbstractSensorModelTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\SensorModel\AbstractSensorModel::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
-        $this->assertEquals($this->mockAbstractSensorModel->getName(), 
-            AbstractSensorModel::MODEL_NAME);
+        $this->assertEquals(
+            AbstractSensorModel::MODEL_NAME,
+            $this->mockAbstractSensorModel->getName()
+        );
     }
 
     /**
@@ -53,9 +56,11 @@ class AbstractSensorModelTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\SensorModel\AbstractSensorModel::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
-        $this->assertEquals((string) $this->mockAbstractSensorModel, 
-            AbstractSensorModel::MODEL_NAME);
+        $this->assertEquals(
+            AbstractSensorModel::MODEL_NAME,
+            (string) $this->mockAbstractSensorModel
+        );
     }
 }

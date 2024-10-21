@@ -8,52 +8,49 @@
  */
 namespace Phue\Test\Command;
 
+use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Command\SetGroupAttributes;
+use Phue\Group;
 use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\SetGroupAttributes
  */
-class SetGroupAttributesTest extends \PHPUnit_Framework_TestCase
+class SetGroupAttributesTest extends TestCase
 {
+    private $mockClient;
+    private $mockTransport;
+    private $mockGroup;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->getMockBuilder(Client::class)
+            ->setConstructorArgs(['127.0.0.1'])
+            ->getMock()
+        ;
         
         // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Mock group
-        $this->mockGroup = $this->createMock('\Phue\Group', null, 
-            array(
-                2,
-                new \stdClass(),
-                $this->mockClient
-            ));
+        $this->mockTransport = $this->createMock(TransportInterface::class);
+
+        $this->mockGroup = $this->getMockBuilder(Group::class)
+            #->disableOriginalConstructor()
+            ->setConstructorArgs([2, new \stdClass(), $this->mockClient])
+            ->getMock()
+        ;
+
+        $this->mockGroup->setBrightness(30);
         
         // Stub client's getUsername method
         $this->mockClient->expects($this->any())
             ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
+            ->willReturn('abcdefabcdef01234567890123456789');
         
         // Stub client's getTransport method
         $this->mockClient->expects($this->any())
             ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+            ->willReturn($this->mockTransport);
     }
 
     /**
@@ -64,43 +61,37 @@ class SetGroupAttributesTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Command\SetGroupAttributes::lights
      * @covers \Phue\Command\SetGroupAttributes::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Build command
         $setGroupAttributesCmd = new SetGroupAttributes($this->mockGroup);
         
         // Set expected payload
         $this->stubTransportSendRequestWithPayload(
-            (object) array(
+            (object) [
                 'name' => 'Dummy!',
-                'lights' => array(
-                    3
-                )
-            ));
+                'lights' => [3]
+            ]
+        );
         
         // Change name and lights
         $setGroupAttributesCmd->name('Dummy!')
-            ->
-        lights(array(
-            3
-        ))
-            ->send($this->mockClient);
+        ->lights([3])
+        ->send($this->mockClient);
     }
 
     /**
      * Stub transport's sendRequest with an expected payload
-     *
-     * @param \stdClass $payload
-     *            Payload
      */
-    protected function stubTransportSendRequestWithPayload(\stdClass $payload)
+    protected function stubTransportSendRequestWithPayload(\stdClass $payload): void
     {
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo(
-                "/api/{$this->mockClient->getUsername()}/groups/{$this->mockGroup->getId()}"), 
-            $this->equalTo('PUT'), $payload);
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/groups/{$this->mockGroup->getId()}"),
+                $this->equalTo('PUT'),
+                $payload
+            );
     }
 }

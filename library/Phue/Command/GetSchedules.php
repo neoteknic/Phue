@@ -16,16 +16,11 @@ use Phue\Schedule;
  */
 class GetSchedules implements CommandInterface
 {
-
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
      * @return Schedule[] List of Schedule objects
      */
-    public function send(Client $client)
+    public function send(Client $client): array
     {
         // Get response
         $response = $client->getTransport()->sendRequest(

@@ -16,13 +16,7 @@ use Phue\Transport\TransportInterface;
  */
 class DeleteUser implements CommandInterface
 {
-
-    /**
-     * Username
-     *
-     * @var string
-     */
-    protected $username;
+    protected string $username;
 
     /**
      * Constructs a command
@@ -30,18 +24,15 @@ class DeleteUser implements CommandInterface
      * @param mixed $username
      *            Username or User object
      */
-    public function __construct($username)
+    public function __construct(mixed $username)
     {
         $this->username = (string) $username;
     }
 
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
      */
-    public function send(Client $client)
+    public function send(Client $client): void
     {
         $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/config/whitelist/{$this->username}",

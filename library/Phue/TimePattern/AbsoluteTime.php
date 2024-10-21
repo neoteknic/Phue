@@ -11,28 +11,16 @@ namespace Phue\TimePattern;
 use DateTime;
 use DateTimeZone;
 
-/**
- * Absolute time
- */
 class AbsoluteTime extends AbstractTimePattern
 {
+    protected DateTime $date;
 
     /**
-     * Date
-     *
-     * @var DateTime
+     * @throws \Exception
      */
-    protected $date;
-
-    /**
-     * Instantiate
-     *
-     * @param string $time
-     *            Time value
-     */
-    public function __construct($time)
+    public function __construct(string $time)
     {
-        $this->date = (new DateTime((string) $time));
+        $this->date = (new DateTime($time));
         $this->date->setTimeZone(new DateTimeZone('UTC'));
     }
 
@@ -41,7 +29,7 @@ class AbsoluteTime extends AbstractTimePattern
      *
      * @return string Formatted date
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->date->format('Y-m-d\TH:i:s');
     }

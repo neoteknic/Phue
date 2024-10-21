@@ -9,22 +9,21 @@
 namespace Phue\Test\Command;
 
 use Mockery;
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\UpdateSensorConfig;
-use Phue\Transport\TransportInterface;
+use Phue\Client;
 
 /**
  * Tests for Phue\Command\UpdateSensorConfig
  */
-class UpdateSensorConfigTest extends \PHPUnit_Framework_TestCase
+class UpdateSensorConfigTest extends TestCase
 {
-
     /**
      * Test: Instantiating UpdateSensorConfig command
      *
      * @covers \Phue\Command\UpdateSensorConfig::__construct
      */
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $command = new UpdateSensorConfig('4');
     }
@@ -34,7 +33,7 @@ class UpdateSensorConfigTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\UpdateSensorConfig::configAttribute
      */
-    public function testName()
+    public function testName(): void
     {
         $command = new UpdateSensorConfig('4');
         
@@ -46,13 +45,11 @@ class UpdateSensorConfigTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\UpdateSensorConfig::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Mock client
-        $mockClient = Mockery::mock('\Phue\Client', 
-            array(
-                'getUsername' => 'abcdefabcdef01234567890123456789'
-            ))->makePartial();
+        $mockClient = Mockery::mock(Client::class, ['getUsername' => 'abcdefabcdef01234567890123456789'])
+            ->makePartial();
         
         // Mock client commands
         $mockClient->shouldReceive('getTransport->sendRequest');

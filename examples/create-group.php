@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
 /**
  * Example: Create test group.
  *
@@ -13,10 +13,13 @@ echo 'Creating test group', "\n";
 $lights = $client->getLights();
 
 $groupId = $client->sendCommand(
-    new \Phue\Command\CreateGroup('Test Group', 
+    new \Phue\Command\CreateGroup(
+        'Test Group',
         array(
             $lights[4],
             $lights[5]
-        )));
+        )
+    )
+);
 
 echo 'Group Id: ', $groupId, "\n";

@@ -8,29 +8,28 @@
  */
 namespace Phue\Test;
 
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Portal;
 
 /**
  * Tests for Phue\Portal
  */
-class PortalTest extends \PHPUnit_Framework_TestCase
+class PortalTest extends TestCase
 {
+    /** @var Client&MockObject $mockClient */
+    private $mockClient;
+    private object $attributes;
+    private Portal $portal;
 
     /**
-     * Set up
-     *
      * @covers \Phue\Portal::__construct
      */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock(Client::class);
         
         // Build stub attributes
         // $this->attributes = (object) [
@@ -39,12 +38,12 @@ class PortalTest extends \PHPUnit_Framework_TestCase
         // 'outgoing' => true,
         // 'communication' => 'disconnected'
         // ];
-        $this->attributes = (object) array(
+        $this->attributes = (object) [
             'signedon' => true,
             'incoming' => false,
             'outgoing' => true,
             'communication' => 'disconnected'
-        );
+        ];
         
         // Create portal object
         $this->portal = new Portal($this->attributes, $this->mockClient);
@@ -55,7 +54,7 @@ class PortalTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Portal::isSignedOn
      */
-    public function testIsSignedOn()
+    public function testIsSignedOn(): void
     {
         $this->assertEquals($this->attributes->signedon, $this->portal->isSignedOn());
     }
@@ -65,7 +64,7 @@ class PortalTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Portal::isIncoming
      */
-    public function testIsIncoming()
+    public function testIsIncoming(): void
     {
         $this->assertEquals($this->attributes->incoming, $this->portal->isIncoming());
     }
@@ -75,7 +74,7 @@ class PortalTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Portal::isOutgoing
      */
-    public function testIsOutgoing()
+    public function testIsOutgoing(): void
     {
         $this->assertEquals($this->attributes->outgoing, $this->portal->isOutgoing());
     }
@@ -85,9 +84,11 @@ class PortalTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Portal::getCommunication
      */
-    public function testGetCommunication()
+    public function testGetCommunication(): void
     {
-        $this->assertEquals($this->attributes->communication, 
-            $this->portal->getCommunication());
+        $this->assertEquals(
+            $this->attributes->communication,
+            $this->portal->getCommunication()
+        );
     }
 }

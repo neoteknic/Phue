@@ -8,76 +8,31 @@
  */
 namespace Phue;
 
-/**
- * Portal object
- */
 class Portal
 {
-
-    /**
-     * Portal attributes
-     *
-     * @var \stdClass
-     */
-    protected $attributes;
-
-    /**
-     * Phue client
-     *
-     * @var Client
-     */
-    protected $client;
-
-    /**
-     * Construct a Phue Portal object
-     *
-     * @param \stdClass $attributes
-     *            Portal attributes
-     * @param Client $client
-     *            Phue client
-     */
-    public function __construct(\stdClass $attributes, Client $client)
+    public function __construct(protected \stdClass $attributes, protected Client $client)
     {
-        $this->attributes = $attributes;
-        $this->client = $client;
     }
 
-    /**
-     * Is signed on?
-     *
-     * @return bool True if signed on, false if not
-     */
-    public function isSignedOn()
+    public function isSignedOn(): bool
     {
         return $this->attributes->signedon;
     }
 
-    /**
-     * Is incoming
-     *
-     * @return bool True if incoming data, false if not
-     */
-    public function isIncoming()
+    public function isIncoming(): bool
     {
         return $this->attributes->incoming;
     }
 
-    /**
-     * Is outgoing
-     *
-     * @return bool True if outgoing data, false if not
-     */
-    public function isOutgoing()
+    public function isOutgoing(): bool
     {
         return $this->attributes->outgoing;
     }
 
     /**
-     * Get communication
-     *
      * @return string Communication status
      */
-    public function getCommunication()
+    public function getCommunication(): string
     {
         return $this->attributes->communication;
     }

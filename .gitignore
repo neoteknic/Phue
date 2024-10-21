@@ -4,5 +4,9 @@ composer.lock
 *.buildpath
 *.prefs
 
+.phpunit.result.cache
+.phpunit.cache
+.php-cs-fixer.cache
+
 .settings/org.eclipse.wst.common.project.facet.core.xml
 .project

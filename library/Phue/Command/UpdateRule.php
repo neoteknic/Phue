@@ -16,54 +16,34 @@ use Phue\Transport\TransportInterface;
  */
 class UpdateRule extends CreateRule
 {
-
-    /**
-     * Rule Id
-     *
-     * @var string
-     */
-    protected $ruleId;
+    protected string $ruleId;
 
     /**
      * Rule attributes
-     *
-     * @var array
      */
-    protected $attributes = array();
+    protected array $attributes = array();
 
     /**
      * Constructs a command
      *
-     * @param mixed $rule
-     *            Rule Id or Rule object
+     * @param mixed $rule Rule Id or Rule object
      */
-    public function __construct($rule)
+    public function __construct(mixed $rule)
     {
         $this->ruleId = (string) $rule;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *            Name
-     *
-     * @return self This object
-     */
-    public function name($name)
+    public function name(string $name): static
     {
-        $this->attributes['name'] = (string) $name;
+        $this->attributes['name'] = $name;
         
         return $this;
     }
 
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
      */
-    public function send(Client $client)
+    public function send(Client $client): ?int
     {
         $attributes = $this->attributes;
         
@@ -75,7 +55,7 @@ class UpdateRule extends CreateRule
             $attributes['actions'][] = $action->getActionableParams($client);
         }
         
-        $client->getTransport()->sendRequest(
+        return $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/rules/{$this->ruleId}",
             TransportInterface::METHOD_PUT,
             (object) $attributes

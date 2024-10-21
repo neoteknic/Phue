@@ -16,16 +16,10 @@ use Phue\Scene;
  */
 class GetScenes implements CommandInterface
 {
-
     /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
      * @return Scene[] List of Scene objects
      */
-    public function send(Client $client)
+    public function send(Client $client): array
     {
         // Get response
         $results = $client->getTransport()->sendRequest(

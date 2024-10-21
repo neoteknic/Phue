@@ -16,35 +16,12 @@ use DateTimeZone;
  */
 class RandomizedTime extends AbstractTimePattern
 {
+    protected DateTime $date;
 
-    /**
-     * Date
-     *
-     * @var DateTime
-     */
-    protected $date;
-
-    /**
-     * Random within seconds
-     *
-     * @var int
-     */
-    protected $randomWithinSeconds;
-
-    /**
-     * Instantiate
-     *
-     * @param string $time
-     *            Time value
-     * @param int $randomWithinSeconds
-     *            Random within seconds
-     */
-    public function __construct($time, $randomWithinSeconds = null)
+    public function __construct(string $time, protected ?int $randomWithinSeconds = null)
     {
-        $this->date = (new DateTime((string) $time));
+        $this->date = (new DateTime($time));
         $this->date->setTimeZone(new DateTimeZone('UTC'));
-        
-        $this->randomWithinSeconds = $randomWithinSeconds;
     }
 
     /**
@@ -52,7 +29,7 @@ class RandomizedTime extends AbstractTimePattern
      *
      * @return string Formatted date
      */
-    public function __toString()
+    public function __toString(): string
     {
         $time = $this->date->format('Y-m-d\TH:i:s');
         

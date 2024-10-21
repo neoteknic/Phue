@@ -8,65 +8,40 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetNewLights;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\GetNewLights
  */
-class GetNewLightsTest extends \PHPUnit_Framework_TestCase
+class GetNewLightsTest extends AbstractCommandTest
 {
+    private GetNewLights $getNewLights;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getNewLights = new GetNewLights();
         
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+        parent::setUp();
         
         // Mock transport results
-        $mockTransportResults = (object) array(
-            '1' => (object) array(
+        $mockTransportResults = (object) [
+            '1' => (object) [
                 'name' => 'Sensor 1'
-            ),
-            '2' => (object) array(
+            ],
+            '2' => (object) [
                 'name' => 'Sensor 2'
-            ),
+            ],
             'lastscan' => 'active'
-        );
+        ];
         
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/lights/new"))
-            ->will($this->returnValue($mockTransportResults));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/lights/new")
+            )
+            ->willReturn($mockTransportResults);
     }
 
     /**
@@ -76,7 +51,7 @@ class GetNewLightsTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Command\GetNewLights::getLights
      * @covers \Phue\Command\GetNewLights::isScanActive
      */
-    public function testGetNewLights()
+    public function testGetNewLights(): void
     {
         // Send command and get response
         $response = $this->getNewLights->send($this->mockClient);
@@ -85,10 +60,10 @@ class GetNewLightsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->getNewLights, $response);
         
         // Ensure array of lights
-        $this->assertInternalType('array', $response->getLights());
+        $this->assertIsArray($response->getLights());
         
         // Ensure expected number of lights
-        $this->assertEquals(2, count($response->getLights()));
+        $this->assertCount(2, $response->getLights());
         
         // Ensure lastscan is active
         $this->assertTrue($response->isScanActive());

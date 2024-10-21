@@ -8,23 +8,29 @@
  */
 namespace Phue\Test\TimePattern;
 
+use PHPUnit\Framework\TestCase;
 use Phue\TimePattern\RecurringTime;
 
 /**
  * Tests for Phue\TimePattern\RecurringTime
  */
-class RecurringTimeTest extends \PHPUnit_Framework_TestCase
+class RecurringTimeTest extends TestCase
 {
-
     /**
      * Test: Creating recurring time
      *
      * @covers \Phue\TimePattern\RecurringTime
      */
-    public function testCreateTime()
+    public function testCreateTime(): void
     {
-        $this->assertRegExp('/^W34\/T14:02:05$/', 
+        $this->assertMatchesRegularExpression(
+            '/^W34\/T14:02:05$/',
             (string) new RecurringTime(
-                RecurringTime::TUESDAY | RecurringTime::SATURDAY, 14, 2, 5));
+                RecurringTime::TUESDAY | RecurringTime::SATURDAY,
+                14,
+                2,
+                5
+            )
+        );
     }
 }

@@ -8,60 +8,30 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\SetBridgeConfig;
-use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\SetBridgeConfig
  */
-class SetBridgeConfigTest extends \PHPUnit_Framework_TestCase
+class SetBridgeConfigTest extends AbstractCommandTest
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
-    {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
-    }
-
     /**
      * Test: Set bridge config
      *
      * @covers \Phue\Command\SetBridgeConfig::__construct
      * @covers \Phue\Command\SetBridgeConfig::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/config"), 
-            $this->equalTo('PUT'), $this->isInstanceOf('\stdClass'));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/config"),
+                $this->equalTo('PUT'),
+                $this->isInstanceOf(\stdClass::class)
+            );
         
         $bridgeconfig = new SetBridgeConfig(array(
             'name' => 'test'

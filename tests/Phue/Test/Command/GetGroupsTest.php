@@ -8,47 +8,22 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetGroups;
-use Phue\Transport\TransportInterface;
+use Phue\Group;
 
 /**
  * Tests for Phue\Command\GetGroups
  */
-class GetGroupsTest extends \PHPUnit_Framework_TestCase
+class GetGroupsTest extends AbstractCommandTest
 {
+    private GetGroups $getGroups;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getGroups = new GetGroups();
-        
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+
+        parent::setUp();
     }
 
     /**
@@ -56,19 +31,19 @@ class GetGroupsTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\GetGroups::send
      */
-    public function testFoundNoGroups()
+    public function testFoundNoGroups(): void
     {
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/groups"))
-            ->will($this->returnValue(new \stdClass()));
+            ->willReturn(new \stdClass());
         
         // Send command and get response
         $response = $this->getGroups->send($this->mockClient);
         
         // Ensure we have an empty array
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEmpty($response);
     }
 
@@ -77,7 +52,7 @@ class GetGroupsTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\GetGroups::send
      */
-    public function testFoundGroups()
+    public function testFoundGroups(): void
     {
         // Mock transport results
         $mockTransportResults = (object) array(
@@ -89,13 +64,13 @@ class GetGroupsTest extends \PHPUnit_Framework_TestCase
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/groups"))
-            ->will($this->returnValue($mockTransportResults));
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getGroups->send($this->mockClient);
         
         // Ensure we have an array of Groups
-        $this->assertInternalType('array', $response);
-        $this->assertContainsOnlyInstancesOf('\Phue\Group', $response);
+        $this->assertIsArray($response);
+        $this->assertContainsOnlyInstancesOf(Group::class, $response);
     }
 }

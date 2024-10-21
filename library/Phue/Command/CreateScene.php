@@ -16,39 +16,19 @@ use Phue\Transport\TransportInterface;
  */
 class CreateScene implements CommandInterface
 {
+    protected string $name;
+
+    protected array $lights = array();
+
+    protected mixed $transitionTime = null;
+
+    private string $id;
 
     /**
-     * Name
-     *
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * Lights
-     *
-     * @var array List of light Ids
-     */
-    protected $lights = array();
-
-    /**
-     * Transition time
-     *
-     * @var mixed
-     */
-    protected $transitionTime = null;
-
-    /**
-     * Constructs a command
-     *
-     * @param string $id
-     *            Id
-     * @param string $name
-     *            Name
      * @param array $lights
      *            List of light Ids or Light objects
      */
-    public function __construct($id, $name, array $lights = array())
+    public function __construct(string $id, string $name, array $lights = [])
     {
         $this->id($id);
         $this->name($name);
@@ -57,30 +37,20 @@ class CreateScene implements CommandInterface
 
     /**
      * Set id
-     *
-     * @param string $id
-     *            Custom scene id
-     *
-     * @return self This object
      */
-    public function id($id)
+    public function id(string $id): static
     {
-        $this->id = (string) $id;
+        $this->id = $id;
         
         return $this;
     }
 
     /**
      * Set name
-     *
-     * @param string $name
-     *            Name
-     *
-     * @return self This object
      */
-    public function name($name)
+    public function name(string $name): static
     {
-        $this->name = (string) $name;
+        $this->name = $name;
         
         return $this;
     }
@@ -88,14 +58,11 @@ class CreateScene implements CommandInterface
     /**
      * Set lights
      *
-     * @param array $lights
-     *            List of light Ids or Light objects
-     *
-     * @return self This object
+     * @param array $lights List of light Ids or Light objects
      */
-    public function lights(array $lights = array())
+    public function lights(array $lights = []): static
     {
-        $this->lights = array();
+        $this->lights = [];
         // Iterate through each light and append id to scene list
         foreach ($lights as $light) {
             $this->lights[] = (string) $light;
@@ -104,18 +71,10 @@ class CreateScene implements CommandInterface
         return $this;
     }
 
-    /**
-     * Set transition time
-     *
-     * @param double $seconds
-     *            Time in seconds
-     *
-     * @return self This object
-     */
-    public function transitionTime($seconds)
+    public function transitionTime(float $seconds): static
     {
         // Don't continue if seconds is not valid
-        if ((double) $seconds < 0) {
+        if ($seconds < 0) {
             throw new \InvalidArgumentException('Time must be at least 0');
         }
         
@@ -127,18 +86,14 @@ class CreateScene implements CommandInterface
 
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
      * @return string Scene Id
      */
-    public function send(Client $client)
+    public function send(Client $client): string
     {
-        $body = (object) array(
+        $body = (object) [
             'name' => $this->name,
             'lights' => $this->lights
-        );
+        ];
         
         if ($this->transitionTime !== null) {
             $body->transitiontime = $this->transitionTime;
@@ -151,5 +106,10 @@ class CreateScene implements CommandInterface
         );
         
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

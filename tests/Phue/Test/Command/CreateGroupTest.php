@@ -8,54 +8,21 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
 use Phue\Command\CreateGroup;
 use Phue\Transport\TransportInterface;
 
 /**
  * Tests for Phue\Command\CreateGroup
  */
-class CreateGroupTest extends \PHPUnit_Framework_TestCase
+class CreateGroupTest extends AbstractCommandTest
 {
-
-    /**
-     * Set up
-     */
-    public function setUp()
-    {
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
-    }
-
     /**
      * Test: Set name
      *
      * @covers \Phue\Command\CreateGroup::__construct
      * @covers \Phue\Command\CreateGroup::name
      */
-    public function testName()
+    public function testName(): void
     {
         $command = new CreateGroup('Dummy!');
         
@@ -72,7 +39,7 @@ class CreateGroupTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Command\CreateGroup::__construct
      * @covers \Phue\Command\CreateGroup::lights
      */
-    public function testLights()
+    public function testLights(): void
     {
         $command = new CreateGroup('Dummy!', array(
             1,
@@ -80,16 +47,10 @@ class CreateGroupTest extends \PHPUnit_Framework_TestCase
         ));
         
         // Ensure property is set properly
-        $this->assertAttributeEquals(
-            array(
-                1,
-                2
-            ), 'lights', $command);
-        
+        $this->assertAttributeEquals([1, 2], 'lights', $command);
+
         // Ensure self object is returned
-        $this->assertEquals($command, $command->lights(array(
-            1
-        )));
+        $this->assertEquals($command, $command->lights([1]));
     }
 
     /**
@@ -98,31 +59,34 @@ class CreateGroupTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Command\CreateGroup::__construct
      * @covers \Phue\Command\CreateGroup::send
      */
-    public function testSend()
+    public function testSend(): void
     {
-        $command = new CreateGroup('Dummy', array(
+        $command = new CreateGroup('Dummy', [
             2,
             3
-        ));
+        ]);
         
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
-            ->with($this->equalTo("/api/{$this->mockClient->getUsername()}/groups"), 
-            $this->equalTo(TransportInterface::METHOD_POST), 
-            $this->equalTo(
-                (object) array(
-                    'name' => 'Dummy',
-                    'lights' => array(
-                        2,
-                        3
-                    )
-                )))
+            ->with(
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/groups"),
+                $this->equalTo(TransportInterface::METHOD_POST),
+                $this->equalTo(
+                    (object) [
+                        'name' => 'Dummy',
+                        'lights' => [
+                            2,
+                            3
+                        ]
+                    ]
+                )
+            )
             ->
-        // ->will($this->returnValue((object)['id' => '/path/5']));
-        will($this->returnValue((object) array(
-            'id' => '5'
-        )));
+        // ->willReturn((object)['id' => '/path/5']));
+        willReturn((object)[
+                'id' => '5'
+            ]);
         
         // Send command and get response
         $groupId = $command->send($this->mockClient);

@@ -16,16 +16,12 @@ use Phue\User;
  */
 class GetUsers implements CommandInterface
 {
-
     /**
      * Send command
      *
-     * @param Client $client
-     *            Phue Client
-     *
      * @return User[] List of User objects
      */
-    public function send(Client $client)
+    public function send(Client $client): array
     {
         // Get response
         $response = $client->getTransport()->sendRequest(

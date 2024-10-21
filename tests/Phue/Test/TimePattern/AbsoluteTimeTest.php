@@ -8,22 +8,24 @@
  */
 namespace Phue\Test\TimePattern;
 
+use PHPUnit\Framework\TestCase;
 use Phue\TimePattern\AbsoluteTime;
 
 /**
  * Tests for Phue\TimePattern\AbsoluteTime
  */
-class AbsoluteTimeTest extends \PHPUnit_Framework_TestCase
+class AbsoluteTimeTest extends TestCase
 {
-
     /**
      * Test: Creating absolute time
      *
      * @covers \Phue\TimePattern\AbsoluteTime
      */
-    public function testCreateTime()
+    public function testCreateTime(): void
     {
-        $this->assertRegExp('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/', 
-            (string) new AbsoluteTime('now'));
+        $this->assertMatchesRegularExpression(
+            '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/',
+            (string) new AbsoluteTime('now')
+        );
     }
 }

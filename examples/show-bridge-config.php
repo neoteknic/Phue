@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
 /**
  * Example: Show bridge config.
  *
@@ -16,4 +16,6 @@ echo 'Showing bridge configuration', "\n", "\t Name: ", $bridge->getName(), "\n"
 echo 'Showing portal configuration', "\n", "\t Signed on: ", $portal->isSignedOn() ? 'Yes' : 'No', "\n", "\t Incoming: ", $portal->isIncoming() ? 'Yes' : 'No', "\n", "\t Outgoing: ", $portal->isOutgoing() ? 'Yes' : 'No', "\n", "\t Communication: ", $portal->getCommunication(), "\n\n";
 
 echo 'Showing software update configuration', "\n", "\t Checking for update: ", $softwareUpdate->checkingForUpdate() ? 'Yes' : 'No', "\n", "\t Bridge updatable: ", $softwareUpdate->isBridgeUpdatable() ? 'Yes' : 'No', "\n", "\t Lights updatable: ", implode(
-    ', ', $softwareUpdate->getUpdatableLights()), "\n", "\t Release notes URL: ", $softwareUpdate->getReleaseNotesUrl(), "\n", "\t Release notes brief: ", $softwareUpdate->getReleaseNotesBrief(), "\n", "\t Install notification: ", $softwareUpdate->isInstallNotificationEnabled() ? 'Yes' : 'No', "\n\n";
+    ', ',
+    $softwareUpdate->getUpdatableLights()
+), "\n", "\t Release notes URL: ", $softwareUpdate->getReleaseNotesUrl(), "\n", "\t Release notes brief: ", $softwareUpdate->getReleaseNotesBrief(), "\n", "\t Install notification: ", $softwareUpdate->isInstallNotificationEnabled() ? 'Yes' : 'No', "\n\n";

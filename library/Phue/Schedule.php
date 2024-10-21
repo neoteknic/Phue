@@ -10,147 +10,63 @@ namespace Phue;
 
 use Phue\Command\ActionableInterface;
 use Phue\Command\SetScheduleAttributes;
-use Phue\TimePattern\AbsoluteTime;
 
-/**
- * Schedule object
- */
 class Schedule
 {
-
-    /**
-     * Status: Enabled
-     */
     const STATUS_ENABLED = 'enabled';
 
-    /**
-     * Status: Disabled
-     */
     const STATUS_DISABLED = 'disabled';
 
-    /**
-     * Id
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
-     * Schedule attributes
-     *
-     * @var \stdClass
-     */
-    protected $attributes;
-
-    /**
-     * Phue client
-     *
-     * @var Client
-     */
-    protected $client;
-
-    /**
-     * Construct a Phue Schedule object
-     *
-     * @param int $id
-     *            Id
-     * @param \stdClass $attributes
-     *            Schedule attributes
-     * @param Client $client
-     *            Phue client
-     */
-    public function __construct($id, \stdClass $attributes, Client $client)
+    public function __construct(protected int $id, protected \stdClass $attributes, protected Client $client)
     {
-        $this->id = (int) $id;
-        $this->attributes = $attributes;
-        $this->client = $client;
     }
 
-    /**
-     * Get schedule Id
-     *
-     * @return int Schedule id
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Get assigned name of Schedule
-     *
-     * @return string Name of Schedule
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->attributes->name;
     }
 
-    /**
-     * Set name of schedule
-     *
-     * @param string $name
-     *
-     * @return self This object
-     */
-    public function setName($name)
+    public function setName(string $name): static
     {
         $x = new SetScheduleAttributes($this);
-        $y = $x->name((string) $name);
+        $y = $x->name($name);
         $this->client->sendCommand($y);
         
-        $this->attributes->name = (string) $name;
+        $this->attributes->name = $name;
         
         return $this;
     }
 
-    /**
-     * Get description
-     *
-     * @return string Description of Schedule
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->attributes->description;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return self This object
-     */
-    public function setDescription($description)
+    public function setDescription(string $description): static
     {
         $x = new SetScheduleAttributes($this);
-        $y = $x->description((string) $description);
+        $y = $x->description($description);
         $this->client->sendCommand($y);
         
-        $this->attributes->description = (string) $description;
+        $this->attributes->description = $description;
         
         return $this;
     }
 
     /**
-     * Get command
-     *
      * @return array Command attributes
      */
-    public function getCommand()
+    public function getCommand(): array
     {
         return (array) $this->attributes->command;
     }
 
-    /**
-     * Set command
-     *
-     * @param ActionableInterface $command
-     *            Actionable command
-     *
-     * @return self This object
-     */
-    public function setCommand(ActionableInterface $command)
+    public function setCommand(ActionableInterface $command): static
     {
         $x = new SetScheduleAttributes($this);
         $y = $x->command($command);
@@ -161,64 +77,33 @@ class Schedule
         return $this;
     }
 
-    /**
-     * Get status
-     *
-     * @return string Get status.
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->attributes->status;
     }
 
-    /**
-     * Set status.
-     *
-     * @param string $status
-     *            Status.
-     *
-     * @return self This object
-     */
-    public function setStatus($status)
+    public function setStatus(string $status): static
     {
         $x = new SetScheduleAttributes($this);
-        $y = $x->status((string) $status);
+        $y = $x->status($status);
         $this->client->sendCommand($y);
         
-        $this->attributes->status = (string) $status;
+        $this->attributes->status = $status;
         
         return $this;
     }
 
-    /**
-     * Is schedule enabled.
-     *
-     * @return bool True if enabled, false if not.
-     */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->attributes->status == self::STATUS_ENABLED;
     }
 
-    /**
-     * Get scheduled time
-     *
-     * @return string Time of schedule
-     */
-    public function getTime()
+    public function getTime(): string
     {
         return $this->attributes->time;
     }
 
-    /**
-     * Set time
-     *
-     * @param string $time
-     *            Time
-     *
-     * @return self This object
-     */
-    public function setTime($time)
+    public function setTime(string $time): static
     {
         // $this->client->sendCommand(
         // (new SetScheduleAttributes($this))
@@ -228,36 +113,26 @@ class Schedule
         $y = $x->time($time);
         $this->client->sendCommand($y);
         
-        $this->attributes->time = (string) $time;
+        $this->attributes->time = $time;
         
         return $this;
     }
 
-    /**
-     * Is auto deleted?
-     *
-     * @return bool True if auto delete, false if not
-     */
-    public function isAutoDeleted()
+    public function isAutoDeleted(): bool
     {
         return (bool) $this->attributes->autodelete;
     }
 
     /**
-     * Set auto delete
-     *
-     * @param bool $flag
-     *            True to auto delete, false if not
-     *
-     * @return self This object
+     * @param bool $flag True to auto delete, false if not
      */
-    public function setAutoDelete($flag)
+    public function setAutoDelete(bool $flag): static
     {
         $x = new SetScheduleAttributes($this);
-        $y = $x->autodelete((bool) $flag);
+        $y = $x->autodelete($flag);
         $this->client->sendCommand($y);
         
-        $this->attributes->autodelete = (bool) $flag;
+        $this->attributes->autodelete = $flag;
         
         return $this;
     }
@@ -265,14 +140,12 @@ class Schedule
     /**
      * Delete schedule
      */
-    public function delete()
+    public function delete(): void
     {
         $this->client->sendCommand((new Command\DeleteSchedule($this)));
     }
 
     /**
-     * __toString
-     *
      * @return string Schedule Id
      */
     public function __toString()

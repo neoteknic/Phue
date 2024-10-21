@@ -13,42 +13,20 @@ namespace Phue\SensorModel;
  */
 abstract class AbstractSensorModel
 {
-
-    /**
-     * Model id
-     */
     const MODEL_ID = 'model id';
 
-    /**
-     * Model name
-     */
     const MODEL_NAME = 'model name';
 
-    /**
-     * Get model id
-     *
-     * @return string Model id
-     */
-    public function getId()
+    public function getId(): string
     {
         return static::MODEL_ID;
     }
 
-    /**
-     * Get model name
-     *
-     * @return string Model name
-     */
-    public function getName()
+    public function getName(): string
     {
         return static::MODEL_NAME;
     }
 
-    /**
-     * To string.
-     *
-     * @return string Model name
-     */
     public function __toString()
     {
         return $this->getName();

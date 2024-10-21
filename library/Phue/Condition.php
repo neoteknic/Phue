@@ -8,167 +8,76 @@
  */
 namespace Phue;
 
-/**
- * Condition object
- */
 class Condition
 {
-
-    /**
-     * Operator: Equals
-     */
     const OPERATOR_EQUALS = 'eq';
 
-    /**
-     * Operator: Greater than
-     */
     const OPERATOR_GREATER_THAN = 'gt';
 
-    /**
-     * Operator: Less than
-     */
     const OPERATOR_LESS_THAN = 'lt';
 
-    /**
-     * Operator: Changed
-     */
     const OPERATOR_CHANGED = 'dx';
 
-    /**
-     * Sensor Id
-     *
-     * @var string
-     */
-    protected $sensorId;
+    protected ?string $sensorId = null;
 
     /**
      * Attribute to target condition
-     *
-     * @var string
      */
-    protected $attribute;
+    protected ?string $attribute = null;
 
-    /**
-     * Operator
-     *
-     * @var string Operator
-     */
-    protected $operator;
+    protected ?string $operator = null;
 
-    /**
-     * Value to match
-     *
-     * @var string
-     */
-    protected $value;
+    protected ?string $value = null;
 
-    /**
-     * Construct a condition object
-     *
-     * @param \stdClass $condition
-     *            Condition attributes
-     */
     public function __construct(\stdClass $condition = null)
     {
         $condition !== null && $this->import($condition);
     }
 
-    /**
-     * Get sensor Id
-     *
-     * @return string Sensor Id
-     */
-    public function getSensorId()
+    public function getSensorId(): ?string
     {
         return $this->sensorId;
     }
 
-    /**
-     * Set sensor Id
-     *
-     * @param mixed $sensorId
-     *            Sensor Id or Sensor object
-     *
-     * @return self This object
-     */
-    public function setSensorId($sensorId)
+    public function setSensorId(mixed $sensorId): static
     {
         $this->sensorId = (string) $sensorId;
         
         return $this;
     }
 
-    /**
-     * Get attribute
-     *
-     * @return string Attribute
-     */
-    public function getAttribute()
+    public function getAttribute(): ?string
     {
         return $this->attribute;
     }
 
-    /**
-     * Set attribute to target condition
-     *
-     * @param string $attribute
-     *            Attribute
-     *
-     * @return self This object
-     */
-    public function setAttribute($attribute)
+    public function setAttribute(string $attribute): static
     {
-        $this->attribute = (string) $attribute;
+        $this->attribute = $attribute;
         
         return $this;
     }
 
-    /**
-     * Get operator
-     *
-     * @return string Operator
-     */
-    public function getOperator()
+    public function getOperator(): ?string
     {
         return $this->operator;
     }
 
-    /**
-     * Set operator
-     *
-     * @param string $operator
-     *            Operator
-     *
-     * @return self This object
-     */
-    public function setOperator($operator)
+    public function setOperator(string $operator): static
     {
-        $this->operator = (string) $operator;
+        $this->operator = $operator;
         
         return $this;
     }
 
-    /**
-     * Get value
-     *
-     * @return string Value
-     */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
-    /**
-     * Set value to match
-     *
-     * @param string $value
-     *            Value
-     *
-     * @return self This object
-     */
-    public function setValue($value)
+    public function setValue(string $value): static
     {
-        $this->value = (string) $value;
+        $this->value = $value;
         
         return $this;
     }
@@ -176,12 +85,9 @@ class Condition
     /**
      * Import from API response
      *
-     * @param \stdClass $condition
-     *            Condition values
-     *
-     * @return self This object
+     * @param \stdClass $condition Condition values
      */
-    public function import(\stdClass $condition)
+    public function import(\stdClass $condition): static
     {
         $x = explode('/', $condition->address);
         $this->setSensorId($x[2]);
@@ -198,12 +104,12 @@ class Condition
      *
      * @return \stdClass Result object
      */
-    public function export()
+    public function export(): \stdClass
     {
-        $result = array(
+        $result = [
             'address' => "/sensors/{$this->getSensorId()}/state/{$this->getAttribute()}",
             'operator' => $this->getOperator()
-        );
+        ];
         
         if ($this->value !== null) {
             $result['value'] = $this->getValue();
@@ -212,48 +118,28 @@ class Condition
         return (object) $result;
     }
 
-    /**
-     * Set operator to equals
-     *
-     * @return self This object
-     */
-    public function equals()
+    public function equals(): static
     {
         $this->operator = self::OPERATOR_EQUALS;
         
         return $this;
     }
 
-    /**
-     * Set operator to greater than
-     *
-     * @return self This object
-     */
-    public function greaterThan()
+    public function greaterThan(): static
     {
         $this->operator = self::OPERATOR_GREATER_THAN;
         
         return $this;
     }
 
-    /**
-     * Set operator to less than
-     *
-     * @return self This object
-     */
-    public function lessThan()
+    public function lessThan(): static
     {
         $this->operator = self::OPERATOR_LESS_THAN;
         
         return $this;
     }
 
-    /**
-     * Set operator to changed
-     *
-     * @return self This object
-     */
-    public function changed()
+    public function changed(): static
     {
         $this->operator = self::OPERATOR_CHANGED;
         

@@ -13,15 +13,8 @@ namespace Phue\SensorModel;
  */
 class ZgpswitchModel extends AbstractSensorModel
 {
-
-    /**
-     * Model id
-     */
     const MODEL_ID = 'ZGPSWITCH';
 
-    /**
-     * Model name
-     */
     const MODEL_NAME = 'ZGP Switch';
 
     /**

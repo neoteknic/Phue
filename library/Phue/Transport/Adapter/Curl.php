@@ -8,16 +8,17 @@
  */
 namespace Phue\Transport\Adapter;
 
+use CurlHandle;
+
 /**
  * cURL Http adapter
  */
 class Curl implements AdapterInterface
 {
-
     /**
      * cURL resource
      *
-     * @var resource
+     * @var resource|false|CurlHandle|null
      */
     protected $curl;
 
@@ -35,24 +36,15 @@ class Curl implements AdapterInterface
     /**
      * Opens the connection
      */
-    public function open()
+    public function open(): void
     {
         $this->curl = curl_init();
     }
 
     /**
-     * Sends request
-     *
-     * @param string $address
-     *            Request path
-     * @param string $method
-     *            Request method
-     * @param string $body
-     *            Body data
-     *
-     * @return string Result
+     * @inheritdoc
      */
-    public function send($address, $method, $body = null)
+    public function send(string $address, string $method, string $body = null): string|bool
     {
         // Set connection options
         curl_setopt($this->curl, CURLOPT_URL, $address);
@@ -61,6 +53,9 @@ class Curl implements AdapterInterface
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
 
         if (!is_null($body) && strlen($body)) {
+
+            /* @see https://github.com/sqmk/Phue/pull/145 */
+            curl_setopt($this->curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Accept: application/json']);
             curl_setopt($this->curl, CURLOPT_POSTFIELDS, $body);
         }
 
@@ -68,29 +63,32 @@ class Curl implements AdapterInterface
     }
 
     /**
-     * Get response http status code
-     *
-     * @return string Response http code
+     * @inheritdoc
+     * TODO replace with CURLINFO_RESPONSE_CODE
      */
-    public function getHttpStatusCode()
+    public function getHttpStatusCode(): int
     {
         return curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
     }
 
     /**
-     * Get response content type
-     *
-     * @return string Response content type
+     * @inheritdoc
+     * TODO return string|false
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return curl_getinfo($this->curl, CURLINFO_CONTENT_TYPE);
+    }
+
+    public function getCurl(): false|CurlHandle|null
+    {
+        return $this->curl;
     }
 
     /**
      * Closes the cURL connection
      */
-    public function close()
+    public function close(): void
     {
         curl_close($this->curl);
         $this->curl = null;

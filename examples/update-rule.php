@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
 /**
  * Example: Update test rule.
  *
@@ -21,9 +21,10 @@ $y1 = new \Phue\Condition();
 $y2 = new \Phue\Command\SetGroupState(0);
 $z = $x->name('New name')
     ->addCondition(
-    $y1->setSensorId($sensor)
+        $y1->setSensorId($sensor)
         ->setAttribute('lastupdated')
-        ->changed())
+        ->changed()
+    )
     ->addAction($y2->brightness(200));
 
 $client->sendCommand($z);

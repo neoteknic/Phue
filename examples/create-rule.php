@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
 /**
  * Example: Create test rule.
  *
@@ -22,11 +22,13 @@ $cmd = $rule->addCondition(
     $cond1->setSensorId($sensor)
         ->setAttribute('buttonevent')
         ->equals()
-        ->setValue(\Phue\SensorModel\ZgpswitchModel::BUTTON_2))
+        ->setValue(\Phue\SensorModel\ZgpswitchModel::BUTTON_2)
+)
     ->addCondition(
-    $cond2->setSensorId($sensor)
+        $cond2->setSensorId($sensor)
         ->setAttribute('lastupdated')
-        ->changed())
+        ->changed()
+    )
     ->addAction($g_state->brightness(2));
 
 $ruleId = $client->sendCommand($cmd);

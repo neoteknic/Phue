@@ -17,13 +17,7 @@ use Phue\Transport\TransportInterface;
  */
 class DeleteScene implements CommandInterface
 {
-
-    /**
-     * Scene Id
-     *
-     * @var string
-     */
-    protected $sceneId;
+    protected string $sceneId;
 
     /**
      * Constructs a command
@@ -31,18 +25,15 @@ class DeleteScene implements CommandInterface
      * @param mixed $scene
      *            Scene Id or Scene object
      */
-    public function __construct($scene)
+    public function __construct(mixed $scene)
     {
         $this->sceneId = (string) $scene;
     }
 
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
      */
-    public function send(Client $client)
+    public function send(Client $client): void
     {
         $client->getTransport()->sendRequest(
             "/api/{$client->getUsername()}/scenes/{$this->sceneId}",

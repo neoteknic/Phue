@@ -17,32 +17,13 @@ use Phue\Transport\TransportInterface;
 class StartLightScan implements CommandInterface
 {
     /**
-     * Device Ids
-     *
-     * @var string[]|null
+     * @param string[]|null $deviceIds Array of device ids
      */
-    protected $deviceIds;
-
-    /**
-     * Constructs a command
-     *
-     * @param string[]|null $deviceIds
-     *            Array of device ids
-     */
-    public function __construct(array $deviceIds = null)
+    public function __construct(protected ?array $deviceIds = null)
     {
-        $this->deviceIds = $deviceIds;
     }
 
-    /**
-     * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return mixed
-     */
-    public function send(Client $client)
+    public function send(Client $client): mixed
     {
         $body = null;
 

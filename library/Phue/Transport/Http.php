@@ -9,89 +9,100 @@
 namespace Phue\Transport;
 
 use Phue\Client;
-use Phue\Command\CommandInterface;
 use Phue\Transport\Exception\ConnectionException;
 use Phue\Transport\Adapter\AdapterInterface;
 use Phue\Transport\Adapter\Curl as DefaultAdapter;
+use Phue\Transport\Exception\InternalErrorException;
+use Phue\Transport\Exception\ScheduleTimeInPastException;
+use Phue\Transport\Exception\InvalidScheduleTagException;
+use Phue\Transport\Exception\ScheduleTimeUpdateException;
+use Phue\Transport\Exception\InvalidScheduleTimeZoneException;
+use Phue\Transport\Exception\ScheduleListFullException;
+use Phue\Transport\Exception\RuleActivationException;
+use Phue\Transport\Exception\RuleActionException;
+use Phue\Transport\Exception\RuleConditionException;
+use Phue\Transport\Exception\RuleListFullException;
+use Phue\Transport\Exception\SensorListFullException;
+use Phue\Transport\Exception\SensorCreationProhibitedException;
+use Phue\Transport\Exception\SceneBufferFullException;
+use Phue\Transport\Exception\SceneCreationInProgressException;
+use Phue\Transport\Exception\GroupUnmodifiableException;
+use Phue\Transport\Exception\DeviceUnreachableException;
+use Phue\Transport\Exception\LightGroupTableFullException;
+use Phue\Transport\Exception\GroupTableFullException;
+use Phue\Transport\Exception\DeviceParameterUnmodifiableException;
+use Phue\Transport\Exception\InvalidUpdateStateException;
+use Phue\Transport\Exception\DisablingDhcpProhibitedException;
+use Phue\Transport\Exception\LinkButtonException;
+use Phue\Transport\Exception\PortalConnectionRequiredException;
+use Phue\Transport\Exception\TooManyItemsInListException;
+use Phue\Transport\Exception\ParameterUnmodifiableException;
+use Phue\Transport\Exception\InvalidValueException;
+use Phue\Transport\Exception\ParameterUnavailableException;
+use Phue\Transport\Exception\MissingParameterException;
+use Phue\Transport\Exception\MethodUnavailableException;
+use Phue\Transport\Exception\ResourceUnavailableException;
+use Phue\Transport\Exception\InvalidJsonBodyException;
+use Phue\Transport\Exception\UnauthorizedUserException;
+use Phue\Transport\Exception\BridgeException;
 
 /**
  * Http transport
  */
 class Http implements TransportInterface
 {
+    protected ?AdapterInterface $adapter;
 
-    /**
-     * Phue Client
-     *
-     * @var Client
-     */
-    protected $client;
+    public static array $exceptionMap = [
+        0 => BridgeException::class,
+        1 => UnauthorizedUserException::class,
+        2 => InvalidJsonBodyException::class,
+        3 => ResourceUnavailableException::class,
+        4 => MethodUnavailableException::class,
+        5 => MissingParameterException::class,
+        6 => ParameterUnavailableException::class,
+        7 => InvalidValueException::class,
+        8 => ParameterUnmodifiableException::class,
+        11 => TooManyItemsInListException::class,
+        12 => PortalConnectionRequiredException::class,
+        101 => LinkButtonException::class,
+        110 => DisablingDhcpProhibitedException::class,
+        111 => InvalidUpdateStateException::class,
+        201 => DeviceParameterUnmodifiableException::class,
+        301 => GroupTableFullException::class,
+        302 => LightGroupTableFullException::class,
+        304 => DeviceUnreachableException::class,
+        305 => GroupUnmodifiableException::class,
+        401 => SceneCreationInProgressException::class,
+        402 => SceneBufferFullException::class,
+        501 => SensorCreationProhibitedException::class,
+        502 => SensorListFullException::class,
+        601 => RuleListFullException::class,
+        607 => RuleConditionException::class,
+        608 => RuleActionException::class,
+        609 => RuleActivationException::class,
+        701 => ScheduleListFullException::class,
+        702 => InvalidScheduleTimeZoneException::class,
+        703 => ScheduleTimeUpdateException::class,
+        704 => InvalidScheduleTagException::class,
+        705 => ScheduleTimeInPastException::class,
+        901 => InternalErrorException::class
+    ];
 
-    /**
-     * Adapter
-     *
-     * @var AdapterInterface
-     */
-    protected $adapter;
-
-    /**
-     * Exception map
-     *
-     * @var array
-     */
-    public static $exceptionMap = array(
-        0 => 'Phue\Transport\Exception\BridgeException',
-        1 => 'Phue\Transport\Exception\UnauthorizedUserException',
-        2 => 'Phue\Transport\Exception\InvalidJsonBodyException',
-        3 => 'Phue\Transport\Exception\ResourceUnavailableException',
-        4 => 'Phue\Transport\Exception\MethodUnavailableException',
-        5 => 'Phue\Transport\Exception\MissingParameterException',
-        6 => 'Phue\Transport\Exception\ParameterUnavailableException',
-        7 => 'Phue\Transport\Exception\InvalidValueException',
-        8 => 'Phue\Transport\Exception\ParameterUnmodifiableException',
-        11 => 'Phue\Transport\Exception\TooManyItemsInListException',
-        12 => 'Phue\Transport\Exception\PortalConnectionRequiredException',
-        101 => 'Phue\Transport\Exception\LinkButtonException',
-        110 => 'Phue\Transport\Exception\DisablingDhcpProhibitedException',
-        111 => 'Phue\Transport\Exception\InvalidUpdateStateException',
-        201 => 'Phue\Transport\Exception\DeviceParameterUnmodifiableException',
-        301 => 'Phue\Transport\Exception\GroupTableFullException',
-        302 => 'Phue\Transport\Exception\LightGroupTableFullException',
-        304 => 'Phue\Transport\Exception\DeviceUnreachableException',
-        305 => 'Phue\Transport\Exception\GroupUnmodifiableException',
-        401 => 'Phue\Transport\Exception\SceneCreationInProgressException',
-        402 => 'Phue\Transport\Exception\SceneBufferFullException',
-        501 => 'Phue\Transport\Exception\SensorCreationProhibitedException',
-        502 => 'Phue\Transport\Exception\SensorListFullException',
-        601 => 'Phue\Transport\Exception\RuleListFullException',
-        607 => 'Phue\Transport\Exception\RuleConditionException',
-        608 => 'Phue\Transport\Exception\RuleActionException',
-        609 => 'Phue\Transport\Exception\RuleActivationException',
-        701 => 'Phue\Transport\Exception\ScheduleListFullException',
-        702 => 'Phue\Transport\Exception\InvalidScheduleTimeZoneException',
-        703 => 'Phue\Transport\Exception\ScheduleTimeUpdateException',
-        704 => 'Phue\Transport\Exception\InvalidScheduleTagException',
-        705 => 'Phue\Transport\Exception\ScheduleTimeInPastException',
-        901 => 'Phue\Transport\Exception\InternalErrorException'
-    );
     /**
      * Construct Http transport
-     *
-     * @param Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(protected Client $client)
     {
-        $this->client = $client;
+        $this->adapter = null;
     }
 
     /**
      * Get adapter for transport
      *
      * Auto created adapter if one is not present
-     *
-     * @return AdapterInterface Adapter
      */
-    public function getAdapter()
+    public function getAdapter(): AdapterInterface
     {
         if (! $this->adapter) {
             $this->setAdapter(new DefaultAdapter());
@@ -100,15 +111,7 @@ class Http implements TransportInterface
         return $this->adapter;
     }
 
-    /**
-     * Set adapter
-     *
-     * @param AdapterInterface $adapter
-     *            Transport adapter
-     *
-     * @return self This object
-     */
-    public function setAdapter(AdapterInterface $adapter)
+    public function setAdapter(AdapterInterface $adapter): static
     {
         $this->adapter = $adapter;
         
@@ -118,37 +121,26 @@ class Http implements TransportInterface
     /**
      * Get exception by type
      *
-     * @param string $type
-     *            Error type
-     * @param string $description
-     *            Description of error
+     * @param string|null $type Error type
+     * @param string|null $description Description of error
      *
+     * TODO add phpstan annotations
      * @return \Exception Built exception
      */
-    public function getExceptionByType($type, $description)
+    public function getExceptionByType(?string $type, ?string $description): \Exception
     {
         // Determine exception
-        $exceptionClass = isset(static::$exceptionMap[$type]) ? static::$exceptionMap[$type] : static::$exceptionMap[0];
+        $exceptionClass = static::$exceptionMap[$type] ?? static::$exceptionMap[0];
         
         return new $exceptionClass($description, $type);
     }
 
     /**
-     * Send request
-     *
-     * @param string $address
-     *            API address
-     * @param string $method
-     *            Request method
-     * @param \stdClass $body
-     *            Post body
-     *
-     * @throws ConnectionException
+     * @inheritdoc
      * @throws \Exception
-     *
-     * @return string Request response
+     * @throws ConnectionException
      */
-    public function sendRequest($address, $method = self::METHOD_GET, \stdClass $body = null)
+    public function sendRequest(string $address, string $method = self::METHOD_GET, \stdClass $body = null): mixed
     {
         $jsonResults = $this->getJsonResponse($address, $method, $body);
         
@@ -174,25 +166,16 @@ class Http implements TransportInterface
     }
 
     /**
-     * Send request, bypass body validation
+     * @inheritdoc
      *
-     * @param string $address
-     *            API address
-     * @param string $method
-     *            Request method
-     * @param \stdClass $body
-     *            Post body
-     *
-     * @throws ConnectionException
      * @throws \Exception
-     *
-     * @return string Request response
+     * @throws ConnectionException
      */
     public function sendRequestBypassBodyValidation(
-        $address,
-        $method = self::METHOD_GET,
+        string    $address,
+        string    $method = self::METHOD_GET,
         \stdClass $body = null
-    ) {
+    ): \stdClass|array {
     
         return $this->getJsonResponse($address, $method, $body);
     }
@@ -200,16 +183,14 @@ class Http implements TransportInterface
     /**
      * Send request
      *
-     * @param string $address
-     *            API address
-     * @param string $method
-     *            Request method
-     * @param \stdClass $body
-     *            Post body
+     * @param string $address API address
+     * @param string $method Request method
+     * @param \stdClass|null $body Post body
      *
-     * @return \stdClass Json body
+     * @return \stdClass|array Json body
+     * @throws ConnectionException
      */
-    protected function getJsonResponse($address, $method = self::METHOD_GET, \stdClass $body = null)
+    protected function getJsonResponse(string $address, string $method = self::METHOD_GET, \stdClass $body = null): \stdClass|array
     {
         // Build request url
         $url = "http://{$this->client->getHost()}{$address}";
@@ -225,15 +206,13 @@ class Http implements TransportInterface
         );
         $status = $this->getAdapter()->getHttpStatusCode();
         $contentType = $this->getAdapter()->getContentType();
-        
+
         // Throw connection exception if status code isn't 200 or wrong content type
         if ($status != 200 || explode(';', $contentType)[0] != 'application/json') {
             throw new ConnectionException('Connection failure');
         }
         
         // Parse json results
-        $jsonResults = json_decode($results);
-        
-        return $jsonResults;
+        return json_decode($results);
     }
 }

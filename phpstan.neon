@@ -1,0 +1,9 @@
+parameters:
+    level: 6
+    paths:
+        - library
+
+    checkMissingIterableValueType: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#Cannot cast mixed to string.#'

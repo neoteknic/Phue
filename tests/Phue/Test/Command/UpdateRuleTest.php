@@ -9,22 +9,23 @@
 namespace Phue\Test\Command;
 
 use Mockery;
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\UpdateRule;
-use Phue\Transport\TransportInterface;
+use Phue\Command\ActionableInterface;
+use Phue\Condition;
+use Phue\Client;
 
 /**
  * Tests for Phue\Command\UpdateRule
  */
-class UpdateRuleTest extends \PHPUnit_Framework_TestCase
+class UpdateRuleTest extends TestCase
 {
-
     /**
      * Test: Instantiating UpdateRule command
      *
      * @covers \Phue\Command\UpdateRule::__construct
      */
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $command = new UpdateRule('4');
     }
@@ -34,7 +35,7 @@ class UpdateRuleTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\UpdateRule::name
      */
-    public function testName()
+    public function testName(): void
     {
         $command = new UpdateRule('4');
         
@@ -46,22 +47,25 @@ class UpdateRuleTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\UpdateRule::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Mock client
-        $mockClient = Mockery::mock('\Phue\Client', 
-            array(
-                'getUsername' => 'abcdefabcdef01234567890123456789'
-            ))->makePartial();
+        $mockClient = Mockery::mock(
+            Client::class,
+            ['getUsername' => 'abcdefabcdef01234567890123456789']
+        )->makePartial();
         
         // Mock client commands
         $mockClient->shouldReceive('getTransport->sendRequest');
         
         $rule = new UpdateRule('5');
+
         $command = $rule->addCondition(
-            Mockery::mock('\Phue\Condition')->makePartial())
+            Mockery::mock(Condition::class)->makePartial()
+        )
             ->addAction(
-            Mockery::mock('\Phue\Command\ActionableInterface')->shouldIgnoreMissing())
+                Mockery::mock(ActionableInterface::class)->shouldIgnoreMissing()
+            )
             ->send($mockClient);
     }
 }

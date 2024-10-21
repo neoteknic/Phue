@@ -8,47 +8,22 @@
  */
 namespace Phue\Test\Command;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\GetSchedules;
-use Phue\Transport\TransportInterface;
+use Phue\Schedule;
 
 /**
  * Tests for Phue\Command\GetSchedules
  */
-class GetSchedulesTest extends \PHPUnit_Framework_TestCase
+class GetSchedulesTest extends AbstractCommandTest
 {
+    private GetSchedules $getSchedules;
 
-    /**
-     * Set up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->getSchedules = new GetSchedules();
-        
-        // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'getUsername',
-                'getTransport'
-            ), array(
-                '127.0.0.1'
-            ));
-        
-        // Mock transport
-        $this->mockTransport = $this->createMock('\Phue\Transport\TransportInterface', 
-            array(
-                'sendRequest'
-            ));
-        
-        // Stub client's getUsername method
-        $this->mockClient->expects($this->any())
-            ->method('getUsername')
-            ->will($this->returnValue('abcdefabcdef01234567890123456789'));
-        
-        // Stub client's getTransport method
-        $this->mockClient->expects($this->any())
-            ->method('getTransport')
-            ->will($this->returnValue($this->mockTransport));
+
+        parent::setUp();
     }
 
     /**
@@ -56,20 +31,21 @@ class GetSchedulesTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\GetSchedules::send
      */
-    public function testFoundNoSchedules()
+    public function testFoundNoSchedules(): void
     {
         // Stub transport's sendRequest method
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules"))
-            ->will($this->returnValue(new \stdClass()));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules")
+            )
+            ->willReturn(new \stdClass());
         
         // Send command and get response
         $response = $this->getSchedules->send($this->mockClient);
         
         // Ensure we have an empty array
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEmpty($response);
     }
 
@@ -78,26 +54,27 @@ class GetSchedulesTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\GetSchedules::send
      */
-    public function testFoundSchedules()
+    public function testFoundSchedules(): void
     {
         // Mock transport results
-        $mockTransportResults = (object) array(
+        $mockTransportResults = (object) [
             '1' => new \stdClass(),
             '2' => new \stdClass()
-        );
+        ];
         
         // Stub transport's sendRequest usage
         $this->mockTransport->expects($this->once())
             ->method('sendRequest')
             ->with(
-            $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules"))
-            ->will($this->returnValue($mockTransportResults));
+                $this->equalTo("/api/{$this->mockClient->getUsername()}/schedules")
+            )
+            ->willReturn($mockTransportResults);
         
         // Send command and get response
         $response = $this->getSchedules->send($this->mockClient);
         
         // Ensure we have an array of Schedules
-        $this->assertInternalType('array', $response);
-        $this->assertContainsOnlyInstancesOf('\Phue\Schedule', $response);
+        $this->assertIsArray($response);
+        $this->assertContainsOnlyInstancesOf(Schedule::class, $response);
     }
 }

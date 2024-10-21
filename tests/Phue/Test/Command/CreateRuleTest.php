@@ -9,22 +9,25 @@
 namespace Phue\Test\Command;
 
 use Mockery;
+use Mockery\MockInterface;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Phue\Client;
+use Phue\Command\ActionableInterface;
 use Phue\Command\CreateRule;
-use Phue\Transport\TransportInterface;
+use Phue\Condition;
 
 /**
  * Tests for Phue\Command\CreateRule
  */
-class CreateRuleTest extends \PHPUnit_Framework_TestCase
+class CreateRuleTest extends TestCase
 {
-
     /**
      * Test: Instantiating CreateRule command
      *
      * @covers \Phue\Command\CreateRule::__construct
      */
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $command = new CreateRule('dummy name');
     }
@@ -34,7 +37,7 @@ class CreateRuleTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateRule::name
      */
-    public function testName()
+    public function testName(): void
     {
         $command = new CreateRule();
         
@@ -46,9 +49,10 @@ class CreateRuleTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateRule::addCondition
      */
-    public function testAddCondition()
+    public function testAddCondition(): void
     {
-        $condition = Mockery::mock('\Phue\Condition')->makePartial();
+        /** @var Condition $condition */
+        $condition = Mockery::mock(Condition::class)->makePartial();
         
         $command = new CreateRule();
         
@@ -60,9 +64,10 @@ class CreateRuleTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateRule::addAction
      */
-    public function testAddAction()
+    public function testAddAction(): void
     {
-        $action = Mockery::mock('\Phue\Command\ActionableInterface')->makePartial();
+        /** @var ActionableInterface $action */
+        $action = Mockery::mock(ActionableInterface::class)->makePartial();
         
         $command = new CreateRule();
         
@@ -74,24 +79,28 @@ class CreateRuleTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateRule::send
      */
-    public function testSend()
+    public function testSend(): void
     {
-        // Mock client
-        $mockClient = Mockery::mock('\Phue\Client', 
-            array(
-                'getUsername' => 'abcdefabcdef01234567890123456789'
-            ))->makePartial();
+        /** @var Client&MockInterface $mockClient */
+        $mockClient = Mockery::mock(Client::class, ['getUsername' => 'abcdefabcdef01234567890123456789'])
+            ->makePartial();
         
         // Mock client commands
         $mockClient->shouldReceive('getTransport->sendRequest')->
-        andReturn((object) array(
+        andReturn((object) [
             'id' => '5'
-        ));
+        ]);
         
         $x = new CreateRule('test');
-        $command = $x->addCondition(Mockery::mock('\Phue\Condition')->makePartial())
-            ->addAction(
-            Mockery::mock('\Phue\Command\ActionableInterface')->shouldIgnoreMissing());
+
+        /** @var Condition&MockInterface $condition */
+        $condition = Mockery::mock(Condition::class)->makePartial();
+
+        /** @var ActionableInterface&MockInterface $action */
+        $action = Mockery::mock(ActionableInterface::class)->shouldIgnoreMissing();
+
+        $command = $x->addCondition($condition)
+                     ->addAction($action);
         
         $this->assertEquals('5', $command->send($mockClient));
     }

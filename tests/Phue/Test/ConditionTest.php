@@ -8,14 +8,15 @@
  */
 namespace Phue\Test;
 
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Condition;
 
 /**
  * Tests for Phue\Condition
  */
-class ConditionTest extends \PHPUnit_Framework_TestCase
+class ConditionTest extends TestCase
 {
+    private Condition $condition;
 
     /**
      * Set up
@@ -23,19 +24,15 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Condition::__construct
      * @covers \Phue\Condition::import
      */
-    public function setUp()
+    public function setUp(): void
     {
-        // $this->condition = new Condition((object) [
-        // 'address' => '/sensors/2/state/buttonevent',
-        // 'operator' => 'eq',
-        // 'value' => '16'
-        // ]);
         $this->condition = new Condition(
-            (object) array(
+            (object) [
                 'address' => '/sensors/2/state/buttonevent',
                 'operator' => 'eq',
                 'value' => '16'
-            ));
+            ]
+        );
     }
 
     /**
@@ -44,7 +41,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Condition::getSensorId
      * @covers \Phue\Condition::setSensorId
      */
-    public function testGetSetSensorId()
+    public function testGetSetSensorId(): void
     {
         $this->assertEquals('2', $this->condition->getSensorId());
         
@@ -59,7 +56,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Condition::getAttribute
      * @covers \Phue\Condition::setAttribute
      */
-    public function testGetSetAttribute()
+    public function testGetSetAttribute(): void
     {
         $this->assertEquals('buttonevent', $this->condition->getAttribute());
         
@@ -74,7 +71,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Condition::getOperator
      * @covers \Phue\Condition::setOperator
      */
-    public function testGetSetOperator()
+    public function testGetSetOperator(): void
     {
         $this->assertEquals('eq', $this->condition->getOperator());
         
@@ -89,7 +86,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      * @covers \Phue\Condition::getValue
      * @covers \Phue\Condition::setValue
      */
-    public function testGetSetValue()
+    public function testGetSetValue(): void
     {
         $this->assertEquals('16', $this->condition->getValue());
         
@@ -103,14 +100,16 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Condition::export
      */
-    public function testExport()
+    public function testExport(): void
     {
         $this->assertEquals(
             (object) array(
                 'address' => '/sensors/2/state/buttonevent',
                 'operator' => 'eq',
                 'value' => '16'
-            ), $this->condition->export());
+            ),
+            $this->condition->export()
+        );
     }
 
     /**
@@ -118,12 +117,14 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Condition::equals
      */
-    public function testEquals()
+    public function testEquals(): void
     {
         $this->condition->equals();
         
-        $this->assertEquals(Condition::OPERATOR_EQUALS, 
-            $this->condition->getOperator());
+        $this->assertEquals(
+            Condition::OPERATOR_EQUALS,
+            $this->condition->getOperator()
+        );
     }
 
     /**
@@ -131,12 +132,14 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Condition::greaterThan
      */
-    public function testGreaterThan()
+    public function testGreaterThan(): void
     {
         $this->condition->greaterThan();
         
-        $this->assertEquals(Condition::OPERATOR_GREATER_THAN, 
-            $this->condition->getOperator());
+        $this->assertEquals(
+            Condition::OPERATOR_GREATER_THAN,
+            $this->condition->getOperator()
+        );
     }
 
     /**
@@ -144,12 +147,14 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Condition::lessThan
      */
-    public function testLessThan()
+    public function testLessThan(): void
     {
         $this->condition->lessThan();
         
-        $this->assertEquals(Condition::OPERATOR_LESS_THAN, 
-            $this->condition->getOperator());
+        $this->assertEquals(
+            Condition::OPERATOR_LESS_THAN,
+            $this->condition->getOperator()
+        );
     }
 
     /**
@@ -157,11 +162,13 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Condition::changed
      */
-    public function testChanged()
+    public function testChanged(): void
     {
         $this->condition->changed();
         
-        $this->assertEquals(Condition::OPERATOR_CHANGED, 
-            $this->condition->getOperator());
+        $this->assertEquals(
+            Condition::OPERATOR_CHANGED,
+            $this->condition->getOperator()
+        );
     }
 }

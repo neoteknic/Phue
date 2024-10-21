@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
 /**
  * Example: Create test scene, set state, and assign to group.
  *
@@ -18,7 +18,8 @@ $lightIds = array(
 
 // Create/modify scene
 $client->sendCommand(
-    new \Phue\Command\CreateScene($sceneId, 'Test Scene', $lightIds));
+    new \Phue\Command\CreateScene($sceneId, 'Test Scene', $lightIds)
+);
 
 echo 'Buffering light states', "\n";
 

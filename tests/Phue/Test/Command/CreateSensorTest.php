@@ -9,22 +9,21 @@
 namespace Phue\Test\Command;
 
 use Mockery;
-use Phue\Client;
+use PHPUnit\Framework\TestCase;
 use Phue\Command\CreateSensor;
-use Phue\Transport\TransportInterface;
+use Phue\Client;
 
 /**
  * Tests for Phue\Command\CreateSensor
  */
-class CreateSensorTest extends \PHPUnit_Framework_TestCase
+class CreateSensorTest extends TestCase
 {
-
     /**
      * Test: Instantiating CreateSensor command
      *
      * @covers \Phue\Command\CreateSensor::__construct
      */
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $command = new CreateSensor('dummy name');
     }
@@ -34,7 +33,7 @@ class CreateSensorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateSensor::name
      */
-    public function testName()
+    public function testName(): void
     {
         $command = new CreateSensor();
         
@@ -46,7 +45,7 @@ class CreateSensorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateSensor::modelId
      */
-    public function testModelId()
+    public function testModelId(): void
     {
         $command = new CreateSensor();
         
@@ -58,7 +57,7 @@ class CreateSensorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateSensor::softwareVersion
      */
-    public function testSoftwareVersion()
+    public function testSoftwareVersion(): void
     {
         $command = new CreateSensor();
         
@@ -70,7 +69,7 @@ class CreateSensorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateSensor::type
      */
-    public function testType()
+    public function testType(): void
     {
         $command = new CreateSensor();
         
@@ -82,7 +81,7 @@ class CreateSensorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateSensor::uniqueId
      */
-    public function testUniqueId()
+    public function testUniqueId(): void
     {
         $command = new CreateSensor();
         
@@ -94,7 +93,7 @@ class CreateSensorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateSensor::manufacturerName
      */
-    public function testManufacturerName()
+    public function testManufacturerName(): void
     {
         $command = new CreateSensor();
         
@@ -106,7 +105,7 @@ class CreateSensorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateSensor::configAttribute
      */
-    public function testConfigAttribute()
+    public function testConfigAttribute(): void
     {
         $command = new CreateSensor();
         
@@ -118,7 +117,7 @@ class CreateSensorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateSensor::stateAttribute
      */
-    public function testStateAttribute()
+    public function testStateAttribute(): void
     {
         $command = new CreateSensor();
         
@@ -130,19 +129,21 @@ class CreateSensorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Command\CreateSensor::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         // Mock client
-        $mockClient = Mockery::mock('\Phue\Client', 
-            array(
+        $mockClient = Mockery::mock(
+            Client::class,
+            [
                 'getUsername' => 'abcdefabcdef01234567890123456789'
-            ))->makePartial();
+            ]
+        )->makePartial();
         
         // Mock client commands
         $mockClient->shouldReceive('getTransport->sendRequest')->
-        andReturn((object) array(
+        andReturn((object) [
             'id' => '5'
-        ));
+        ]);
         
         $command = (new CreateSensor('test'));
         

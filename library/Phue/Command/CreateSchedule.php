@@ -18,95 +18,50 @@ use Phue\Transport\TransportInterface;
  */
 class CreateSchedule implements CommandInterface
 {
-
     /**
      * Schedule attributes
-     *
-     * @var array
      */
-    protected $attributes = array();
+    protected array $attributes = [];
+
+    protected ?ActionableInterface $command;
+
+    protected ?TimePatternInterface $time;
 
     /**
-     * Command
-     *
-     * @var ActionableInterface
-     */
-    protected $command;
-
-    /**
-     * Time pattern
-     *
-     * @var TimePatternInterface
-     */
-    protected $time;
-
-    /**
-     * Constructs a create schedule command
-     *
-     * @param string $name
-     *            Name of schedule
-     * @param mixed $time
-     *            Time to run command
-     * @param ActionableInterface $command
-     *            Actionable command
+     * @throws \Exception
      */
     public function __construct(
-        $name = null,
-        $time = null,
+        ?string             $name = null,
+        mixed               $time = null,
         ActionableInterface $command = null
     ) {
-    
         // Set name, time, command if passed
         $name !== null && $this->name($name);
         $time !== null && $this->time($time);
         $command !== null && $this->command($command);
-        
-        // Copy description
-        $this->description = $name;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *            Name
-     *
-     * @return self This object
-     */
-    public function name($name)
+    public function name(string $name): static
     {
-        $this->attributes['name'] = (string) $name;
+        $this->attributes['name'] = $name;
+        
+        return $this;
+    }
+
+    public function description(string $description): static
+    {
+        $this->attributes['description'] = $description;
         
         return $this;
     }
 
     /**
-     * Set description
-     *
-     * @param string $description
-     *            Description
-     *
-     * @return self This object
+     * @throws \Exception
      */
-    public function description($description)
-    {
-        $this->attributes['description'] = (string) $description;
-        
-        return $this;
-    }
-
-    /**
-     * Set time
-     *
-     * @param string $time
-     *            Time
-     *
-     * @return self This object
-     */
-    public function time($time)
+    public function time(string|TimePatternInterface $time): static
     {
         if (! ($time instanceof TimePatternInterface)) {
-            $time = new AbsoluteTime((string) $time);
+            $time = new AbsoluteTime($time);
         }
         
         $this->time = $time;
@@ -114,59 +69,36 @@ class CreateSchedule implements CommandInterface
         return $this;
     }
 
-    /**
-     * Set command
-     *
-     * @param ActionableInterface $command
-     *            Actionable command
-     *
-     * @return self This object
-     */
-    public function command(ActionableInterface $command)
+    public function command(ActionableInterface $command): static
     {
         $this->command = $command;
         
         return $this;
     }
 
-    /**
-     * Set status
-     *
-     * @return string $status Status
-     *
-     * @return self This object
-     */
-    public function status($status)
+    public function status(string $status): static
     {
-        $this->attributes['status'] = (string) $status;
+        $this->attributes['status'] = $status;
         
         return $this;
     }
 
-    /**
-     * Set autodelete
-     *
-     * @param bool $flag
-     *            Flag
-     *
-     * @return self This object
-     */
-    public function autodelete($flag)
+    public function autodelete(bool $flag): static
     {
-        $this->attributes['autodelete'] = (bool) $flag;
+        $this->attributes['autodelete'] = $flag;
         
         return $this;
+    }
+
+    public function getTime(): TimePatternInterface
+    {
+        return $this->time;
     }
 
     /**
      * Send command
-     *
-     * @param Client $client
-     *            Phue Client
-     *
-     * @return int Schedule Id
      */
-    public function send(Client $client)
+    public function send(Client $client): ?int
     {
         // Set command attribute if passed
         if ($this->command) {

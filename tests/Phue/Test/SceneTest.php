@@ -8,39 +8,39 @@
  */
 namespace Phue\Test;
 
+use Mockery\Mock;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Phue\Client;
 use Phue\Scene;
 
 /**
  * Tests for Phue\Scene
  */
-class SceneTest extends \PHPUnit_Framework_TestCase
+class SceneTest extends TestCase
 {
+    /** @var MockObject&Client $mockClient */
+    private $mockClient;
+    private Scene $scene;
+    private object $attributes;
 
     /**
-     * Set up
-     *
      * @covers \Phue\Scene::__construct
      */
-    public function setUp()
+    public function setUp(): void
     {
         // Mock client
-        $this->mockClient = $this->createMock('\Phue\Client', 
-            array(
-                'sendCommand'
-            ), array(
-                '127.0.0.1'
-            ));
+        $this->mockClient = $this->createMock(Client::class);
         
         // Build stub attributes
-        $this->attributes = (object) array(
+        $this->attributes = (object) [
             'name' => 'Dummy scene',
-            'lights' => array(
+            'lights' => [
                 2,
                 3,
                 5
-            )
-        );
+            ]
+        ];
         
         // Create scene object
         $this->scene = new Scene('custom-id', $this->attributes, $this->mockClient);
@@ -51,7 +51,7 @@ class SceneTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Scene::getId
      */
-    public function testGetId()
+    public function testGetId(): void
     {
         $this->assertEquals('custom-id', $this->scene->getId());
     }
@@ -61,7 +61,7 @@ class SceneTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Scene::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals($this->attributes->name, $this->scene->getName());
     }
@@ -71,7 +71,7 @@ class SceneTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Scene::getLightIds
      */
-    public function testGetLightIds()
+    public function testGetLightIds(): void
     {
         $this->assertEquals($this->attributes->lights, $this->scene->getLightIds());
     }
@@ -81,7 +81,7 @@ class SceneTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Phue\Scene::__toString
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals($this->scene->getId(), (string) $this->scene);
     }

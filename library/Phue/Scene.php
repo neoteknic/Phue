@@ -10,76 +10,26 @@ namespace Phue;
 
 use Phue\Command\DeleteScene;
 
-/**
- * Scene object
- */
 class Scene
 {
-
-    /**
-     * Id
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
-     * Scene attributes
-     *
-     * @var \stdClass
-     */
-    protected $attributes;
-
-    /**
-     * Phue client
-     *
-     * @var Client
-     */
-    protected $client;
-
-    /**
-     * Construct a Phue Scene object
-     *
-     * @param string $id
-     *            Id
-     * @param \stdClass $attributes
-     *            Scene attributes
-     * @param Client $client
-     *            Phue client
-     */
-    public function __construct($id, \stdClass $attributes, Client $client)
+    public function __construct(protected string $id, protected \stdClass $attributes, protected Client $client)
     {
-        $this->id = $id;
-        $this->attributes = $attributes;
-        $this->client = $client;
     }
 
-    /**
-     * Get scene Id
-     *
-     * @return int Scene id
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * Get assigned name of scene
-     *
-     * @return string Name of scene
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->attributes->name;
     }
 
     /**
-     * Get light ids
-     *
      * @return array List of light ids
      */
-    public function getLightIds()
+    public function getLightIds(): array
     {
         return $this->attributes->lights;
     }
@@ -96,21 +46,16 @@ class Scene
         return null;
     }
 
-    /**
-     * Delete scene
-     */
-    public function delete()
+    public function delete(): void
     {
         $this->client->sendCommand((new DeleteScene($this)));
     }
 
     /**
-     * __toString
-     *
      * @return string Scene Id
      */
-    public function __toString()
+    public function __toString(): string
     {
-        return (string) $this->getId();
+        return $this->getId();
     }
 }
