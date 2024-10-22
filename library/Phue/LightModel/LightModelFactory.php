@@ -22,7 +22,11 @@ class LightModelFactory
         $classNameModel = ucfirst(strtolower($modelId)) . 'Model';
         
         if (! class_exists($classNamePrefix . $classNameModel)) {
-            $classNameModel = 'UnknownModel';
+	        $modelId='l'.$modelId;
+	        $classNameModel = ucfirst(strtolower($modelId)) . 'Model';
+			if (! class_exists($classNamePrefix . $classNameModel)) {
+				$classNameModel = 'UnknownModel';
+			}
         }
         
         $finalClassName = $classNamePrefix . $classNameModel;
