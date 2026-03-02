@@ -12,6 +12,11 @@
     "license": "BSD-3-Clause",
     "authors": [
         {
+            "name":  "Neoteknic",
+            "email": "neoteknic@gmail.com",
+            "role":  "maintainer"
+        },
+        {
             "name":  "Michael Squires",
             "email": "sqmk@php.net",
             "role":  "lead"
