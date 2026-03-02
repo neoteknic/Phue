@@ -23,9 +23,9 @@ class CreateSchedule implements CommandInterface
      */
     protected array $attributes = [];
 
-    protected ?ActionableInterface $command;
+    protected ?ActionableInterface $command = null;
 
-    protected ?TimePatternInterface $time;
+    protected ?TimePatternInterface $time = null;
 
     /**
      * @throws \Exception
@@ -33,7 +33,7 @@ class CreateSchedule implements CommandInterface
     public function __construct(
         ?string             $name = null,
         mixed               $time = null,
-        ActionableInterface $command = null
+        ?ActionableInterface $command = null
     ) {
         // Set name, time, command if passed
         $name !== null && $this->name($name);

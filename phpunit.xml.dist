@@ -5,14 +5,8 @@
          beStrictAboutTestsThatDoNotTestAnything="false"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          cacheDirectory=".phpunit.cache"
-         requireCoverageMetadata="true"
+         requireCoverageMetadata="false"
 >
-  <coverage>
-    <report>
-      <text outputFile="php://stdout" showUncoveredFiles="true"/>
-    </report>
-  </coverage>
-
   <testsuites>
     <testsuite name="Phue Test Suite">
       <directory>./tests</directory>

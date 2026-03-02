@@ -29,7 +29,7 @@ class Condition
 
     protected ?string $value = null;
 
-    public function __construct(\stdClass $condition = null)
+    public function __construct(?\stdClass $condition = null)
     {
         $condition !== null && $this->import($condition);
     }

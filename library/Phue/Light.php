@@ -213,7 +213,7 @@ class Light implements LightInterface
     /**
      * Set XY and brightness calculated from RGB
      */
-    public function setRGB(int $red, int $green, int $blue, int $bri=null): static
+    public function setRGB(int $red, int $green, int $blue, ?int $bri = null): static
     {
         $x = new SetLightState($this);
         $y = $x->rgb($red, $green, $blue, $bri);
@@ -226,15 +226,15 @@ class Light implements LightInterface
             $xy['x'],
             $xy['y']
         ];
-        if($bri!==null) {
-            if($bri<0) {
-                $bri=0;
-            } elseif($bri>255) {
-                $bri=255;
+        if ($bri !== null) {
+            if ($bri < 0) {
+                $bri = 0;
+            } elseif ($bri > 255) {
+                $bri = 255;
             }
             $this->attributes->state->bri = $bri;
         } else {
-            $this->attributes->state->bri = max($red, $green, $blue);
+            $this->attributes->state->bri = $xy['bri'];
         }
         $this->attributes->state->colormode = 'xy';
 

@@ -132,7 +132,7 @@ class Http implements TransportInterface
         // Determine exception
         $exceptionClass = static::$exceptionMap[$type] ?? static::$exceptionMap[0];
         
-        return new $exceptionClass($description, $type);
+        return new $exceptionClass((string) ($description ?? ''), (int) ($type ?? 0));
     }
 
     /**
@@ -140,7 +140,7 @@ class Http implements TransportInterface
      * @throws \Exception
      * @throws ConnectionException
      */
-    public function sendRequest(string $address, string $method = self::METHOD_GET, \stdClass $body = null): mixed
+    public function sendRequest(string $address, string $method = self::METHOD_GET, ?\stdClass $body = null): mixed
     {
         $jsonResults = $this->getJsonResponse($address, $method, $body);
         
@@ -174,7 +174,7 @@ class Http implements TransportInterface
     public function sendRequestBypassBodyValidation(
         string    $address,
         string    $method = self::METHOD_GET,
-        \stdClass $body = null
+        ?\stdClass $body = null
     ): \stdClass|array {
     
         return $this->getJsonResponse($address, $method, $body);
@@ -190,7 +190,7 @@ class Http implements TransportInterface
      * @return \stdClass|array Json body
      * @throws ConnectionException
      */
-    protected function getJsonResponse(string $address, string $method = self::METHOD_GET, \stdClass $body = null): \stdClass|array
+    protected function getJsonResponse(string $address, string $method = self::METHOD_GET, ?\stdClass $body = null): \stdClass|array
     {
         // Build request url
         $url = "http://{$this->client->getHost()}{$address}";

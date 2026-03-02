@@ -43,20 +43,25 @@ class ColorConversion
         $xyz['x'] = $color['red'] * 0.664511 + $color['green'] * 0.154324 + $color['blue'] * 0.162028;
         $xyz['y'] = $color['red'] * 0.283881 + $color['green'] * 0.668433 + $color['blue'] * 0.047685;
         $xyz['z'] = $color['red'] * 0.000000 + $color['green'] * 0.072310 + $color['blue'] * 0.986039;
-        
+        $xyzSum = array_sum($xyz);
+
         // Calculate the x/y values
-        if (array_sum($xyz) == 0) {
+        if ($xyzSum == 0) {
             $x = 0;
             $y = 0;
         } else {
-            $x = $xyz['x'] / array_sum($xyz);
-            $y = $xyz['y'] / array_sum($xyz);
+            $x = $xyz['x'] / $xyzSum;
+            $y = $xyz['y'] / $xyzSum;
         }
+
+        // Hue bridge "bri" value is driven by luminance (Y component)
+        $brightness = (int) round($xyz['y'] * 255);
+        $brightness = max(0, min(255, $brightness));
         
         return array(
             'x'   => $x,
             'y'   => $y,
-            'bri' => max($red, $green, $blue)
+            'bri' => $brightness
         );
     }
     
@@ -77,8 +82,8 @@ class ColorConversion
         $z = 1.0 - $x - $y;
         $xyz['y'] = $bri / 255;
         //Temp fix for division by zero
-        if($y==0) {
-            $y=0.001;
+        if ($y == 0) {
+            $y = 0.001;
         }
         $xyz['x'] = ($xyz['y'] / $y) * $x;
         $xyz['z'] = ($xyz['y'] / $y) * $z;
@@ -106,7 +111,7 @@ class ColorConversion
                 $color[$key] /= $maxValue;
             }
             // Scale back from a maximum of 1 to a maximum of 255
-            $color[$key] = round($color[$key] * 255);
+            $color[$key] = (int) round($color[$key] * 255);
         }
         
         return $color;

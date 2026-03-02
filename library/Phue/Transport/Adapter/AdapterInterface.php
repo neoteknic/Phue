@@ -24,7 +24,7 @@ interface AdapterInterface
      *
      * @return string|bool Result
      */
-    public function send(string $address, string $method, string $body = null): string|bool;
+    public function send(string $address, string $method, ?string $body = null): string|bool;
 
     /**
      * Get http status code from response

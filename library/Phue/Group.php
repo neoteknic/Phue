@@ -216,7 +216,7 @@ class Group implements LightInterface
      *
      * @param int|null $bri Brightness if needed
      */
-    public function setRGB(int $red, int $green, int $blue, ?int $bri=null): static
+    public function setRGB(int $red, int $green, int $blue, ?int $bri = null): static
     {
         $x = new SetGroupState($this);
         $this->updateTransition($x);
@@ -229,10 +229,15 @@ class Group implements LightInterface
             $xy['x'],
             $xy['y']
         );
-        if($bri===null) {
+        if ($bri !== null) {
+            if ($bri < 0) {
+                $bri = 0;
+            } elseif ($bri > 255) {
+                $bri = 255;
+            }
             $this->attributes->action->bri = $bri;
         } else {
-            $this->attributes->action->bri = max($red, $green, $blue);
+            $this->attributes->action->bri = $xy['bri'];
         }
 
         $this->attributes->action->colormode = 'xy';
