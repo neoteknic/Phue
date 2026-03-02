@@ -15,13 +15,11 @@ use Phue\Transport\TransportInterface;
 /**
  * Tests for Phue\Command\CreateScene
  */
-class CreateSceneTest extends AbstractCommandTest
+class CreateSceneTest extends AbstractCommandCase
 {
     /**
      * Test: Set Id
      *
-     * @covers \Phue\Command\CreateScene::__construct
-     * @covers \Phue\Command\CreateScene::id
      */
     public function testId(): void
     {
@@ -37,8 +35,6 @@ class CreateSceneTest extends AbstractCommandTest
     /**
      * Test: Set name
      *
-     * @covers \Phue\Command\CreateScene::__construct
-     * @covers \Phue\Command\CreateScene::name
      */
     public function testName(): void
     {
@@ -54,8 +50,6 @@ class CreateSceneTest extends AbstractCommandTest
     /**
      * Test: Set lights
      *
-     * @covers \Phue\Command\CreateScene::__construct
-     * @covers \Phue\Command\CreateScene::lights
      */
     public function testLights(): void
     {
@@ -74,7 +68,6 @@ class CreateSceneTest extends AbstractCommandTest
     /**
      * Test: Set transition time
      *
-     * @covers \Phue\Command\CreateScene::transitionTime
      */
     public function testTransitionTime(): void
     {
@@ -94,7 +87,6 @@ class CreateSceneTest extends AbstractCommandTest
     /**
      * Test: Setting invalid transition time
      *
-     * @covers \Phue\Command\CreateScene::transitionTime
      */
     public function testExceptionOnInvalidTransitionTime(): void
     {
@@ -109,8 +101,6 @@ class CreateSceneTest extends AbstractCommandTest
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\CreateScene::__construct
-     * @covers \Phue\Command\CreateScene::send
      */
     public function testSend(): void
     {
@@ -144,3 +134,4 @@ class CreateSceneTest extends AbstractCommandTest
         $command->send($this->mockClient);
     }
 }
+

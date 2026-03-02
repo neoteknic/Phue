@@ -8,6 +8,7 @@
  */
 namespace Phue\Test\Command;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Command\SetLightName;
 use Phue\Light;
@@ -19,6 +20,15 @@ use Phue\Client;
  */
 class SetLightNameTest extends TestCase
 {
+    /** @var Client&MockObject */
+    private $mockClient;
+
+    /** @var TransportInterface&MockObject */
+    private $mockTransport;
+
+    /** @var Light&MockObject */
+    private $mockLight;
+
     public function setUp(): void
     {
         // Mock client
@@ -52,8 +62,6 @@ class SetLightNameTest extends TestCase
     /**
      * Test: Set light name
      *
-     * @covers \Phue\Command\SetLightName::__construct
-     * @covers \Phue\Command\SetLightName::send
      */
     public function testSend(): void
     {
@@ -72,3 +80,4 @@ class SetLightNameTest extends TestCase
         $lightname->send($this->mockClient);
     }
 }
+

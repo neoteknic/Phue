@@ -21,7 +21,6 @@ class SensorModelFactoryTest extends TestCase
     /**
      * Test: Getting unknown model
      *
-     * @covers \Phue\SensorModel\SensorModelFactory::build
      */
     public function testGetUnknownModel(): void
     {
@@ -34,7 +33,6 @@ class SensorModelFactoryTest extends TestCase
     /**
      * Test:: Getting known model
      *
-     * @covers \Phue\SensorModel\SensorModelFactory::build
      */
     public function testGetKnownModel(): void
     {
@@ -44,3 +42,4 @@ class SensorModelFactoryTest extends TestCase
         );
     }
 }
+

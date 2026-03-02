@@ -14,7 +14,7 @@ use Phue\Light;
 /**
  * Tests for Phue\Command\GetLights
  */
-class GetLightsTest extends AbstractCommandTest
+class GetLightsTest extends AbstractCommandCase
 {
     private GetLights $getLights;
 
@@ -28,7 +28,6 @@ class GetLightsTest extends AbstractCommandTest
     /**
      * Test: Found no lights
      *
-     * @covers \Phue\Command\GetLights::send
      */
     public function testFoundNoLights(): void
     {
@@ -49,7 +48,6 @@ class GetLightsTest extends AbstractCommandTest
     /**
      * Test: Found lights
      *
-     * @covers \Phue\Command\GetLights::send
      */
     public function testFoundLights(): void
     {
@@ -73,3 +71,4 @@ class GetLightsTest extends AbstractCommandTest
         $this->assertContainsOnlyInstancesOf(Light::class, $response);
     }
 }
+

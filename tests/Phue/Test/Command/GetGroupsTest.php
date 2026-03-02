@@ -15,7 +15,7 @@ use Phue\Group;
 /**
  * Tests for Phue\Command\GetGroups
  */
-class GetGroupsTest extends AbstractCommandTest
+class GetGroupsTest extends AbstractCommandCase
 {
     private GetGroups $getGroups;
 
@@ -29,7 +29,6 @@ class GetGroupsTest extends AbstractCommandTest
     /**
      * Test: Found no groups
      *
-     * @covers \Phue\Command\GetGroups::send
      */
     public function testFoundNoGroups(): void
     {
@@ -50,7 +49,6 @@ class GetGroupsTest extends AbstractCommandTest
     /**
      * Test: Found groups
      *
-     * @covers \Phue\Command\GetGroups::send
      */
     public function testFoundGroups(): void
     {
@@ -74,3 +72,4 @@ class GetGroupsTest extends AbstractCommandTest
         $this->assertContainsOnlyInstancesOf(Group::class, $response);
     }
 }
+

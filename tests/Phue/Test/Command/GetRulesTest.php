@@ -18,7 +18,7 @@ use Phue\Rule;
 /**
  * Tests for Phue\Command\GetRules
  */
-class GetRulesTest extends AbstractCommandTest
+class GetRulesTest extends AbstractCommandCase
 {
     private GetRules $getRules;
 
@@ -32,7 +32,6 @@ class GetRulesTest extends AbstractCommandTest
     /**
      * Test: Found no rules
      *
-     * @covers \Phue\Command\GetRules::send
      */
     public function testFoundNoRules(): void
     {
@@ -53,7 +52,6 @@ class GetRulesTest extends AbstractCommandTest
     /**
      * Test: Found rules
      *
-     * @covers \Phue\Command\GetRules::send
      */
     public function testFoundRules(): void
     {
@@ -77,3 +75,4 @@ class GetRulesTest extends AbstractCommandTest
         $this->assertContainsOnlyInstancesOf(Rule::class, $response);
     }
 }
+

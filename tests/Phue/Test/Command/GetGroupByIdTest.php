@@ -15,13 +15,11 @@ use Phue\Group;
 /**
  * Tests for Phue\Command\GetGroupById
  */
-class GetGroupByIdTest extends AbstractCommandTest
+class GetGroupByIdTest extends AbstractCommandCase
 {
     /**
      * Test: Send get group by id command
      *
-     * @covers \Phue\Command\GetGroupById::__construct
-     * @covers \Phue\Command\GetGroupById::send
      */
     public function testSend(): void
     {
@@ -39,3 +37,4 @@ class GetGroupByIdTest extends AbstractCommandTest
         $this->assertInstanceOf(Group::class, $group);
     }
 }
+

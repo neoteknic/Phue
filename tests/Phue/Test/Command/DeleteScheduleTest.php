@@ -15,13 +15,11 @@ use Phue\Transport\TransportInterface;
 /**
  * Tests for Phue\Command\DeleteSchedule
  */
-class DeleteScheduleTest extends AbstractCommandTest
+class DeleteScheduleTest extends AbstractCommandCase
 {
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\DeleteSchedule::__construct
-     * @covers \Phue\Command\DeleteSchedule::send
      */
     public function testSend(): void
     {
@@ -39,3 +37,4 @@ class DeleteScheduleTest extends AbstractCommandTest
         $command->send($this->mockClient);
     }
 }
+

@@ -23,7 +23,7 @@ use Phue\Command\SetLightName;
  */
 class LightTest extends TestCase
 {
-    private object $attrirtbutes;
+    private object $attributes;
     /** @var MockObject&Client $mockClient */
     private $mockClient;
     private Light $light;
@@ -63,8 +63,6 @@ class LightTest extends TestCase
     /**
      * Test: Getting Id
      *
-     * @covers \Phue\Light::__construct
-     * @covers \Phue\Light::getId
      */
     public function testGetId(): void
     {
@@ -74,8 +72,6 @@ class LightTest extends TestCase
     /**
      * Test: Getting name
      *
-     * @covers \Phue\Light::__construct
-     * @covers \Phue\Light::getName
      */
     public function testGetName(): void
     {
@@ -85,8 +81,6 @@ class LightTest extends TestCase
     /**
      * Test: Setting name
      *
-     * @covers \Phue\Light::setName
-     * @covers \Phue\Light::getName
      */
     public function testSetName(): void
     {
@@ -106,7 +100,6 @@ class LightTest extends TestCase
     /**
      * Test: Get type
      *
-     * @covers \Phue\Light::getType
      */
     public function testGetType(): void
     {
@@ -116,7 +109,6 @@ class LightTest extends TestCase
     /**
      * Test: Get model Id
      *
-     * @covers \Phue\Light::getModelId
      */
     public function testGetModelId(): void
     {
@@ -126,7 +118,6 @@ class LightTest extends TestCase
     /**
      * Test: Get model
      *
-     * @covers \Phue\Light::getModel
      */
     public function testGetModel(): void
     {
@@ -139,7 +130,6 @@ class LightTest extends TestCase
     /**
      * Test: Get unique id
      *
-     * @covers \Phue\Light::getUniqueId
      */
     public function testGetUniqueId(): void
     {
@@ -149,7 +139,6 @@ class LightTest extends TestCase
     /**
      * Test: Get software version
      *
-     * @covers \Phue\Light::getSoftwareVersion
      */
     public function testGetSoftwareVersion(): void
     {
@@ -162,8 +151,6 @@ class LightTest extends TestCase
     /**
      * Test: Is/Set on
      *
-     * @covers \Phue\Light::isOn
-     * @covers \Phue\Light::setOn
      */
     public function testIsSetOn(): void
     {
@@ -182,8 +169,6 @@ class LightTest extends TestCase
     /**
      * Test: Get/Set brightness
      *
-     * @covers \Phue\Light::getBrightness
-     * @covers \Phue\Light::setBrightness
      */
     public function testGetSetBrightness(): void
     {
@@ -205,8 +190,6 @@ class LightTest extends TestCase
     /**
      * Test: Get/Set hue
      *
-     * @covers \Phue\Light::getHue
-     * @covers \Phue\Light::setHue
      */
     public function testGetSetHue(): void
     {
@@ -225,8 +208,6 @@ class LightTest extends TestCase
     /**
      * Test: Get/Set saturation
      *
-     * @covers \Phue\Light::getSaturation
-     * @covers \Phue\Light::setSaturation
      */
     public function testGetSetSaturation(): void
     {
@@ -248,8 +229,6 @@ class LightTest extends TestCase
     /**
      * Test: Get/Set XY
      *
-     * @covers \Phue\Light::getXY
-     * @covers \Phue\Light::setXY
      */
     public function testGetSetXY(): void
     {
@@ -280,8 +259,6 @@ class LightTest extends TestCase
     /**
      * Test: Get/Set RGB
      *
-     * @covers \Phue\Light::getRGB
-     * @covers \Phue\Light::setRGB
      */
     public function testGetSetRGB(): void
     {
@@ -320,8 +297,6 @@ class LightTest extends TestCase
     /**
      * Test: Get/Set Color temp
      *
-     * @covers \Phue\Light::getColorTemp
-     * @covers \Phue\Light::setColorTemp
      */
     public function testGetSetColorTemp(): void
     {
@@ -343,8 +318,6 @@ class LightTest extends TestCase
     /**
      * Test: Get/Set alert
      *
-     * @covers \Phue\Light::getAlert
-     * @covers \Phue\Light::setAlert
      */
     public function testGetSetAlert(): void
     {
@@ -366,8 +339,6 @@ class LightTest extends TestCase
     /**
      * Test: Get/Set effect
      *
-     * @covers \Phue\Light::getEffect
-     * @covers \Phue\Light::setEffect
      */
     public function testGetSetEffect(): void
     {
@@ -389,7 +360,6 @@ class LightTest extends TestCase
     /**
      * Test: Get color mode
      *
-     * @covers \Phue\Light::getColorMode
      */
     public function testGetColormode(): void
     {
@@ -402,13 +372,11 @@ class LightTest extends TestCase
     /**
      * Test: Get color mode (missing)
      *
-     * @covers \Phue\Light::getColorMode
      */
     public function testGetColormodeMissing(): void
     {
         $reflection = new \ReflectionClass($this->light);
         $property = $reflection->getProperty('attributes');
-        $property->setAccessible(true);
 
         $property->setValue(
             $this->light,
@@ -423,7 +391,6 @@ class LightTest extends TestCase
     /**
      * Test: Is reachable
      *
-     * @covers \Phue\Light::isReachable
      */
     public function testIsReachable(): void
     {
@@ -436,7 +403,6 @@ class LightTest extends TestCase
     /**
      * Test: toString
      *
-     * @covers \Phue\Light::__toString
      */
     public function testToString(): void
     {
@@ -453,3 +419,4 @@ class LightTest extends TestCase
             ->with($this->isInstanceOf(SetLightState::class));
     }
 }
+

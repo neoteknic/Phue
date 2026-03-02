@@ -21,7 +21,6 @@ class CreateSensorTest extends TestCase
     /**
      * Test: Instantiating CreateSensor command
      *
-     * @covers \Phue\Command\CreateSensor::__construct
      */
     public function testInstantiation(): void
     {
@@ -31,7 +30,6 @@ class CreateSensorTest extends TestCase
     /**
      * Test: Set name
      *
-     * @covers \Phue\Command\CreateSensor::name
      */
     public function testName(): void
     {
@@ -43,7 +41,6 @@ class CreateSensorTest extends TestCase
     /**
      * Test: Set model Id
      *
-     * @covers \Phue\Command\CreateSensor::modelId
      */
     public function testModelId(): void
     {
@@ -55,7 +52,6 @@ class CreateSensorTest extends TestCase
     /**
      * Test: Set software version
      *
-     * @covers \Phue\Command\CreateSensor::softwareVersion
      */
     public function testSoftwareVersion(): void
     {
@@ -67,7 +63,6 @@ class CreateSensorTest extends TestCase
     /**
      * Test: Set type
      *
-     * @covers \Phue\Command\CreateSensor::type
      */
     public function testType(): void
     {
@@ -79,7 +74,6 @@ class CreateSensorTest extends TestCase
     /**
      * Test: Set unique Id
      *
-     * @covers \Phue\Command\CreateSensor::uniqueId
      */
     public function testUniqueId(): void
     {
@@ -91,7 +85,6 @@ class CreateSensorTest extends TestCase
     /**
      * Test: Set manufacturer name
      *
-     * @covers \Phue\Command\CreateSensor::manufacturerName
      */
     public function testManufacturerName(): void
     {
@@ -103,7 +96,6 @@ class CreateSensorTest extends TestCase
     /**
      * Test: Set config attribute
      *
-     * @covers \Phue\Command\CreateSensor::configAttribute
      */
     public function testConfigAttribute(): void
     {
@@ -115,7 +107,6 @@ class CreateSensorTest extends TestCase
     /**
      * Test: Set state attribute
      *
-     * @covers \Phue\Command\CreateSensor::stateAttribute
      */
     public function testStateAttribute(): void
     {
@@ -127,7 +118,6 @@ class CreateSensorTest extends TestCase
     /**
      * Test: Send
      *
-     * @covers \Phue\Command\CreateSensor::send
      */
     public function testSend(): void
     {
@@ -150,3 +140,4 @@ class CreateSensorTest extends TestCase
         $this->assertEquals('5', $command->send($mockClient));
     }
 }
+

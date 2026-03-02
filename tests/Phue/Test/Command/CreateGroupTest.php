@@ -14,13 +14,11 @@ use Phue\Transport\TransportInterface;
 /**
  * Tests for Phue\Command\CreateGroup
  */
-class CreateGroupTest extends AbstractCommandTest
+class CreateGroupTest extends AbstractCommandCase
 {
     /**
      * Test: Set name
      *
-     * @covers \Phue\Command\CreateGroup::__construct
-     * @covers \Phue\Command\CreateGroup::name
      */
     public function testName(): void
     {
@@ -36,8 +34,6 @@ class CreateGroupTest extends AbstractCommandTest
     /**
      * Test: Set lights
      *
-     * @covers \Phue\Command\CreateGroup::__construct
-     * @covers \Phue\Command\CreateGroup::lights
      */
     public function testLights(): void
     {
@@ -56,8 +52,6 @@ class CreateGroupTest extends AbstractCommandTest
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\CreateGroup::__construct
-     * @covers \Phue\Command\CreateGroup::send
      */
     public function testSend(): void
     {
@@ -95,3 +89,4 @@ class CreateGroupTest extends AbstractCommandTest
         $this->assertEquals(5, $groupId);
     }
 }
+

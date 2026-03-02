@@ -15,8 +15,10 @@ use Phue\User;
 /**
  * Tests for Phue\Command\GetUsers
  */
-class GetUsersTest extends AbstractCommandTest
+class GetUsersTest extends AbstractCommandCase
 {
+    private GetUsers $getUsers;
+
     public function setUp(): void
     {
         $this->getUsers = new GetUsers();
@@ -27,7 +29,6 @@ class GetUsersTest extends AbstractCommandTest
     /**
      * Test: Found no users
      *
-     * @covers \Phue\Command\GetUsers::send
      */
     public function testFoundNoUsers(): void
     {
@@ -48,7 +49,6 @@ class GetUsersTest extends AbstractCommandTest
     /**
      * Test: Found users
      *
-     * @covers \Phue\Command\GetUsers::send
      */
     public function testFoundUsers(): void
     {
@@ -74,3 +74,4 @@ class GetUsersTest extends AbstractCommandTest
         $this->assertContainsOnlyInstancesOf(User::class, $response);
     }
 }
+

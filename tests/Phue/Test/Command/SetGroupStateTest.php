@@ -8,6 +8,7 @@
  */
 namespace Phue\Test\Command;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Command\SetGroupState;
 use Phue\Group;
@@ -19,6 +20,15 @@ use Phue\Client;
  */
 class SetGroupStateTest extends TestCase
 {
+    /** @var Client&MockObject */
+    private $mockClient;
+
+    /** @var TransportInterface&MockObject */
+    private $mockTransport;
+
+    /** @var Group&MockObject */
+    private $mockGroup;
+
     public function setUp(): void
     {
         // Mock client
@@ -52,8 +62,6 @@ class SetGroupStateTest extends TestCase
     /**
      * Test: Set scene
      *
-     * @covers \Phue\Command\SetGroupState::scene
-     * @covers \Phue\Command\SetLightState::send
      */
     public function testSceneSend(): void
     {
@@ -79,8 +87,6 @@ class SetGroupStateTest extends TestCase
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\SetGroupState::__construct
-     * @covers \Phue\Command\SetGroupState::send
      */
     public function testSend(): void
     {
@@ -101,7 +107,6 @@ class SetGroupStateTest extends TestCase
     /**
      * Test: Get actionable params
      *
-     * @covers \Phue\Command\SetGroupState::getActionableParams
      */
     public function testGetActionableParams(): void
     {
@@ -144,3 +149,4 @@ class SetGroupStateTest extends TestCase
             );
     }
 }
+

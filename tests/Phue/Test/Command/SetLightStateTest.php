@@ -8,6 +8,7 @@
  */
 namespace Phue\Test\Command;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Command\SetLightState;
 use Phue\Helper\ColorConversion;
@@ -20,6 +21,15 @@ use Phue\Client;
  */
 class SetLightStateTest extends TestCase
 {
+    /** @var Client&MockObject */
+    private $mockClient;
+
+    /** @var TransportInterface&MockObject */
+    private $mockTransport;
+
+    /** @var Light&MockObject */
+    private $mockLight;
+
     public function setUp(): void
     {
         // Mock client
@@ -53,11 +63,9 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Set light on
      *
-     * @dataProvider providerOnState
      *
-     * @covers \Phue\Command\SetLightState::on
-     * @covers \Phue\Command\SetLightState::send
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOnState')]
     public function testOnSend($state): void
     {
         // Build command
@@ -80,12 +88,11 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Invalid brightness
      *
-     * @dataProvider providerInvalidBrightness
      *
-     * @covers \Phue\Command\SetLightState::brightness
      *
      *
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidBrightness')]
     public function testInvalidBrightness($brightness): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -96,11 +103,9 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Set brightness
      *
-     * @dataProvider providerBrightness
      *
-     * @covers \Phue\Command\SetLightState::brightness
-     * @covers \Phue\Command\SetLightState::send
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBrightness')]
     public function testBrightnessSend($brightness): void
     {
         // Build command
@@ -123,7 +128,6 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Invalid hue value
      *
-     * @covers \Phue\Command\SetLightState::hue
      *
      *
      */
@@ -137,11 +141,9 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Set hue
      *
-     * @dataProvider providerHue
      *
-     * @covers \Phue\Command\SetLightState::hue
-     * @covers \Phue\Command\SetLightState::send
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHue')]
     public function testHueSend($value): void
     {
         // Build command
@@ -164,7 +166,6 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Invalid saturation value
      *
-     * @covers \Phue\Command\SetLightState::saturation
      *
      *
      */
@@ -178,11 +179,9 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Set alert mode
      *
-     * @dataProvider providerSaturation
      *
-     * @covers \Phue\Command\SetLightState::saturation
-     * @covers \Phue\Command\SetLightState::send
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSaturation')]
     public function testSaturationSend($value): void
     {
         // Build command
@@ -205,12 +204,11 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Invalid xy value
      *
-     * @dataProvider providerInvalidXY
      *
-     * @covers \Phue\Command\SetLightState::xy
      *
      *
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidXY')]
     public function testInvalidXYValue($x, $y): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -221,11 +219,9 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Set XY
      *
-     * @dataProvider providerXY
      *
-     * @covers \Phue\Command\SetLightState::xy
-     * @covers \Phue\Command\SetLightState::send
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerXY')]
     public function testXYSend($x, $y): void
     {
         // Build command
@@ -251,12 +247,11 @@ class SetLightStateTest extends TestCase
     /**
      * Test: invalid RGB value
      *
-     * @dataProvider providerInvalidRGB
      *
-     * @covers \Phue\Command\SetLightState::rgb
      *
      *
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidRGB')]
     public function testInvalidRGBValue($red, $green, $blue): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -267,11 +262,9 @@ class SetLightStateTest extends TestCase
     /**
      * Test: set XY and brightness via RGB
      *
-     * @dataProvider providerRGB
      *
-     * @covers \Phue\Command\SetLightState::rgb
-     * @covers \Phue\Command\SetLightState::send
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRGB')]
     public function testRGBSend($red, $green, $blue): void
     {
         // Build command
@@ -299,12 +292,11 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Invalid color temp value
      *
-     * @dataProvider providerInvalidColorTemp
      *
-     * @covers \Phue\Command\SetLightState::colorTemp
      *
      *
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidColorTemp')]
     public function testInvalidColorTempValue($temp): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -315,11 +307,9 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Set Color temp
      *
-     * @dataProvider providerColorTemp
      *
-     * @covers \Phue\Command\SetLightState::colorTemp
-     * @covers \Phue\Command\SetLightState::send
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerColorTemp')]
     public function testColorTempSend($temp): void
     {
         // Build command
@@ -342,7 +332,6 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Get alert modes
      *
-     * @covers \Phue\Command\SetLightState::getAlertModes
      */
     public function testGetAlertModes(): void
     {
@@ -356,7 +345,6 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Invalid alert mode
      *
-     * @covers \Phue\Command\SetLightState::alert
      *
      *
      */
@@ -370,11 +358,9 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Set alert mode
      *
-     * @dataProvider providerAlert
      *
-     * @covers \Phue\Command\SetLightState::alert
-     * @covers \Phue\Command\SetLightState::send
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAlert')]
     public function testAlertSend($mode): void
     {
         // Build command
@@ -397,7 +383,6 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Get effect modes
      *
-     * @covers \Phue\Command\SetLightState::getEffectModes
      */
     public function testGetEffectModes(): void
     {
@@ -411,7 +396,6 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Invalid effect mode
      *
-     * @covers \Phue\Command\SetLightState::effect
      *
      *
      */
@@ -425,11 +409,9 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Set effect mode
      *
-     * @dataProvider providerEffect
      *
-     * @covers \Phue\Command\SetLightState::effect
-     * @covers \Phue\Command\SetLightState::send
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEffect')]
     public function testEffectSend($mode): void
     {
         // Build command
@@ -452,7 +434,6 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Invalid transition time
      *
-     * @covers \Phue\Command\SetLightState::transitionTime
      *
      *
      */
@@ -466,11 +447,9 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Set transition time
      *
-     * @dataProvider providerTransitionTime
      *
-     * @covers \Phue\Command\SetLightState::transitionTime
-     * @covers \Phue\Command\SetLightState::send
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTransitionTime')]
     public function testTransitionTimeSend($time): void
     {
         // Build command
@@ -493,8 +472,6 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\SetLightState::__construct
-     * @covers \Phue\Command\SetLightState::send
      */
     public function testSend(): void
     {
@@ -515,7 +492,6 @@ class SetLightStateTest extends TestCase
     /**
      * Test: Get actionable params
      *
-     * @covers \Phue\Command\SetLightState::getActionableParams
      */
     public function testGetActionableParams(): void
     {
@@ -836,3 +812,4 @@ class SetLightStateTest extends TestCase
         ];
     }
 }
+

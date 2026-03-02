@@ -15,7 +15,7 @@ use Phue\Schedule;
 /**
  * Tests for Phue\Command\GetSchedules
  */
-class GetSchedulesTest extends AbstractCommandTest
+class GetSchedulesTest extends AbstractCommandCase
 {
     private GetSchedules $getSchedules;
 
@@ -29,7 +29,6 @@ class GetSchedulesTest extends AbstractCommandTest
     /**
      * Test: Found no schedules
      *
-     * @covers \Phue\Command\GetSchedules::send
      */
     public function testFoundNoSchedules(): void
     {
@@ -52,7 +51,6 @@ class GetSchedulesTest extends AbstractCommandTest
     /**
      * Test: Found schedules
      *
-     * @covers \Phue\Command\GetSchedules::send
      */
     public function testFoundSchedules(): void
     {
@@ -78,3 +76,4 @@ class GetSchedulesTest extends AbstractCommandTest
         $this->assertContainsOnlyInstancesOf(Schedule::class, $response);
     }
 }
+

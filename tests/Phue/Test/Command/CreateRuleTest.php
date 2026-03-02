@@ -25,7 +25,6 @@ class CreateRuleTest extends TestCase
     /**
      * Test: Instantiating CreateRule command
      *
-     * @covers \Phue\Command\CreateRule::__construct
      */
     public function testInstantiation(): void
     {
@@ -35,7 +34,6 @@ class CreateRuleTest extends TestCase
     /**
      * Test: Set name
      *
-     * @covers \Phue\Command\CreateRule::name
      */
     public function testName(): void
     {
@@ -47,7 +45,6 @@ class CreateRuleTest extends TestCase
     /**
      * Test: Set name
      *
-     * @covers \Phue\Command\CreateRule::addCondition
      */
     public function testAddCondition(): void
     {
@@ -62,7 +59,6 @@ class CreateRuleTest extends TestCase
     /**
      * Test: Set name
      *
-     * @covers \Phue\Command\CreateRule::addAction
      */
     public function testAddAction(): void
     {
@@ -77,7 +73,6 @@ class CreateRuleTest extends TestCase
     /**
      * Test: Send
      *
-     * @covers \Phue\Command\CreateRule::send
      */
     public function testSend(): void
     {
@@ -105,3 +100,4 @@ class CreateRuleTest extends TestCase
         $this->assertEquals('5', $command->send($mockClient));
     }
 }
+

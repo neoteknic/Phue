@@ -21,7 +21,6 @@ class UpdateSensorTest extends TestCase
     /**
      * Test: Instantiating UpdateSensor command
      *
-     * @covers \Phue\Command\UpdateSensor::__construct
      */
     public function testInstantiation(): void
     {
@@ -31,7 +30,6 @@ class UpdateSensorTest extends TestCase
     /**
      * Test: Set name
      *
-     * @covers \Phue\Command\UpdateSensor::name
      */
     public function testName(): void
     {
@@ -43,7 +41,6 @@ class UpdateSensorTest extends TestCase
     /**
      * Test: Send
      *
-     * @covers \Phue\Command\UpdateSensor::send
      */
     public function testSend(): void
     {
@@ -63,3 +60,4 @@ class UpdateSensorTest extends TestCase
         $command = $sensor->send($mockClient);
     }
 }
+

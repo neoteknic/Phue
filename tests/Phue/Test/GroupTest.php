@@ -63,8 +63,6 @@ class GroupTest extends TestCase
     /**
      * Test: Getting Id
      *
-     * @covers \Phue\Group::__construct
-     * @covers \Phue\Group::getId
      */
     public function testGetId(): void
     {
@@ -74,8 +72,6 @@ class GroupTest extends TestCase
     /**
      * Test: Getting name
      *
-     * @covers \Phue\Group::__construct
-     * @covers \Phue\Group::getName
      */
     public function testGetName(): void
     {
@@ -85,8 +81,6 @@ class GroupTest extends TestCase
     /**
      * Test: Setting name
      *
-     * @covers \Phue\Group::setName
-     * @covers \Phue\Group::getName
      */
     public function testSetName(): void
     {
@@ -106,7 +100,6 @@ class GroupTest extends TestCase
     /**
      * Test: Get type
      *
-     * @covers \Phue\Group::getType
      */
     public function testGetType(): void
     {
@@ -116,7 +109,6 @@ class GroupTest extends TestCase
     /**
      * Test: Get light ids
      *
-     * @covers \Phue\Group::getLightIds
      */
     public function testGetLightIds(): void
     {
@@ -126,8 +118,6 @@ class GroupTest extends TestCase
     /**
      * Test: Set lights
      *
-     * @covers \Phue\Group::setLights
-     * @covers \Phue\Group::getLightIds
      */
     public function testSetLights(): void
     {
@@ -163,8 +153,6 @@ class GroupTest extends TestCase
     /**
      * Test: Is/Set on
      *
-     * @covers \Phue\Group::isOn
-     * @covers \Phue\Group::setOn
      */
     public function testIsSetOn(): void
     {
@@ -183,8 +171,6 @@ class GroupTest extends TestCase
     /**
      * Test: Get/Set brightness
      *
-     * @covers \Phue\Group::getBrightness
-     * @covers \Phue\Group::setBrightness
      */
     public function testGetSetBrightness(): void
     {
@@ -206,8 +192,6 @@ class GroupTest extends TestCase
     /**
      * Test: Get/Set hue
      *
-     * @covers \Phue\Group::getHue
-     * @covers \Phue\Group::setHue
      */
     public function testGetSetHue(): void
     {
@@ -226,8 +210,6 @@ class GroupTest extends TestCase
     /**
      * Test: Get/Set saturation
      *
-     * @covers \Phue\Group::getSaturation
-     * @covers \Phue\Group::setSaturation
      */
     public function testGetSetSaturation(): void
     {
@@ -249,8 +231,6 @@ class GroupTest extends TestCase
     /**
      * Test: Get/Set XY
      *
-     * @covers \Phue\Group::getXY
-     * @covers \Phue\Group::setXY
      */
     public function testGetSetXY(): void
     {
@@ -285,8 +265,6 @@ class GroupTest extends TestCase
     /**
      * Test: Get/Set RGB
      *
-     * @covers \Phue\Group::getRGB
-     * @covers \Phue\Group::setRGB
      */
     public function testGetSetRGB(): void
     {
@@ -324,8 +302,6 @@ class GroupTest extends TestCase
     /**
      * Test: Get/Set Color temp
      *
-     * @covers \Phue\Group::getColorTemp
-     * @covers \Phue\Group::setColorTemp
      */
     public function testGetSetColorTemp(): void
     {
@@ -347,8 +323,6 @@ class GroupTest extends TestCase
     /**
      * Test: Get/Set effect
      *
-     * @covers \Phue\Group::getEffect
-     * @covers \Phue\Group::setEffect
      */
     public function testGetSetEffect(): void
     {
@@ -370,7 +344,6 @@ class GroupTest extends TestCase
     /**
      * Test: Get color mode
      *
-     * @covers \Phue\Group::getColorMode
      */
     public function testGetColormode(): void
     {
@@ -383,7 +356,6 @@ class GroupTest extends TestCase
     /**
      * Test: Set scene
      *
-     * @covers \Phue\Group::setScene
      */
     public function testSetScene(): void
     {
@@ -396,7 +368,6 @@ class GroupTest extends TestCase
     /**
      * Test: Delete
      *
-     * @covers \Phue\Group::delete
      */
     public function testDelete(): void
     {
@@ -410,7 +381,6 @@ class GroupTest extends TestCase
     /**
      * Test: toString
      *
-     * @covers \Phue\Group::__toString
      */
     public function testToString(): void
     {
@@ -427,3 +397,4 @@ class GroupTest extends TestCase
             ->with($this->isInstanceOf(SetGroupState::class));
     }
 }
+

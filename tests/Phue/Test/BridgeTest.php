@@ -96,8 +96,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting name
      *
-     * @covers \Phue\Bridge::__construct
-     * @covers \Phue\Bridge::getName
      */
     public function testGetName(): void
     {
@@ -107,7 +105,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Setting name
      *
-     * @covers \Phue\Bridge::setName
      */
     public function testSetName(): void
     {
@@ -127,7 +124,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting ZigBee Channel
      *
-     * @covers \Phue\Bridge::getZigBeeChannel
      */
     public function testGetZigBeeChannel(): void
     {
@@ -140,7 +136,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Setting ZigBee Channel
      *
-     * @covers \Phue\Bridge::setZigBeeChannel
      */
     public function testSetZigBeeChannel(): void
     {
@@ -160,7 +155,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting MAC address
      *
-     * @covers \Phue\Bridge::getMacAddress
      */
     public function testGetMacAddress(): void
     {
@@ -170,7 +164,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Is DHCP enabled?
      *
-     * @covers \Phue\Bridge::isDhcpEnabled
      */
     public function testIsDhcpEnabled(): void
     {
@@ -180,7 +173,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Disabling DHCP
      *
-     * @covers \Phue\Bridge::enableDhcp
      */
     public function testEnableDhcp(): void
     {
@@ -200,7 +192,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting IP Address
      *
-     * @covers \Phue\Bridge::getIpAddress
      */
     public function testGetIpAddress(): void
     {
@@ -210,7 +201,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Setting IP Address
      *
-     * @covers \Phue\Bridge::setIpAddress
      */
     public function testSetIpAddress(): void
     {
@@ -230,7 +220,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting netmask
      *
-     * @covers \Phue\Bridge::getNetmask
      */
     public function testGetNetmask(): void
     {
@@ -240,7 +229,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Setting netmask
      *
-     * @covers \Phue\Bridge::setNetmask
      */
     public function testSetNetmask(): void
     {
@@ -263,7 +251,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Get gateway
      *
-     * @covers \Phue\Bridge::getGateway
      */
     public function testGetGateway(): void
     {
@@ -273,7 +260,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Setting gateway
      *
-     * @covers \Phue\Bridge::setGateway
      */
     public function testSetGateway(): void
     {
@@ -293,7 +279,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting proxy address
      *
-     * @covers \Phue\Bridge::getProxyAddress
      */
     public function testGetProxyAddress(): void
     {
@@ -306,7 +291,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Setting proxy address
      *
-     * @covers \Phue\Bridge::setProxyAddress
      */
     public function testSetProxyAddress(): void
     {
@@ -329,7 +313,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting proxy port
      *
-     * @covers \Phue\Bridge::getProxyPort
      */
     public function testGetProxyPort(): void
     {
@@ -342,7 +325,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Setting proxy port
      *
-     * @covers \Phue\Bridge::setProxyPort
      */
     public function testSetProxyPort(): void
     {
@@ -362,7 +344,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting date
      *
-     * @covers \Phue\Bridge::getUtcTime
      */
     public function testGetUtcTime(): void
     {
@@ -372,7 +353,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting local time
      *
-     * @covers \Phue\Bridge::getLocalTime
      */
     public function testGetLocalTime(): void
     {
@@ -385,7 +365,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting timezone
      *
-     * @covers \Phue\Bridge::getTimezone
      */
     public function testGetTimezone(): void
     {
@@ -398,7 +377,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Setting timezone
      *
-     * @covers \Phue\Bridge::setTimezone
      */
     public function testSetTimezone(): void
     {
@@ -418,7 +396,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting software version
      *
-     * @covers \Phue\Bridge::getSoftwareVersion
      */
     public function testGetSoftwareVersion(): void
     {
@@ -431,7 +408,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting API version
      *
-     * @covers \Phue\Bridge::getApiVersion
      */
     public function testGetApiVersion(): void
     {
@@ -444,7 +420,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting Software Update
      *
-     * @covers \Phue\Bridge::getSoftwareUpdate
      */
     public function testGetSoftwareUpdate(): void
     {
@@ -457,7 +432,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Is Link Button On?
      *
-     * @covers \Phue\Bridge::isLinkButtonOn
      */
     public function testIsLinkButtonOn(): void
     {
@@ -467,7 +441,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Setting link button
      *
-     * @covers \Phue\Bridge::setLinkButtonOn
      */
     public function testSetLinkButtonOn(): void
     {
@@ -487,7 +460,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Are portal services enabled?
      *
-     * @covers \Phue\Bridge::arePortalServicesEnabled
      */
     public function testArePortalServicesEnabled(): void
     {
@@ -497,7 +469,6 @@ class BridgeTest extends TestCase
     /**
      * Test: Is portal connected?
      *
-     * @covers \Phue\Bridge::isPortalConnected
      */
     public function testIsPortalConnected(): void
     {
@@ -507,10 +478,10 @@ class BridgeTest extends TestCase
     /**
      * Test: Getting Portal
      *
-     * @covers \Phue\Bridge::getPortal
      */
     public function testGetPortal(): void
     {
         $this->assertInstanceOf(Portal::class, $this->bridge->getPortal());
     }
 }
+

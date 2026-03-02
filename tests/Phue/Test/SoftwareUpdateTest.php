@@ -24,9 +24,6 @@ class SoftwareUpdateTest extends TestCase
     private object $attributes;
     private SoftwareUpdate $softwareUpdate;
 
-    /**
-     * @covers \Phue\SoftwareUpdate::__construct
-     */
     public function setUp(): void
     {
         // Mock client
@@ -59,7 +56,6 @@ class SoftwareUpdateTest extends TestCase
     /**
      * Test: Get update state
      *
-     * @covers \Phue\SoftwareUpdate::getUpdateState
      */
     public function testGetUpdateState(): void
     {
@@ -72,7 +68,6 @@ class SoftwareUpdateTest extends TestCase
     /**
      * Test: Installing updates
      *
-     * @covers \Phue\SoftwareUpdate::installUpdates
      */
     public function testInstallUpdates(): void
     {
@@ -94,7 +89,6 @@ class SoftwareUpdateTest extends TestCase
     /**
      * Test: Checking for update?
      *
-     * @covers \Phue\SoftwareUpdate::checkingForUpdate
      */
     public function testCheckingForUpdate(): void
     {
@@ -107,7 +101,6 @@ class SoftwareUpdateTest extends TestCase
     /**
      * Test: Check for update
      *
-     * @covers \Phue\SoftwareUpdate::checkForUpdate
      */
     public function testCheckForUpdate(): void
     {
@@ -129,7 +122,6 @@ class SoftwareUpdateTest extends TestCase
     /**
      * Test: Is bridge updatable?
      *
-     * @covers \Phue\SoftwareUpdate::isBridgeUpdatable
      */
     public function testIsBridgeUpdatable(): void
     {
@@ -142,7 +134,6 @@ class SoftwareUpdateTest extends TestCase
     /**
      * Test: Get updatable lights
      *
-     * @covers \Phue\SoftwareUpdate::getUpdatableLights
      */
     public function testGetUpdatableLights(): void
     {
@@ -155,7 +146,6 @@ class SoftwareUpdateTest extends TestCase
     /**
      * Test: Get release notes URL
      *
-     * @covers \Phue\SoftwareUpdate::getReleaseNotesUrl
      */
     public function testGetReleaseNotesUrl(): void
     {
@@ -168,7 +158,6 @@ class SoftwareUpdateTest extends TestCase
     /**
      * Test: Get release notes brief
      *
-     * @covers \Phue\SoftwareUpdate::getReleaseNotesBrief
      */
     public function testGetReleaseNotesBrief(): void
     {
@@ -181,7 +170,6 @@ class SoftwareUpdateTest extends TestCase
     /**
      * Test: Is install notification enabled?
      *
-     * @covers \Phue\SoftwareUpdate::isInstallNotificationEnabled
      */
     public function testIsInstallNotificationEnabled(): void
     {
@@ -194,7 +182,6 @@ class SoftwareUpdateTest extends TestCase
     /**
      * Test: Disable install notification
      *
-     * @covers \Phue\SoftwareUpdate::disableInstallNotification
      */
     public function testDisableInstallNotification(): void
     {
@@ -215,3 +202,4 @@ class SoftwareUpdateTest extends TestCase
         );
     }
 }
+

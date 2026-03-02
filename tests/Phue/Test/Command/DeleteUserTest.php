@@ -15,13 +15,11 @@ use Phue\Transport\TransportInterface;
 /**
  * Tests for Phue\Command\DeleteUser
  */
-class DeleteUserTest extends AbstractCommandTest
+class DeleteUserTest extends AbstractCommandCase
 {
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\DeleteUser::__construct
-     * @covers \Phue\Command\DeleteUser::send
      */
     public function testSend(): void
     {
@@ -41,3 +39,4 @@ class DeleteUserTest extends AbstractCommandTest
         $command->send($this->mockClient);
     }
 }
+

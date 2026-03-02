@@ -19,7 +19,6 @@ class ColorConversionTest extends TestCase
     /**
      * Test: convert RGB to XY and brightness
      *
-     * @covers \Phue\Helper\ColorConversion::convertRGBToXY
      */
     public function testConvertRGBToXY(): void
     {
@@ -47,7 +46,6 @@ class ColorConversionTest extends TestCase
     /**
      * Test: convert XY and brightness to RGB
      *
-     * @covers \Phue\Helper\ColorConversion::convertXYToRGB
      */
     public function testConvertXYToRGB(): void
     {
@@ -79,3 +77,4 @@ class ColorConversionTest extends TestCase
         $this->assertEquals(0, $rgb['blue']);
     }
 }
+

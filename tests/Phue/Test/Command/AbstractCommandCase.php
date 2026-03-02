@@ -18,7 +18,7 @@ use ReflectionObject;
 /**
  *
  */
-class AbstractCommandTest extends TestCase
+abstract class AbstractCommandCase extends TestCase
 {
     use AssertHelpersTrait;
 

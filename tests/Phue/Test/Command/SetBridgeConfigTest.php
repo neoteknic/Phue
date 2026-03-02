@@ -14,13 +14,11 @@ use Phue\Command\SetBridgeConfig;
 /**
  * Tests for Phue\Command\SetBridgeConfig
  */
-class SetBridgeConfigTest extends AbstractCommandTest
+class SetBridgeConfigTest extends AbstractCommandCase
 {
     /**
      * Test: Set bridge config
      *
-     * @covers \Phue\Command\SetBridgeConfig::__construct
-     * @covers \Phue\Command\SetBridgeConfig::send
      */
     public function testSend(): void
     {
@@ -39,3 +37,4 @@ class SetBridgeConfigTest extends AbstractCommandTest
         $bridgeconfig->send($this->mockClient);
     }
 }
+

@@ -29,9 +29,6 @@ class ClientTest extends TestCase
 {
     private Client $client;
 
-    /**
-     * @covers \Phue\Client::__construct
-     */
     public function setUp(): void
     {
         $this->client = new Client('127.0.0.1');
@@ -40,8 +37,6 @@ class ClientTest extends TestCase
     /**
      * Test: Get host
      *
-     * @covers \Phue\Client::getHost
-     * @covers \Phue\Client::setHost
      */
     public function testGetHost(): void
     {
@@ -53,8 +48,6 @@ class ClientTest extends TestCase
     /**
      * Test: Setting non-hashed username
      *
-     * @covers \Phue\Client::getUsername
-     * @covers \Phue\Client::setUsername
      */
     public function testGetSetUsername(): void
     {
@@ -66,7 +59,6 @@ class ClientTest extends TestCase
     /**
      * Test: Get bridge
      *
-     * @covers \Phue\Client::getBridge
      */
     public function testGetBridge(): void
     {
@@ -88,7 +80,6 @@ class ClientTest extends TestCase
     /**
      * Test: Get users
      *
-     * @covers \Phue\Client::getUsers
      */
     public function testGetUsers(): void
     {
@@ -125,7 +116,6 @@ class ClientTest extends TestCase
     /**
      * Test: Get lights
      *
-     * @covers \Phue\Client::getLights
      */
     public function testGetLights(): void
     {
@@ -163,7 +153,6 @@ class ClientTest extends TestCase
     /**
      * Test: Get groups
      *
-     * @covers \Phue\Client::getGroups
      */
     public function testGetGroups(): void
     {
@@ -201,7 +190,6 @@ class ClientTest extends TestCase
     /**
      * Test: Get schedules
      *
-     * @covers \Phue\Client::getSchedules
      */
     public function testGetSchedules(): void
     {
@@ -236,7 +224,6 @@ class ClientTest extends TestCase
     /**
      * Test: Get scenes
      *
-     * @covers \Phue\Client::getScenes
      */
     public function testGetScenes(): void
     {
@@ -271,7 +258,6 @@ class ClientTest extends TestCase
     /**
      * Test: Get sensors
      *
-     * @covers \Phue\Client::getSensors
      */
     public function testGetSensors(): void
     {
@@ -305,7 +291,6 @@ class ClientTest extends TestCase
     /**
      * Test: Get rules
      *
-     * @covers \Phue\Client::getRules
      */
     public function testGetRules(): void
     {
@@ -339,7 +324,6 @@ class ClientTest extends TestCase
     /**
      * Test: Get timezones
      *
-     * @covers \Phue\Client::getTimezones
      */
     public function testGetTimezones(): void
     {
@@ -367,8 +351,6 @@ class ClientTest extends TestCase
     /**
      * Test: Not passing in Transport dependency will yield default
      *
-     * @covers \Phue\Client::getTransport
-     * @covers \Phue\Client::setTransport
      */
     public function testInstantiateDefaultTransport(): void
     {
@@ -381,8 +363,6 @@ class ClientTest extends TestCase
     /**
      * Test: Passing custom Transport to client
      *
-     * @covers \Phue\Client::getTransport
-     * @covers \Phue\Client::setTransport
      */
     public function testPassingTransportDependency(): void
     {
@@ -397,7 +377,6 @@ class ClientTest extends TestCase
     /**
      * Test: Sending a command
      *
-     * @covers \Phue\Client::sendCommand
      */
     public function testSendCommand(): void
     {
@@ -416,3 +395,4 @@ class ClientTest extends TestCase
         );
     }
 }
+

@@ -31,7 +31,6 @@ class CurlTest extends TestCase
     /**
      * Test: Instantiation without exception
      *
-     * @covers CurlAdapter::__construct
      */
     public function testInstantiation(): void
     {
@@ -41,7 +40,6 @@ class CurlTest extends TestCase
     /**
      * Test: Open curl adapter
      *
-     * @covers CurlAdapter::open
      */
     public function testOpen(): void
     {
@@ -54,7 +52,6 @@ class CurlTest extends TestCase
     /**
      * Test: Close curl adapter
      *
-     * @covers CurlAdapter::close
      */
     public function testClose(): void
     {
@@ -67,7 +64,6 @@ class CurlTest extends TestCase
     /**
      * Test: Send nowhere
      *
-     * @covers CurlAdapter::send
      */
     public function testSend(): void
     {
@@ -81,7 +77,6 @@ class CurlTest extends TestCase
     /**
      * Test: Get Http Status Code
      *
-     * @covers CurlAdapter::getHttpStatusCode
      */
     public function testGetHttpStatusCode(): void
     {
@@ -95,7 +90,6 @@ class CurlTest extends TestCase
     /**
      * Test: Get Content Type
      *
-     * @covers CurlAdapter::getContentType
      */
     public function testGetContentType(): void
     {
@@ -106,3 +100,4 @@ class CurlTest extends TestCase
         $this->curlAdapter->close();
     }
 }
+

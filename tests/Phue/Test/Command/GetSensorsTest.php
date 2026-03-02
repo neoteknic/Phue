@@ -15,8 +15,10 @@ use Phue\Sensor;
 /**
  * Tests for Phue\Command\GetSensors
  */
-class GetSensorsTest extends AbstractCommandTest
+class GetSensorsTest extends AbstractCommandCase
 {
+    private GetSensors $getSensors;
+
     public function setUp(): void
     {
         $this->getSensors = new GetSensors();
@@ -27,7 +29,6 @@ class GetSensorsTest extends AbstractCommandTest
     /**
      * Test: Found no sensors
      *
-     * @covers \Phue\Command\GetSensors::send
      */
     public function testFoundNoSensors(): void
     {
@@ -48,7 +49,6 @@ class GetSensorsTest extends AbstractCommandTest
     /**
      * Test: Found sensors
      *
-     * @covers \Phue\Command\GetSensors::send
      */
     public function testFoundSensors(): void
     {
@@ -72,3 +72,4 @@ class GetSensorsTest extends AbstractCommandTest
         $this->assertContainsOnlyInstancesOf(Sensor::class, $response);
     }
 }
+

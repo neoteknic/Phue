@@ -16,8 +16,10 @@ use Phue\Scene;
  * Tests for Phue\Command\GetScenes
  * @property GetScenes $getScenes
  */
-class GetScenesTest extends AbstractCommandTest
+class GetScenesTest extends AbstractCommandCase
 {
+    private GetScenes $getScenes;
+
     public function setUp(): void
     {
         $this->getScenes = new GetScenes();
@@ -28,7 +30,6 @@ class GetScenesTest extends AbstractCommandTest
     /**
      * Test: Found no scenes
      *
-     * @covers \Phue\Command\GetScenes::send
      */
     public function testFoundNoScenes(): void
     {
@@ -49,7 +50,6 @@ class GetScenesTest extends AbstractCommandTest
     /**
      * Test: Found scenes
      *
-     * @covers \Phue\Command\GetScenes::send
      */
     public function testFoundScenes(): void
     {
@@ -73,3 +73,4 @@ class GetScenesTest extends AbstractCommandTest
         $this->assertContainsOnlyInstancesOf(Scene::class, $response);
     }
 }
+

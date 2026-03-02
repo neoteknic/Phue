@@ -19,7 +19,7 @@ use Phue\TimePattern\TimePatternInterface;
 /**
  * Tests for Phue\Command\CreateSchedule
  */
-class CreateScheduleTest extends AbstractCommandTest
+class CreateScheduleTest extends AbstractCommandCase
 {
     /**
      * @var MockObject&ActionableInterface
@@ -51,7 +51,6 @@ class CreateScheduleTest extends AbstractCommandTest
     /**
      * Test: Set name
      *
-     * @covers \Phue\Command\CreateSchedule::name
      */
     public function testName(): void
     {
@@ -61,7 +60,6 @@ class CreateScheduleTest extends AbstractCommandTest
         // Ensure property is set properly
         $r = new ReflectionObject($command);
         $p = $r->getProperty('attributes');
-        $p->setAccessible(true);
 
         $this->assertSame('Dummy!', $p->getValue($command)["name"]);
 
@@ -72,7 +70,6 @@ class CreateScheduleTest extends AbstractCommandTest
     /**
      * Test: Set description
      *
-     * @covers \Phue\Command\CreateSchedule::description
      */
     public function testDescription(): void
     {
@@ -82,7 +79,6 @@ class CreateScheduleTest extends AbstractCommandTest
         // Ensure property is set properly
         $r = new ReflectionObject($command);
         $p = $r->getProperty('attributes');
-        $p->setAccessible(true);
 
         $this->assertSame('Description!', $p->getValue($command)["description"]);
         
@@ -93,7 +89,6 @@ class CreateScheduleTest extends AbstractCommandTest
     /**
      * Test: Set time
      *
-     * @covers \Phue\Command\CreateSchedule::time
      */
     public function testTime(): void
     {
@@ -110,7 +105,6 @@ class CreateScheduleTest extends AbstractCommandTest
     /**
      * Test: Set command
      *
-     * @covers \Phue\Command\CreateSchedule::command
      */
     public function testCommand(): void
     {
@@ -127,7 +121,6 @@ class CreateScheduleTest extends AbstractCommandTest
     /**
      * Test: Set status
      *
-     * @covers \Phue\Command\CreateSchedule::status
      */
     public function testStatus(): void
     {
@@ -137,7 +130,6 @@ class CreateScheduleTest extends AbstractCommandTest
         // Ensure property is set properly
         $r = new ReflectionObject($command);
         $p = $r->getProperty('attributes');
-        $p->setAccessible(true);
 
         $this->assertSame(Schedule::STATUS_ENABLED, $p->getValue($command)["status"]);
         
@@ -148,7 +140,6 @@ class CreateScheduleTest extends AbstractCommandTest
     /**
      * Test: Auto delete
      *
-     * @covers \Phue\Command\CreateSchedule::autodelete
      */
     public function testAutoDelete(): void
     {
@@ -158,7 +149,6 @@ class CreateScheduleTest extends AbstractCommandTest
         // Ensure property is set properly
         $r = new ReflectionObject($command);
         $p = $r->getProperty('attributes');
-        $p->setAccessible(true);
 
         $this->assertTrue($p->getValue($command)["autodelete"]);
         
@@ -169,8 +159,6 @@ class CreateScheduleTest extends AbstractCommandTest
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\CreateSchedule::__construct
-     * @covers \Phue\Command\CreateSchedule::send
      * @throws \Exception
      */
     public function testSend(): void
@@ -210,3 +198,4 @@ class CreateScheduleTest extends AbstractCommandTest
         $this->assertEquals(4, $scheduleId);
     }
 }
+

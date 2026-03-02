@@ -8,6 +8,7 @@
  */
 namespace Phue\Test\Command;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Phue\Command\SetScheduleAttributes;
 use Phue\Transport\TransportInterface;
@@ -20,6 +21,18 @@ use Phue\Client;
  */
 class SetScheduleAttributesTest extends TestCase
 {
+    /** @var Client&MockObject */
+    private $mockClient;
+
+    /** @var TransportInterface&MockObject */
+    private $mockTransport;
+
+    /** @var Schedule&MockObject */
+    private $mockSchedule;
+
+    /** @var ActionableInterface&MockObject */
+    private $mockCommand;
+
     public function setUp(): void
     {
         // Mock client
@@ -72,8 +85,6 @@ class SetScheduleAttributesTest extends TestCase
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\SetScheduleAttributes::__construct
-     * @covers \Phue\Command\SetScheduleAttributes::send
      */
     public function testSend(): void
     {
@@ -117,3 +128,4 @@ class SetScheduleAttributesTest extends TestCase
             );
     }
 }
+
