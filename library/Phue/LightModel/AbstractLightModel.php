@@ -34,7 +34,7 @@ abstract class AbstractLightModel
         return static::CAN_RETAIN_STATE;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }

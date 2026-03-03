@@ -289,7 +289,7 @@ class Light implements LightInterface
     /**
      * @return string Light Id
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getId();
     }

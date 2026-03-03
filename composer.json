@@ -41,8 +41,8 @@
         "ext-curl": "Allows usage of cURL transport adapter"
     },
     "autoload": {
-        "psr-0": {
-            "Phue": "library/"
+        "psr-4": {
+            "Phue\\": "library/Phue/"
         }
     },
     "bin": [

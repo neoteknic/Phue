@@ -70,7 +70,7 @@ class Sensor
     /**
      * @return string Sensor Id
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getId();
     }

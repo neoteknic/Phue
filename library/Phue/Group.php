@@ -111,9 +111,6 @@ class Group implements LightInterface
 
     public function getBrightness(): ?int
     {
-        # TODO check
-        #return $this->attributes->action->bri ?? 255;
-        #return $this->attributes->action->bri ?? 0;
         return $this->attributes->action->bri ?? null;
     }
 
@@ -327,7 +324,7 @@ class Group implements LightInterface
      *
      * @return string Group Id
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getId();
     }
