@@ -24,7 +24,7 @@ Interested in API docs? You can check out the [Philips API documentation](http:/
 
 ## Requirements
 
-* PHP 8.0+
+* PHP 8.1+
 * cURL extension (optional)
 
 For old php support please use the original package sqmk/Phue
