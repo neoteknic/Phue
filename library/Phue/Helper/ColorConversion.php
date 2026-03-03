@@ -68,7 +68,6 @@ class ColorConversion
     /**
      * Converts XY (and brightness) values to RGB
      *
-     * TODO tests send null for bri, adjust test. desired function?
      *
      * @param float $x X value
      * @param float $y Y value

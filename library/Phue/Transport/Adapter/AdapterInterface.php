@@ -35,9 +35,9 @@ interface AdapterInterface
     /**
      * Get content type from response
      *
-     * @return string Content type
+     * @return mixed Content type
      */
-    public function getContentType(): string;
+    public function getContentType(): mixed;
 
     /**
      * Closes the connection

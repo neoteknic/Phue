@@ -248,7 +248,7 @@ class SetLightState implements CommandInterface, ActionableInterface
     public function alert(string $mode = self::ALERT_LONG_SELECT): static
     {
         // Don't continue if mode is not valid
-        if (! in_array($mode, self::getAlertModes())) {
+        if (! in_array($mode, self::getAlertModes(), true)) {
             throw new \InvalidArgumentException("{$mode} is not a valid alert mode");
         }
         
@@ -265,7 +265,7 @@ class SetLightState implements CommandInterface, ActionableInterface
     public function effect(string $mode = self::EFFECT_COLORLOOP): static
     {
         // Don't continue if mode is not valid
-        if (! in_array($mode, self::getEffectModes())) {
+        if (! in_array($mode, self::getEffectModes(), true)) {
             throw new \InvalidArgumentException("{$mode} is not a valid effect modes");
         }
         

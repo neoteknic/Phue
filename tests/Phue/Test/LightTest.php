@@ -262,7 +262,6 @@ class LightTest extends TestCase
      */
     public function testGetSetRGB(): void
     {
-		//TODO: Fix this test
         $this->stubMockClientSendSetLightStateCommand();
 
         // Make sure original rgb is retrievable

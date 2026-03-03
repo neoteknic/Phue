@@ -64,18 +64,16 @@ class Curl implements AdapterInterface
 
     /**
      * @inheritdoc
-     * TODO replace with CURLINFO_RESPONSE_CODE
      */
     public function getHttpStatusCode(): int
     {
-        return curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
+        return curl_getinfo($this->curl, CURLINFO_RESPONSE_CODE);
     }
 
     /**
      * @inheritdoc
-     * TODO return string|false
      */
-    public function getContentType(): string
+    public function getContentType(): mixed
     {
         return curl_getinfo($this->curl, CURLINFO_CONTENT_TYPE);
     }
