@@ -14,8 +14,10 @@ use Phue\Command\GetNewSensors;
 /**
  * Tests for Phue\Command\GetNewSensors
  */
-class GetNewSensorsTest extends AbstractCommandTest
+class GetNewSensorsTest extends AbstractCommandCase
 {
+    private GetNewSensors $getNewSensors;
+
     public function setUp(): void
     {
         $this->getNewSensors = new GetNewSensors();
@@ -45,9 +47,6 @@ class GetNewSensorsTest extends AbstractCommandTest
     /**
      * Test: Get new sensors
      *
-     * @covers \Phue\Command\GetNewSensors::send
-     * @covers \Phue\Command\GetNewSensors::getSensors
-     * @covers \Phue\Command\GetNewSensors::isScanActive
      */
     public function testGetNewSensors(): void
     {
@@ -67,3 +66,4 @@ class GetNewSensorsTest extends AbstractCommandTest
         $this->assertTrue($response->isScanActive());
     }
 }
+

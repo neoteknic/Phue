@@ -27,7 +27,7 @@ abstract class AbstractSensorModel
         return static::MODEL_NAME;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }

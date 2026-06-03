@@ -14,13 +14,11 @@ use Phue\Light;
 /**
  * Tests for Phue\Command\GetLightById
  */
-class GetLightByIdTest extends AbstractCommandTest
+class GetLightByIdTest extends AbstractCommandCase
 {
     /**
      * Test: Send get light by id command
      *
-     * @covers \Phue\Command\GetLightById::__construct
-     * @covers \Phue\Command\GetLightById::send
      */
     public function testSend(): void
     {
@@ -38,3 +36,4 @@ class GetLightByIdTest extends AbstractCommandTest
         $this->assertInstanceOf(Light::class, $light);
     }
 }
+

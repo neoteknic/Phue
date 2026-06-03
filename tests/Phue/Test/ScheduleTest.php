@@ -55,8 +55,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Getting/Setting Id
      *
-     * @covers \Phue\Schedule::__construct
-     * @covers \Phue\Schedule::getId
      */
     public function testGetId(): void
     {
@@ -66,8 +64,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Getting name
      *
-     * @covers \Phue\Schedule::__construct
-     * @covers \Phue\Schedule::getName
      */
     public function testGetName(): void
     {
@@ -77,8 +73,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Setting name
      *
-     * @covers \Phue\Schedule::setName
-     * @covers \Phue\Schedule::getName
      */
     public function testSetName(): void
     {
@@ -98,7 +92,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Getting description
      *
-     * @covers \Phue\Schedule::getDescription
      */
     public function testGetDescription(): void
     {
@@ -111,8 +104,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Setting description
      *
-     * @covers \Phue\Schedule::setDescription
-     * @covers \Phue\Schedule::getDescription
      */
     public function testSetDescription(): void
     {
@@ -135,8 +126,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Getting time
      *
-     * @covers \Phue\Schedule::__construct
-     * @covers \Phue\Schedule::getTime
      */
     public function testGetTime(): void
     {
@@ -146,8 +135,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Setting time
      *
-     * @covers \Phue\Schedule::setTime
-     * @covers \Phue\Schedule::getTime
      */
     public function testSetTime(): void
     {
@@ -170,8 +157,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Getting command
      *
-     * @covers \Phue\Schedule::__construct
-     * @covers \Phue\Schedule::getCommand
      */
     public function testGetCommand(): void
     {
@@ -184,8 +169,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Settings command
      *
-     * @covers \Phue\Schedule::setCommand
-     * @covers \Phue\Schedule::getCommand
      */
     public function testSetCommand(): void
     {
@@ -227,8 +210,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Getting status
      *
-     * @covers \Phue\Schedule::__construct
-     * @covers \Phue\Schedule::getStatus
      */
     public function testGetStatus(): void
     {
@@ -238,8 +219,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Setting status
      *
-     * @covers \Phue\Schedule::setStatus
-     * @covers \Phue\Schedule::getStatus
      */
     public function testSetStatus(): void
     {
@@ -262,7 +241,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Is enabled
      *
-     * @covers \Phue\Schedule::isEnabled
      */
     public function testIsEnabled(): void
     {
@@ -272,8 +250,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Is autodeleted
      *
-     * @covers \Phue\Schedule::__construct
-     * @covers \Phue\Schedule::isAutoDeleted
      */
     public function testIsAutoDeleted(): void
     {
@@ -286,8 +262,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Setting autodelete
      *
-     * @covers \Phue\Schedule::setAutoDelete
-     * @covers \Phue\Schedule::isAutoDeleted
      */
     public function testSetAutoDelete(): void
     {
@@ -307,7 +281,6 @@ class ScheduleTest extends TestCase
     /**
      * Test: Delete
      *
-     * @covers \Phue\Schedule::delete
      */
     public function testDelete(): void
     {
@@ -321,10 +294,10 @@ class ScheduleTest extends TestCase
     /**
      * Test: toString
      *
-     * @covers \Phue\Schedule::__toString
      */
     public function testToString(): void
     {
         $this->assertEquals($this->schedule->getId(), (string) $this->schedule);
     }
 }
+

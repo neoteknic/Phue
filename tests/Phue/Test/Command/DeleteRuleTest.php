@@ -17,13 +17,11 @@ use Phue\Transport\TransportInterface;
 /**
  * Tests for Phue\Command\DeleteRule
  */
-class DeleteRuleTest extends AbstractCommandTest
+class DeleteRuleTest extends AbstractCommandCase
 {
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\DeleteRule::__construct
-     * @covers \Phue\Command\DeleteRule::send
      */
     public function testSend(): void
     {
@@ -41,3 +39,4 @@ class DeleteRuleTest extends AbstractCommandTest
         $command->send($this->mockClient);
     }
 }
+

@@ -27,7 +27,6 @@ class StreamingTest extends TestCase
     /**
      * Test: Open streaming adapter
      *
-     * @covers StreamingAdapter::open
      */
     public function testOpen(): void
     {
@@ -37,7 +36,6 @@ class StreamingTest extends TestCase
     /**
      * Test: Close streaming adapter
      *
-     * @covers StreamingAdapter::close
      */
     public function testClose(): void
     {
@@ -58,7 +56,6 @@ class StreamingTest extends TestCase
     /**
      * Test: Send nowhere
      *
-     * @covers StreamingAdapter::send
      */
     public function testSend(): void
     {
@@ -72,7 +69,6 @@ class StreamingTest extends TestCase
     /**
      * Test: Get Http Status Code
      *
-     * @covers StreamingAdapter::getHttpStatusCode
      */
     public function testGetHttpStatusCode(): void
     {
@@ -87,7 +83,6 @@ class StreamingTest extends TestCase
     /**
      * Test: Get Content Type
      *
-     * @covers StreamingAdapter::getContentType
      */
     public function testGetContentType(): void
     {
@@ -101,10 +96,10 @@ class StreamingTest extends TestCase
     /**
      * Test: Get headers
      *
-     * @covers StreamingAdapter::getHeaders
      */
     public function testGetHeaders(): void
     {
         $this->streamingAdapter->getHeaders();
     }
 }
+

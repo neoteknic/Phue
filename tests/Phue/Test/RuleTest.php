@@ -31,9 +31,6 @@ class RuleTest extends TestCase
     private object $attributes;
     private Rule $rule;
 
-    /**
-     * @covers \Phue\Rule::__construct
-     */
     public function setUp(): void
     {
         // Mock client
@@ -109,7 +106,6 @@ class RuleTest extends TestCase
     /**
      * Test: Getting name
      *
-     * @covers \Phue\Rule::getName
      */
     public function testGetName(): void
     {
@@ -119,7 +115,6 @@ class RuleTest extends TestCase
     /**
      * Test: Getting last triggered time
      *
-     * @covers \Phue\Rule::getLastTriggeredTime
      */
     public function testGetLastTriggeredTime(): void
     {
@@ -132,7 +127,6 @@ class RuleTest extends TestCase
     /**
      * Test: Getting create date
      *
-     * @covers \Phue\Rule::getCreateDate
      */
     public function testGetCreateDate(): void
     {
@@ -142,7 +136,6 @@ class RuleTest extends TestCase
     /**
      * Test: Getting triggered count
      *
-     * @covers \Phue\Rule::getTriggeredCount
      */
     public function testGetTriggeredCount(): void
     {
@@ -155,7 +148,6 @@ class RuleTest extends TestCase
     /**
      * Test: Get owner
      *
-     * @covers \Phue\Rule::getOwner
      */
     public function testGetOwner(): void
     {
@@ -165,7 +157,6 @@ class RuleTest extends TestCase
     /**
      * Test: Is enabled?
      *
-     * @covers \Phue\Rule::isEnabled
      */
     public function testIsEnabled(): void
     {
@@ -175,7 +166,6 @@ class RuleTest extends TestCase
     /**
      * Test: Get conditions
      *
-     * @covers \Phue\Rule::getConditions
      */
     public function testGetConditions(): void
     {
@@ -189,7 +179,6 @@ class RuleTest extends TestCase
     /**
      * Test: Get actions
      *
-     * @covers \Phue\Rule::getActions
      */
     public function testGetActions(): void
     {
@@ -203,7 +192,6 @@ class RuleTest extends TestCase
     /**
      * Test: Delete
      *
-     * @covers \Phue\Rule::delete
      */
     public function testDelete(): void
     {
@@ -217,10 +205,10 @@ class RuleTest extends TestCase
     /**
      * Test: toString
      *
-     * @covers \Phue\Rule::__toString
      */
     public function testToString(): void
     {
         $this->assertEquals($this->rule->getId(), (string) $this->rule);
     }
 }
+

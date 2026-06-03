@@ -14,7 +14,7 @@ use Phue\Command\GetNewLights;
 /**
  * Tests for Phue\Command\GetNewLights
  */
-class GetNewLightsTest extends AbstractCommandTest
+class GetNewLightsTest extends AbstractCommandCase
 {
     private GetNewLights $getNewLights;
 
@@ -47,9 +47,6 @@ class GetNewLightsTest extends AbstractCommandTest
     /**
      * Test: Get new lights
      *
-     * @covers \Phue\Command\GetNewLights::send
-     * @covers \Phue\Command\GetNewLights::getLights
-     * @covers \Phue\Command\GetNewLights::isScanActive
      */
     public function testGetNewLights(): void
     {
@@ -69,3 +66,4 @@ class GetNewLightsTest extends AbstractCommandTest
         $this->assertTrue($response->isScanActive());
     }
 }
+

@@ -23,9 +23,6 @@ class PortalTest extends TestCase
     private object $attributes;
     private Portal $portal;
 
-    /**
-     * @covers \Phue\Portal::__construct
-     */
     public function setUp(): void
     {
         // Mock client
@@ -52,7 +49,6 @@ class PortalTest extends TestCase
     /**
      * Test: Is signed on?
      *
-     * @covers \Phue\Portal::isSignedOn
      */
     public function testIsSignedOn(): void
     {
@@ -62,7 +58,6 @@ class PortalTest extends TestCase
     /**
      * Test: Is incoming?
      *
-     * @covers \Phue\Portal::isIncoming
      */
     public function testIsIncoming(): void
     {
@@ -72,7 +67,6 @@ class PortalTest extends TestCase
     /**
      * Test: Is outgoing?
      *
-     * @covers \Phue\Portal::isOutgoing
      */
     public function testIsOutgoing(): void
     {
@@ -82,7 +76,6 @@ class PortalTest extends TestCase
     /**
      * Test: Getting communication
      *
-     * @covers \Phue\Portal::getCommunication
      */
     public function testGetCommunication(): void
     {
@@ -92,3 +85,4 @@ class PortalTest extends TestCase
         );
     }
 }
+

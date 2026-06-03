@@ -24,9 +24,6 @@ class SensorTest extends TestCase
     private object $attributes;
     private Sensor $sensor;
 
-    /**
-     * @covers \Phue\Sensor::__construct
-     */
     public function setUp(): void
     {
         // Mock client
@@ -60,7 +57,6 @@ class SensorTest extends TestCase
     /**
      * Test: Getting Id
      *
-     * @covers \Phue\Sensor::getId
      */
     public function testGetId(): void
     {
@@ -70,7 +66,6 @@ class SensorTest extends TestCase
     /**
      * Test: Getting name
      *
-     * @covers \Phue\Sensor::getName
      */
     public function testGetName(): void
     {
@@ -80,7 +75,6 @@ class SensorTest extends TestCase
     /**
      * Test: Get type
      *
-     * @covers \Phue\Sensor::getType
      */
     public function testGetType(): void
     {
@@ -90,7 +84,6 @@ class SensorTest extends TestCase
     /**
      * Test: Get model id
      *
-     * @covers \Phue\Sensor::getModelId
      */
     public function testGetModelId(): void
     {
@@ -100,7 +93,6 @@ class SensorTest extends TestCase
     /**
      * Test: Get model
      *
-     * @covers \Phue\Sensor::getModel
      */
     public function testGetModel(): void
     {
@@ -113,7 +105,6 @@ class SensorTest extends TestCase
     /**
      * Test: Get manufacturer name
      *
-     * @covers \Phue\Sensor::getManufacturerName
      */
     public function testGetManufacturerName(): void
     {
@@ -126,7 +117,6 @@ class SensorTest extends TestCase
     /**
      * Test: Get software version
      *
-     * @covers \Phue\Sensor::getSoftwareVersion
      */
     public function testGetSoftwareVersion(): void
     {
@@ -139,7 +129,6 @@ class SensorTest extends TestCase
     /**
      * Test: Get null software version
      *
-     * @covers \Phue\Sensor::getSoftwareVersion
      */
     public function testGetNullSoftwareVersion(): void
     {
@@ -151,7 +140,6 @@ class SensorTest extends TestCase
     /**
      * Test: Get unique id
      *
-     * @covers \Phue\Sensor::getUniqueId
      */
     public function testGetUniqueId(): void
     {
@@ -164,7 +152,6 @@ class SensorTest extends TestCase
     /**
      * Test: Get null unique id
      *
-     * @covers \Phue\Sensor::getUniqueId
      */
     public function testGetNullUniqueId(): void
     {
@@ -176,7 +163,6 @@ class SensorTest extends TestCase
     /**
      * Test: Get state
      *
-     * @covers \Phue\Sensor::getState
      */
     public function testGetState(): void
     {
@@ -186,7 +172,6 @@ class SensorTest extends TestCase
     /**
      * Test: Get config
      *
-     * @covers \Phue\Sensor::getConfig
      */
     public function testGetConfig(): void
     {
@@ -196,10 +181,10 @@ class SensorTest extends TestCase
     /**
      * Test: toString
      *
-     * @covers \Phue\Sensor::__toString
      */
     public function testToString(): void
     {
         $this->assertEquals($this->sensor->getId(), (string) $this->sensor);
     }
 }
+

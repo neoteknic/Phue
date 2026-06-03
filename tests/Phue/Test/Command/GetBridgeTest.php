@@ -15,7 +15,7 @@ use Phue\Bridge;
 /**
  * Tests for Phue\Command\GetBridge
  */
-class GetBridgeTest extends AbstractCommandTest
+class GetBridgeTest extends AbstractCommandCase
 {
     private GetBridge $getBridge;
 
@@ -29,7 +29,6 @@ class GetBridgeTest extends AbstractCommandTest
     /**
      * Test: Get Bridge
      *
-     * @covers \Phue\Command\GetBridge::send
      */
     public function testGetBridge(): void
     {
@@ -49,3 +48,4 @@ class GetBridgeTest extends AbstractCommandTest
         $this->assertInstanceOf(Bridge::class, $response);
     }
 }
+

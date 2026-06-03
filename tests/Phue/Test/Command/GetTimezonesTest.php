@@ -14,8 +14,10 @@ use Phue\Command\GetTimezones;
 /**
  * Tests for Phue\Command\GetTimezones
  */
-class GetTimezonesTest extends AbstractCommandTest
+class GetTimezonesTest extends AbstractCommandCase
 {
+    private GetTimezones $getTimezones;
+
     public function setUp(): void
     {
         $this->getTimezones = new GetTimezones();
@@ -26,7 +28,6 @@ class GetTimezonesTest extends AbstractCommandTest
     /**
      * Test: Get Bridge
      *
-     * @covers \Phue\Command\GetTimezones::send
      */
     public function testGetTimezones(): void
     {
@@ -48,3 +49,4 @@ class GetTimezonesTest extends AbstractCommandTest
         $this->assertIsArray($response);
     }
 }
+

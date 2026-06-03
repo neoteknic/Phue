@@ -47,8 +47,6 @@ class UserTest extends TestCase
     /**
      * Test: Getting username
      *
-     * @covers \Phue\User::__construct
-     * @covers \Phue\User::getUsername
      */
     public function testGetUsername(): void
     {
@@ -58,7 +56,6 @@ class UserTest extends TestCase
     /**
      * Test: Getting device type
      *
-     * @covers \Phue\User::getDeviceType
      */
     public function testGetDeviceType(): void
     {
@@ -68,7 +65,6 @@ class UserTest extends TestCase
     /**
      * Test: Getting device type
      *
-     * @covers \Phue\User::getCreateDate
      */
     public function testGetCreateDate(): void
     {
@@ -81,7 +77,6 @@ class UserTest extends TestCase
     /**
      * Test: Getting device type
      *
-     * @covers \Phue\User::getLastUseDate
      */
     public function testGetLastUseDate(): void
     {
@@ -94,7 +89,6 @@ class UserTest extends TestCase
     /**
      * Test: Delete
      *
-     * @covers \Phue\User::delete
      */
     public function testDelete(): void
     {
@@ -108,10 +102,10 @@ class UserTest extends TestCase
     /**
      * Test: toString
      *
-     * @covers \Phue\User::__toString
      */
     public function testToString(): void
     {
         $this->assertEquals($this->user->getUsername(), (string) $this->user);
     }
 }
+

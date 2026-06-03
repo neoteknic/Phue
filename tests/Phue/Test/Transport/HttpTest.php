@@ -53,7 +53,6 @@ class HttpTest extends TestCase
     /**
      * Test: Client property
      *
-     * @covers Http::__construct
      */
     public function testClientProperty(): void
     {
@@ -64,7 +63,6 @@ class HttpTest extends TestCase
     /**
      * Test: Get default adapter
      *
-     * @covers Http::getAdapter
      */
     public function testGetDefaultAdapter(): void
     {
@@ -74,8 +72,6 @@ class HttpTest extends TestCase
     /**
      * Test: Custom adapter
      *
-     * @covers Http::getAdapter
-     * @covers Http::setAdapter
      */
     public function testCustomAdapter(): void
     {
@@ -87,7 +83,6 @@ class HttpTest extends TestCase
     /**
      * Test: Send request with bad status code
      *
-     * @covers Http::sendRequest
      */
     public function testSendRequestBadStatusCode(): void
     {
@@ -106,8 +101,6 @@ class HttpTest extends TestCase
     /**
      * Test: Send request with bad content type
      *
-     * @covers Http::sendRequest
-     * @covers Http::getJsonResponse
      */
     public function testSendRequestBadContentType(): void
     {
@@ -125,8 +118,6 @@ class HttpTest extends TestCase
     /**
      * Test: Send request with error response
      *
-     * @covers Http::sendRequest
-     * @covers Http::getJsonResponse
      */
     public function testSendRequestErrorResponse(): void
     {
@@ -152,8 +143,6 @@ class HttpTest extends TestCase
     /**
      * Test: Send request with array response
      *
-     * @covers Http::sendRequest
-     * @covers Http::getJsonResponse
      * @throws ConnectionException
      */
     public function testSendRequestArray(): void
@@ -180,8 +169,6 @@ class HttpTest extends TestCase
     /**
      * Test: Send request with success resposne
      *
-     * @covers Http::sendRequest
-     * @covers Http::getJsonResponse
      */
     public function testSendRequestSuccess(): void
     {
@@ -260,3 +247,4 @@ class HttpTest extends TestCase
             ->willReturn($contentType);
     }
 }
+

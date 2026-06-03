@@ -19,7 +19,6 @@ class RecurringTimeTest extends TestCase
     /**
      * Test: Creating recurring time
      *
-     * @covers \Phue\TimePattern\RecurringTime
      */
     public function testCreateTime(): void
     {
@@ -34,3 +33,4 @@ class RecurringTimeTest extends TestCase
         );
     }
 }
+

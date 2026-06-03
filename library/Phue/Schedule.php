@@ -148,7 +148,7 @@ class Schedule
     /**
      * @return string Schedule Id
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getId();
     }

@@ -15,13 +15,11 @@ use Phue\Schedule;
 /**
  * Tests for Phue\Command\GetScheduleById
  */
-class GetScheduleByIdTest extends AbstractCommandTest
+class GetScheduleByIdTest extends AbstractCommandCase
 {
     /**
      * Test: Send get schedule by id command
      *
-     * @covers \Phue\Command\GetScheduleById::__construct
-     * @covers \Phue\Command\GetScheduleById::send
      */
     public function testSend(): void
     {
@@ -39,3 +37,4 @@ class GetScheduleByIdTest extends AbstractCommandTest
         $this->assertInstanceOf(Schedule::class, $schedule);
     }
 }
+

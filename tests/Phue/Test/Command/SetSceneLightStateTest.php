@@ -57,8 +57,6 @@ class SetSceneLightStateTest extends TestCase
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\SetSceneLightState::__construct
-     * @covers \Phue\Command\SetSceneLightState::send
      */
     public function testSend(): void
     {
@@ -93,3 +91,4 @@ class SetSceneLightStateTest extends TestCase
             );
     }
 }
+

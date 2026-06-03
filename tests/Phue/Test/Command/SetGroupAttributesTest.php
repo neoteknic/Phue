@@ -56,10 +56,6 @@ class SetGroupAttributesTest extends TestCase
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\SetGroupAttributes::__construct
-     * @covers \Phue\Command\SetGroupAttributes::name
-     * @covers \Phue\Command\SetGroupAttributes::lights
-     * @covers \Phue\Command\SetGroupAttributes::send
      */
     public function testSend(): void
     {
@@ -95,3 +91,4 @@ class SetGroupAttributesTest extends TestCase
             );
     }
 }
+

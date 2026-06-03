@@ -15,12 +15,11 @@ use Phue\Transport\Exception\UnauthorizedUserException;
 /**
  * Tests for Phue\Command\IsAuthorized
  */
-class IsAuthorizedTest extends AbstractCommandTest
+class IsAuthorizedTest extends AbstractCommandCase
 {
     /**
      * Test: Is authorized
      *
-     * @covers \Phue\Command\IsAuthorized::send
      */
     public function testIsAuthorized(): void
     {
@@ -36,7 +35,6 @@ class IsAuthorizedTest extends AbstractCommandTest
     /**
      * Test: Is not authorized
      *
-     * @covers \Phue\Command\IsAuthorized::send
      */
     public function testIsNotAuthorized(): void
     {
@@ -52,3 +50,4 @@ class IsAuthorizedTest extends AbstractCommandTest
         $this->assertFalse($auth->send($this->mockClient));
     }
 }
+

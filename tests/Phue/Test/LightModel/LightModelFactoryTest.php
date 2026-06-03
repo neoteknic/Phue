@@ -21,7 +21,6 @@ class LightModelFactoryTest extends TestCase
     /**
      * Test: Getting unknown model
      *
-     * @covers \Phue\LightModel\LightModelFactory::build
      */
     public function testGetUnknownModel(): void
     {
@@ -31,10 +30,10 @@ class LightModelFactoryTest extends TestCase
     /**
      * Test:: Getting known model
      *
-     * @covers \Phue\LightModel\LightModelFactory::build
      */
     public function testGetKnownModel(): void
     {
         $this->assertInstanceOf(Lst001Model::class, LightModelFactory::build('LST001'));
     }
 }
+

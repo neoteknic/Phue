@@ -19,7 +19,6 @@ class RandomizedTimeTest extends TestCase
     /**
      * Test: Creating randomized time
      *
-     * @covers \Phue\TimePattern\RandomizedTime
      */
     public function testCreateTime(): void
     {
@@ -29,3 +28,4 @@ class RandomizedTimeTest extends TestCase
         );
     }
 }
+

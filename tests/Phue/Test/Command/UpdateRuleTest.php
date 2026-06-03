@@ -23,7 +23,6 @@ class UpdateRuleTest extends TestCase
     /**
      * Test: Instantiating UpdateRule command
      *
-     * @covers \Phue\Command\UpdateRule::__construct
      */
     public function testInstantiation(): void
     {
@@ -33,7 +32,6 @@ class UpdateRuleTest extends TestCase
     /**
      * Test: Set name
      *
-     * @covers \Phue\Command\UpdateRule::name
      */
     public function testName(): void
     {
@@ -45,7 +43,6 @@ class UpdateRuleTest extends TestCase
     /**
      * Test: Send
      *
-     * @covers \Phue\Command\UpdateRule::send
      */
     public function testSend(): void
     {
@@ -69,3 +66,4 @@ class UpdateRuleTest extends TestCase
             ->send($mockClient);
     }
 }
+

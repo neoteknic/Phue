@@ -19,7 +19,6 @@ class AbsoluteTimeTest extends TestCase
     /**
      * Test: Creating absolute time
      *
-     * @covers \Phue\TimePattern\AbsoluteTime
      */
     public function testCreateTime(): void
     {
@@ -29,3 +28,4 @@ class AbsoluteTimeTest extends TestCase
         );
     }
 }
+

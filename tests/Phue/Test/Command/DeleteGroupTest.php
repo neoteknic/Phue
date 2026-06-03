@@ -17,13 +17,11 @@ use Phue\Transport\TransportInterface;
 /**
  * Tests for Phue\Command\DeleteGroup
  */
-class DeleteGroupTest extends AbstractCommandTest
+class DeleteGroupTest extends AbstractCommandCase
 {
     /**
      * Test: Send command
      *
-     * @covers \Phue\Command\DeleteGroup::__construct
-     * @covers \Phue\Command\DeleteGroup::send
      */
     public function testSend(): void
     {
@@ -41,3 +39,4 @@ class DeleteGroupTest extends AbstractCommandTest
         $command->send($this->mockClient);
     }
 }
+

@@ -44,7 +44,7 @@ class Curl implements AdapterInterface
     /**
      * @inheritdoc
      */
-    public function send(string $address, string $method, string $body = null): string|bool
+    public function send(string $address, string $method, ?string $body = null): string|bool
     {
         // Set connection options
         curl_setopt($this->curl, CURLOPT_URL, $address);
@@ -64,18 +64,16 @@ class Curl implements AdapterInterface
 
     /**
      * @inheritdoc
-     * TODO replace with CURLINFO_RESPONSE_CODE
      */
     public function getHttpStatusCode(): int
     {
-        return curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
+        return curl_getinfo($this->curl, CURLINFO_RESPONSE_CODE);
     }
 
     /**
      * @inheritdoc
-     * TODO return string|false
      */
-    public function getContentType(): string
+    public function getContentType(): mixed
     {
         return curl_getinfo($this->curl, CURLINFO_CONTENT_TYPE);
     }
@@ -90,7 +88,9 @@ class Curl implements AdapterInterface
      */
     public function close(): void
     {
-        curl_close($this->curl);
+        if (PHP_VERSION_ID < 80500 && $this->curl instanceof CurlHandle) {
+            curl_close($this->curl);
+        }
         $this->curl = null;
     }
 }

@@ -16,20 +16,17 @@ use Phue\LightModel\AbstractLightModel;
  */
 class AbstractLightModelTest extends TestCase
 {
-    private $mockAbstractLightModel;
+    private AbstractLightModel $mockAbstractLightModel;
 
     public function setUp(): void
     {
-        // Mock client
-        $this->mockAbstractLightModel = $this->getMockForAbstractClass(
-            AbstractLightModel::class
-        );
+        $this->mockAbstractLightModel = new class extends AbstractLightModel {
+        };
     }
 
     /**
      * Test: Get id
      *
-     * @covers \Phue\LightModel\AbstractLightModel::getId
      */
     public function testGetId(): void
     {
@@ -42,7 +39,6 @@ class AbstractLightModelTest extends TestCase
     /**
      * Test: Get name
      *
-     * @covers \Phue\LightModel\AbstractLightModel::getName
      */
     public function testGetName(): void
     {
@@ -55,7 +51,6 @@ class AbstractLightModelTest extends TestCase
     /**
      * Test: Can retain state
      *
-     * @covers \Phue\LightModel\AbstractLightModel::canRetainState
      */
     public function testCanRetainState(): void
     {
@@ -68,7 +63,6 @@ class AbstractLightModelTest extends TestCase
     /**
      * Test: To string
      *
-     * @covers \Phue\LightModel\AbstractLightModel::__toString
      */
     public function testToString(): void
     {
@@ -78,3 +72,4 @@ class AbstractLightModelTest extends TestCase
         );
     }
 }
+

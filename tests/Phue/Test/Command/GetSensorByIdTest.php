@@ -15,13 +15,11 @@ use Phue\Sensor;
 /**
  * Tests for Phue\Command\GetSensorById
  */
-class GetSensorByIdTest extends AbstractCommandTest
+class GetSensorByIdTest extends AbstractCommandCase
 {
     /**
      * Test: Send get sensor by id command
      *
-     * @covers \Phue\Command\GetSensorById::__construct
-     * @covers \Phue\Command\GetSensorById::send
      */
     public function testSend(): void
     {
@@ -39,3 +37,4 @@ class GetSensorByIdTest extends AbstractCommandTest
         $this->assertInstanceOf(Sensor::class, $sensor);
     }
 }
+

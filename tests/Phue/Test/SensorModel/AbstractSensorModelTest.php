@@ -8,7 +8,6 @@
  */
 namespace Phue\Test\SensorModel;
 
-use Mockery\Mock;
 use PHPUnit\Framework\TestCase;
 use Phue\SensorModel\AbstractSensorModel;
 
@@ -17,18 +16,17 @@ use Phue\SensorModel\AbstractSensorModel;
  */
 class AbstractSensorModelTest extends TestCase
 {
-    private AbstractSensorModel|Mock $mockAbstractSensorModel;
+    private AbstractSensorModel $mockAbstractSensorModel;
 
     public function setUp(): void
     {
-        // Mock client
-        $this->mockAbstractSensorModel = $this->getMockForAbstractClass(AbstractSensorModel::class);
+        $this->mockAbstractSensorModel = new class extends AbstractSensorModel {
+        };
     }
 
     /**
      * Test: Get id
      *
-     * @covers \Phue\SensorModel\AbstractSensorModel::getId
      */
     public function testGetId(): void
     {
@@ -41,7 +39,6 @@ class AbstractSensorModelTest extends TestCase
     /**
      * Test: Get name
      *
-     * @covers \Phue\SensorModel\AbstractSensorModel::getName
      */
     public function testGetName(): void
     {
@@ -54,7 +51,6 @@ class AbstractSensorModelTest extends TestCase
     /**
      * Test: To string
      *
-     * @covers \Phue\SensorModel\AbstractSensorModel::__toString
      */
     public function testToString(): void
     {
@@ -64,3 +60,4 @@ class AbstractSensorModelTest extends TestCase
         );
     }
 }
+

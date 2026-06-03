@@ -14,12 +14,11 @@ use Phue\Command\StartLightScan;
 /**
  * Tests for Phue\Command\StartLightScan
  */
-class StartLightScanTest extends AbstractCommandTest
+class StartLightScanTest extends AbstractCommandCase
 {
     /**
      * Test: Send start light scan command
      *
-     * @covers \Phue\Command\StartLightScan::send
      */
     public function testSend(): void
     {
@@ -40,3 +39,4 @@ class StartLightScanTest extends AbstractCommandTest
         $this->assertEquals('success!', $lightscan->send($this->mockClient));
     }
 }
+

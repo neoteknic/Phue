@@ -34,7 +34,7 @@ class Streaming implements AdapterInterface
     /**
      * @inheritdoc
      */
-    public function send(string $address, string $method, string $body = null): string|bool
+    public function send(string $address, string $method, ?string $body = null): string|bool
     {
         // Init stream options
         $streamOptions = [
@@ -43,7 +43,7 @@ class Streaming implements AdapterInterface
         ];
         
         // Set body if there is one
-        if (strlen($body)) {
+        if (! empty($body)) {
             $streamOptions['content'] = $body;
         }
         
@@ -67,7 +67,12 @@ class Streaming implements AdapterInterface
      */
     public function getHttpStatusCode(): int
     {
-        preg_match('#^HTTP/1\.1 (\d+)#mi', $this->getHeaders(), $matches);
+        $headers = $this->getHeaders();
+        if ($headers === null) {
+            return 500;
+        }
+
+        preg_match('#^HTTP/1\.1 (\d+)#mi', $headers, $matches);
 
         if(isset($matches[1])) {
             return (int) $matches[1];
@@ -81,9 +86,14 @@ class Streaming implements AdapterInterface
      */
     public function getContentType(): string
     {
-        preg_match('#^Content-type: ([^;]+?)$#mi', $this->getHeaders(), $matches);
-        
-        return $matches[1] ?? false;
+        $headers = $this->getHeaders();
+        if ($headers === null) {
+            return '';
+        }
+
+        preg_match('#^Content-type: ([^;]+?)$#mi', $headers, $matches);
+
+        return $matches[1] ?? '';
     }
 
     public function getHeaders(): string|null

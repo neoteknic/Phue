@@ -12,6 +12,11 @@
     "license": "BSD-3-Clause",
     "authors": [
         {
+            "name":  "Neoteknic",
+            "email": "neoteknic@gmail.com",
+            "role":  "maintainer"
+        },
+        {
             "name":  "Michael Squires",
             "email": "sqmk@php.net",
             "role":  "lead"
@@ -28,16 +33,16 @@
     "require-dev": {
         "mockery/mockery": "^1.6.11",
         "phpunit/phpunit": "^10.5.11 || ^11.1.1",
-        "phpstan/phpstan": "^1.10",
-        "friendsofphp/php-cs-fixer": "^3.53",
+        "phpstan/phpstan": "^2.1.40",
+        "friendsofphp/php-cs-fixer": "^v3.94.2",
         "ext-curl": "*"
     },
     "suggest": {
         "ext-curl": "Allows usage of cURL transport adapter"
     },
     "autoload": {
-        "psr-0": {
-            "Phue": "library/"
+        "psr-4": {
+            "Phue\\": "library/Phue/"
         }
     },
     "bin": [

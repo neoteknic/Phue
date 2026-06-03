@@ -14,12 +14,11 @@ use Phue\Command\Ping;
 /**
  * Tests for Phue\Command\Ping
  */
-class PingTest extends AbstractCommandTest
+class PingTest extends AbstractCommandCase
 {
     /**
      * Test: Send ping command
      *
-     * @covers \Phue\Command\Ping::send
      */
     public function testSend(): void
     {
@@ -32,3 +31,4 @@ class PingTest extends AbstractCommandTest
         $ping->send($this->mockClient);
     }
 }
+

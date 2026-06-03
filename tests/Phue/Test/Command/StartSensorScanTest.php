@@ -14,12 +14,11 @@ use Phue\Command\StartSensorScan;
 /**
  * Tests for Phue\Command\StartSensorScan
  */
-class StartSensorScanTest extends AbstractCommandTest
+class StartSensorScanTest extends AbstractCommandCase
 {
     /**
      * Test: Send start sensor scan command
      *
-     * @covers \Phue\Command\StartSensorScan::send
      */
     public function testSend(): void
     {
@@ -36,3 +35,4 @@ class StartSensorScanTest extends AbstractCommandTest
         $this->assertEquals('success!', $sensor->send($this->mockClient));
     }
 }
+

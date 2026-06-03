@@ -21,8 +21,6 @@ class ConditionTest extends TestCase
     /**
      * Set up
      *
-     * @covers \Phue\Condition::__construct
-     * @covers \Phue\Condition::import
      */
     public function setUp(): void
     {
@@ -38,8 +36,6 @@ class ConditionTest extends TestCase
     /**
      * Test: Get/set sensor id
      *
-     * @covers \Phue\Condition::getSensorId
-     * @covers \Phue\Condition::setSensorId
      */
     public function testGetSetSensorId(): void
     {
@@ -53,8 +49,6 @@ class ConditionTest extends TestCase
     /**
      * Test: Get/set attribute
      *
-     * @covers \Phue\Condition::getAttribute
-     * @covers \Phue\Condition::setAttribute
      */
     public function testGetSetAttribute(): void
     {
@@ -68,8 +62,6 @@ class ConditionTest extends TestCase
     /**
      * Test: Get/set operator
      *
-     * @covers \Phue\Condition::getOperator
-     * @covers \Phue\Condition::setOperator
      */
     public function testGetSetOperator(): void
     {
@@ -83,8 +75,6 @@ class ConditionTest extends TestCase
     /**
      * Test: Get/set value
      *
-     * @covers \Phue\Condition::getValue
-     * @covers \Phue\Condition::setValue
      */
     public function testGetSetValue(): void
     {
@@ -98,7 +88,6 @@ class ConditionTest extends TestCase
     /**
      * Test: Export
      *
-     * @covers \Phue\Condition::export
      */
     public function testExport(): void
     {
@@ -115,7 +104,6 @@ class ConditionTest extends TestCase
     /**
      * Test: Equals
      *
-     * @covers \Phue\Condition::equals
      */
     public function testEquals(): void
     {
@@ -130,7 +118,6 @@ class ConditionTest extends TestCase
     /**
      * Test: Greater than
      *
-     * @covers \Phue\Condition::greaterThan
      */
     public function testGreaterThan(): void
     {
@@ -145,7 +132,6 @@ class ConditionTest extends TestCase
     /**
      * Test: Less than
      *
-     * @covers \Phue\Condition::lessThan
      */
     public function testLessThan(): void
     {
@@ -160,7 +146,6 @@ class ConditionTest extends TestCase
     /**
      * Test: Changed
      *
-     * @covers \Phue\Condition::changed
      */
     public function testChanged(): void
     {
@@ -172,3 +157,4 @@ class ConditionTest extends TestCase
         );
     }
 }
+

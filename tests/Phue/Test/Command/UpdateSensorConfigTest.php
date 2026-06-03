@@ -21,7 +21,6 @@ class UpdateSensorConfigTest extends TestCase
     /**
      * Test: Instantiating UpdateSensorConfig command
      *
-     * @covers \Phue\Command\UpdateSensorConfig::__construct
      */
     public function testInstantiation(): void
     {
@@ -31,7 +30,6 @@ class UpdateSensorConfigTest extends TestCase
     /**
      * Test: Set config attribute
      *
-     * @covers \Phue\Command\UpdateSensorConfig::configAttribute
      */
     public function testName(): void
     {
@@ -43,7 +41,6 @@ class UpdateSensorConfigTest extends TestCase
     /**
      * Test: Send
      *
-     * @covers \Phue\Command\UpdateSensorConfig::send
      */
     public function testSend(): void
     {
@@ -58,3 +55,4 @@ class UpdateSensorConfigTest extends TestCase
         $command = $sensor->configAttribute('key', 'value')->send($mockClient);
     }
 }
+

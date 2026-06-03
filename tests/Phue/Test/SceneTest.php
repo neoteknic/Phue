@@ -24,9 +24,6 @@ class SceneTest extends TestCase
     private Scene $scene;
     private object $attributes;
 
-    /**
-     * @covers \Phue\Scene::__construct
-     */
     public function setUp(): void
     {
         // Mock client
@@ -49,7 +46,6 @@ class SceneTest extends TestCase
     /**
      * Test: Getting Id
      *
-     * @covers \Phue\Scene::getId
      */
     public function testGetId(): void
     {
@@ -59,7 +55,6 @@ class SceneTest extends TestCase
     /**
      * Test: Getting name
      *
-     * @covers \Phue\Scene::getName
      */
     public function testGetName(): void
     {
@@ -69,7 +64,6 @@ class SceneTest extends TestCase
     /**
      * Test: Get light ids
      *
-     * @covers \Phue\Scene::getLightIds
      */
     public function testGetLightIds(): void
     {
@@ -79,10 +73,10 @@ class SceneTest extends TestCase
     /**
      * Test: toString
      *
-     * @covers \Phue\Scene::__toString
      */
     public function testToString(): void
     {
         $this->assertEquals($this->scene->getId(), (string) $this->scene);
     }
 }
+

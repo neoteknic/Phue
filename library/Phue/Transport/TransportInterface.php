@@ -30,7 +30,7 @@ interface TransportInterface
      *
      * @return mixed Command result
      */
-    public function sendRequest(string $address, string $method = self::METHOD_GET, \stdClass $body = null): mixed;
+    public function sendRequest(string $address, string $method = self::METHOD_GET, ?\stdClass $body = null): mixed;
 
     /**
      * Send request, bypass body validation
@@ -41,5 +41,5 @@ interface TransportInterface
      *
      * @return mixed Command result
      */
-    public function sendRequestBypassBodyValidation(string $address, string $method = self::METHOD_GET, \stdClass $body = null): mixed;
+    public function sendRequestBypassBodyValidation(string $address, string $method = self::METHOD_GET, ?\stdClass $body = null): mixed;
 }

@@ -14,13 +14,11 @@ use Phue\Command\CreateUser;
 /**
  * Tests for Phue\Command\CreateUser
  */
-class CreateUserTest extends AbstractCommandTest
+class CreateUserTest extends AbstractCommandCase
 {
     /**
      * Test: Instantiating CreateUser command
      *
-     * @covers \Phue\Command\CreateUser::__construct
-     * @covers \Phue\Command\CreateUser::setDeviceType
      */
     public function testInstantiation(): void
     {
@@ -30,7 +28,6 @@ class CreateUserTest extends AbstractCommandTest
     /**
      * Test: Setting invalid device type
      *
-     * @covers \Phue\Command\CreateUser::setDeviceType
      */
     public function testExceptionOnInvalidDeviceType(): void
     {
@@ -42,8 +39,6 @@ class CreateUserTest extends AbstractCommandTest
     /**
      * Test: Send create user command
      *
-     * @covers \Phue\Command\CreateUser::send
-     * @covers \Phue\Command\CreateUser::buildRequestData
      */
     public function testSend(): void
     {
@@ -63,3 +58,4 @@ class CreateUserTest extends AbstractCommandTest
         );
     }
 }
+
