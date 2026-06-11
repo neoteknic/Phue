@@ -80,6 +80,42 @@ class HttpTest extends TestCase
         $this->assertEquals($this->mockAdapter, $this->transport->getAdapter());
     }
 
+    public function testSendRequestUsesHttpByDefault(): void
+    {
+        $this->mockClient->expects($this->once())
+            ->method('getHost')
+            ->willReturn('127.0.0.1');
+
+        $this->stubMockAdapterResponseMethodsWithUrl(
+            'http://127.0.0.1/api/config',
+            ['success' => 'ok'],
+            200,
+            'application/json'
+        );
+
+        $this->transport->setAdapter($this->mockAdapter);
+
+        $this->assertSame('ok', $this->transport->sendRequest('/api/config', 'GET'));
+    }
+
+    public function testSendRequestUsesHttpsWhenHostContainsScheme(): void
+    {
+        $this->mockClient->expects($this->once())
+            ->method('getHost')
+            ->willReturn('https://127.0.0.1');
+
+        $this->stubMockAdapterResponseMethodsWithUrl(
+            'https://127.0.0.1/api/config',
+            ['success' => 'ok'],
+            200,
+            'application/json'
+        );
+
+        $this->transport->setAdapter($this->mockAdapter);
+
+        $this->assertSame('ok', $this->transport->sendRequest('/api/config', 'GET'));
+    }
+
     /**
      * Test: Send request with bad status code
      *
@@ -242,6 +278,26 @@ class HttpTest extends TestCase
             ->willReturn($httpStatusCode);
         
         // Stub getContentType on transport adapter
+        $this->mockAdapter->expects($this->once())
+            ->method('getContentType')
+            ->willReturn($contentType);
+    }
+
+    protected function stubMockAdapterResponseMethodsWithUrl(
+        string $url,
+        array $response,
+        int $httpStatusCode,
+        string $contentType
+    ): void {
+        $this->mockAdapter->expects($this->once())
+            ->method('send')
+            ->with($url, 'GET', null)
+            ->willReturn(json_encode($response, JSON_THROW_ON_ERROR));
+
+        $this->mockAdapter->expects($this->once())
+            ->method('getHttpStatusCode')
+            ->willReturn($httpStatusCode);
+
         $this->mockAdapter->expects($this->once())
             ->method('getContentType')
             ->willReturn($contentType);

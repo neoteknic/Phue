@@ -52,6 +52,11 @@ class Curl implements AdapterInterface
         curl_setopt($this->curl, CURLOPT_HEADER, false);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
 
+        if (preg_match('#^https://#i', $address) === 1) {
+            curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($this->curl, CURLOPT_SSL_VERIFYHOST, 0);
+        }
+
         if (!is_null($body) && strlen($body)) {
 
             /* @see https://github.com/sqmk/Phue/pull/145 */

@@ -193,7 +193,7 @@ class Http implements TransportInterface
     protected function getJsonResponse(string $address, string $method = self::METHOD_GET, ?\stdClass $body = null): \stdClass|array
     {
         // Build request url
-        $url = "http://{$this->client->getHost()}{$address}";
+        $url = $this->buildRequestUrl($address);
         
         // Open connection
         $this->getAdapter()->open();
@@ -214,5 +214,16 @@ class Http implements TransportInterface
         
         // Parse json results
         return json_decode($results);
+    }
+
+    protected function buildRequestUrl(string $address): string
+    {
+        $host = rtrim($this->client->getHost(), '/');
+
+        if (preg_match('#^https?://#i', $host) === 1) {
+            return "{$host}{$address}";
+        }
+
+        return "http://{$host}{$address}";
     }
 }
