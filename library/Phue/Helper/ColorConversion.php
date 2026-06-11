@@ -46,7 +46,7 @@ class ColorConversion
         $xyzSum = array_sum($xyz);
 
         // Calculate the x/y values
-        if ($xyzSum === 0) {
+        if ($xyzSum == 0) {
             $x = 0;
             $y = 0;
         } else {
@@ -81,7 +81,7 @@ class ColorConversion
         $z = 1.0 - $x - $y;
         $xyz['y'] = $bri / 255;
         //Temp fix for division by zero
-        if ($y === 0) {
+        if ($y == 0) {
             $y = 0.001;
         }
         $xyz['x'] = ($xyz['y'] / $y) * $x;
