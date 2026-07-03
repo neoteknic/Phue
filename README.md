@@ -1,3 +1,9 @@
+# New API with Phillips Hue V2 support (with bulb integrated FX, and more ) :
+https://github.com/neoteknic/Phphue
+Fully Tested on a big entertainement indoor park.
+
+This Fork of Phue use deprecated V1 API
+
 # Phue - Philips Hue client - fork by Neoteknic
 
 [![Latest OrigStable Version](https://poser.pugx.org/neoteknic/Phue/version)](https://packagist.org/packages/neoteknic/Phue)
